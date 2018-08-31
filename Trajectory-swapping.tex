@@ -46,6 +46,19 @@ We show that home addresses and POIs of specific individuals cannot be inferred 
 
 
 \subsection{...TO DO*}
+
+Given a probability model, such as Markov chain models, of the data, and a subsequent decision problem (eg. traffic flow prediction from mobility siumlations based on the learnt Markov chain model), we can limit ourselves to data-anonymizing operators that preserve the (minimal) sufficient statistic of the model.
+
+Intuitively speaking, all the information in the data about the parameters of the model are in the sufficient statistic.
+Therefore, by anonymizing the data while preserving the sufficient statistics is decision-theoretically optimal, in the sense of maximizing utility from optimal estimates of the parameters in the probability model. 
+
+A {\em sanitizer} $\mathcal{S}$ is a map from the data space $\mathbb{D}$ to a sanitized data space $\mathbb{D}'$, i.e., $\mathcal{S}(d): \mathbb{D} \to \mathbb{D}'$. 
+A sanitizer may or may not preserve the minimimal sufficient statistics in the data. 
+A {\em sufficient sanitizer} preserve the minimal sufficient statistics.
+
+... then we can choose between them based only on privacy concerns.
+
+
 - This is my interpretation of the notes from last day :
 
 We consider probabilistic models for a database $D$ and statistical inference by time homogeneous discrete time Markov Chains with probability matrix $P$ and rate matrix $Q$ which is a sufficient statistic of $D$ for this model 
