@@ -5,5 +5,11 @@ Julian and his couauthors submitted the conference paper `SwappingTrajectories-P
 
 We will start from `TrajectorySwapping.tex` and turn it into a submission as a journal paper (see TODOs there).
 
+to make PDF from Tex do:
+```%sh
+/working-manuscript-privacyTrajectories$ pdflatex Trajectory-swapping.tex
+```
+or equivalent in your latex GUI processor.
+
 Raaz
 
