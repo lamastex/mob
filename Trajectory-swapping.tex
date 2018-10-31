@@ -217,21 +217,21 @@ Here, the swapping is carried out in a pairwise manner, but it could be done as 
 Note that changing pseudonyms (IDs) is equivalent to swapping the partial trajectories.
 
 
-%\begin{figure*}[!t]
-%	\center{
-%	\subfloat[\scriptsize Original trajectories] {
-%		  \includegraphics[width=0.34\textwidth]{cross1.pdf}
-%    }
-%	\subfloat[\scriptsize After first swap]{
-%				  \includegraphics[width=0.34\textwidth]{cross2.pdf}
-%   	}
-%    \subfloat[\scriptsize After second swap] {
-%				  \includegraphics[width=0.34\textwidth]{cross3.pdf}
-%   	}
-%\caption{Three trajectories before and after swapping}
-%\label{fig:swap}
-%}
-%\end{figure*}   	
+\begin{figure*}[!t]
+	\center{
+	\subfloat[\scriptsize Original trajectories] {
+		  \includegraphics[width=0.34\textwidth]{cross1.pdf}
+    }
+	\subfloat[\scriptsize After first swap]{
+				  \includegraphics[width=0.34\textwidth]{cross2.pdf}
+   	}
+    \subfloat[\scriptsize After second swap] {
+				  \includegraphics[width=0.34\textwidth]{cross3.pdf}
+   	}
+\caption{Three trajectories before and after swapping}
+\label{fig:swap}
+}
+\end{figure*}   	
    	
 
 In Figure \ref{fig:swap}, we present an example of three simple trajectories crossing $T_r, T_g, T_b$. We assume that they are moving from left to right and upwards, $T_r = (r_1, r_2, r_3)$, $T_g = (g_1, g_2, g_3, g_4)$ and $T_b = (b_1, b_2, b_3, b_4)$. Note that we are also assuming that the blue trajectory meets the red trajectory first ($b_2 \approx r_2$) and then the green trajectory ($b_3 \approx g_2$). In this tiny example, we can see how the iterative swaps preserve parts of the trajectory intact, but at the end each trajectory has parts of many others, such as the green one which ends having a segment of the blue trajectory, a segment of the red and a segment of its original trajectory $Sw(T_g)=(r_1, r_2, b_3, g_3, g_4)$.
@@ -284,13 +284,13 @@ that is, for every record $i$ SwapMob keeps the corresponding swapped id $Sw(ID_
 The authentication data integrity of the communications can be guaranteed with a hash-based message authentication code.
 
 
-%\begin{figure*}
-%\center{
-%  \includegraphics[width=0.95\textwidth]{Protocol6.pdf}
-%  \caption{Architecture of our system}
-%  \label{fig:protocol}
-%}
-%\end{figure*}
+\begin{figure*}
+\center{
+  \includegraphics[width=0.95\textwidth]{Protocol6.pdf}
+  \caption{Architecture of our system}
+  \label{fig:protocol}
+}
+\end{figure*}
 
 In this way, $SP$ obtains the measures of all sensors $M$ in real-time (Step 2), and at the end of the day also gets the anonymized trajectories of the users that generated them (Step 4). 
 Even, though $SP$ knows which records belong to $S_{\tau_j}$ (Step 3), $SP$ does not know to which other record they have been swapped during period $\tau_j$, and by the iterative swappings it gets even harder to associate them to a specific user.
@@ -380,13 +380,13 @@ Also, if we assume that those with more than 5\% of relative frequency, are the 
 by manual inspection which was 85\% accuracy.
 
 
-%\begin{figure}
-%\center
-%  \includegraphics[width=0.5\textwidth]{HomeHour}
-%\caption{Frequency histogram of hours at deduced home locations, as a percentage of total number of measurements for each hour.}
-%  \label{fig:homehours}
-%\end{figure}
-%
+\begin{figure}
+\center
+  \includegraphics[width=0.5\textwidth]{HomeHour}
+\caption{Frequency histogram of hours at deduced home locations, as a percentage of total number of measurements for each hour.}
+  \label{fig:homehours}
+\end{figure}
+
 \subsubsection{Home locations after swapping}
 We validated the results of our anonymization technique by trying to infer users home locations after swapping. 
 Considering that the home location is the most relevant POI, we can argue that these experiments prove that not only home locations will be protected by our method, but all POIs.
@@ -396,12 +396,12 @@ For carrying out the swapping process, we assumed that two taxis were co-located
 We found out that the inferred location after swapping was always different from the real one, for all except for the 51 trajectories that did not swapped.
 However, we inspected some of them and observed that they didn't swapped probably due to the fact that they are outside Beijing, as we can see in Figure \ref{fig:noSwap}.
 
-%\begin{figure}
-%\center{
-%  \includegraphics[width=0.35\textwidth]{noSwaps}
-%}  \caption{Some trajectories that did not swapped}
-%  \label{fig:noSwap}
-%\end{figure}
+\begin{figure}
+\center{
+  \includegraphics[width=0.35\textwidth]{noSwaps}
+}  \caption{Some trajectories that did not swapped}
+  \label{fig:noSwap}
+\end{figure}
 
 \subsection{Reidentification by linkage}
 
@@ -416,19 +416,19 @@ Figure \ref{fig:ECDF-a} shows that
 Figure \ref{fig:ECDF-b} shows that adversaries knowing as many as 10 precise spatio-temporal points, are still not able to reidentify 58\% of the population, and even when they are able to find the corresponding anonymized trajectory to the one that they are attacking, they will not learn more than 50\% of the original trajectory in 95\% of the cases.
 This is in contrast to the results on \cite{demontjoye2013}, in which 4 spatio-temporal points are enough to uniquely characterize 95\% of the traces, and the traces considered the most difficult to identify can be characterized with 11 points.
 
-%\begin{figure}
-%\subfloat[\scriptsize intersection between original and anonymized trajectories] {
-%  \includegraphics[width=0.5\textwidth]{Rplot19}
-%  \label{fig:ECDF-a}
-%}
-%\hfil 
-%\subfloat[\scriptsize attackers capability of inferring trajectories from known locations] {
-%  \includegraphics[width=0.5\textwidth]{Rplot18}
-%  \label{fig:ECDF-b}
-%}
-%  \caption{Empirical cumulative distributions}
-%  \label{fig:ECDF}
-%\end{figure}
+\begin{figure}
+\subfloat[\scriptsize intersection between original and anonymized trajectories] {
+  \includegraphics[width=0.5\textwidth]{Rplot19}
+  \label{fig:ECDF-a}
+}
+\hfil 
+\subfloat[\scriptsize attackers capability of inferring trajectories from known locations] {
+  \includegraphics[width=0.5\textwidth]{Rplot18}
+  \label{fig:ECDF-b}
+}
+  \caption{Empirical cumulative distributions}
+  \label{fig:ECDF}
+\end{figure}
 \section{Conclusions}
 
 We have defined and tested a novel algorithm for real-time mobility data \linebreak
