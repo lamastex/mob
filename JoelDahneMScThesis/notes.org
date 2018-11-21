@@ -1,5 +1,8 @@
 #+TITLE: SwapMob: Swapping trajectories for mobility Data anonymization
 #+AUTHOR: Joel Dahne
+#+LaTeX_HEADER: \newcommand{\lo}[1]{\underline{#1}}
+#+LaTeX_HEADER: \newcommand{\hi}[1]{\overline{#1}}
+
 * Define trajectories and co-trajectories
 We begin by defining what we mean with trajectories and
 co-trajectories.
@@ -78,8 +81,8 @@ trajectories.
 
 To define which swaps are =valid= we first define what we mean with
 two measurements being =similar=. Two measurements \((x_1, t_1)\) and
-\((x_2, t_2)\), are similar if \(d(x_1, x_2) < \chi\) and \(|t_1 -
-t_2| < \tau\), we denote this by \((x_1, t_1) \approx (x_2, t_2)\).
+\((x_2, t_2)\), are similar if \(d(x_1, x_2) \leq \chi\) and \(|t_1 -
+t_2| \leq \tau\), we denote this by \((x_1, t_1) \approx (x_2, t_2)\).
 From this we can say that two trajectories meet if they have
 measurements which are similar. More precisely \(r_1\) and \(r_2\)
 meet at time \((t_1, t_2)\) if there exists \((x_1, t_1) \in r_1\) and
@@ -261,7 +264,7 @@ swaps that they are still valid. We finish when we have gone through
 all the swaps.
 
 A Python implementation of the algorithm is given below.
-#+INCLUDE: "SwapMob.py" src python
+#+INCLUDE: "code/SwapMob.py" src python
 
 *Remarks:* The reason not to allow an individual to swap with itself
  is that it is not well defined what the new trajectory will be, we
@@ -344,3 +347,264 @@ completely at the same time. This scenario would be much more unlikely
 than the case of both just continuing in a straight line, so if the
 adversary sees this happening it can guess that a swap occurred here
 and be correct with a high probability. *Formalise this*
+* Alternatives
+** Distance vs grid
+As mentioned above we call two measurements, \((x_1, t_1)\), \((x_2,
+t_2)\), similar if \(d(x_1, x_2) \leq \chi\) and \(|t_1 - t_2| \leq
+\tau\). We can say that this uses distance to determine if two
+measurements are similar or not.
+
+Another approach would be to use a grid to determine similarity. To do
+that we split \(L\) into subsets that are all disjoint and whose union
+is equal to \(L\). We also split \(\mathbb{R}\) into half open
+intervals that are also disjoint and cover the whole line. Two
+measurements, \((x_1, t_1)\), \((x_2, t_2)\), are now similar if
+\(x_1\) and \(x_2\) lie in the same subset of \(L\) and \(t_1\) and
+\(t_2\) lie in the same interval. If \(L = \mathbb{R}^2\) a simple
+example would be to have the grid given by the points with integer
+coordinates, with \(b_{i,j} = [i, i+1) \times [j, j+1)\) \(L\) is
+given by
+\begin{equation}
+  L = \bigcup_{i, j = -\infty}^\infty b_{i,j}
+\end{equation}
+and in the same way let \(\tau_i = [i, i+1)\) and we get
+\begin{equation}
+  \mathbb{R} = \bigcup_{i = -\infty}^\infty \tau_i.
+\end{equation}
+Then two measurements \(((x_1, y_1), t_1)\) and \(((x_2, y_2), t_2)\)
+are similar if \((x_1, y_1)\) and \((x_2, y_2)\) lie in the same
+\(b_{i,j}\) and \(t_1\) and \(t_2\) lie in the same \(\tau_i\).
+
+One drawback of the grid approach is that if two measurements are very
+close two the boundaries in the grid they can be very close to each
+other but still not be considered similar since they are in different
+boxes.
+
+The grid approach does however come with several benefits. One big
+benefit is that the relation =being similar= becomes transitive and
+thus also an equivalence relation, this should make some things easier
+to work with. I also believe it should make it easier to do an
+efficient implementation.
+
+The article first uses the distance definition when introducing
+similarity for measurements In the pseudo algorithm it uses grids for
+the time stamp but distance for the position. Finally I believe the R
+code uses a grid approach for both time and position.
+** Strict or not strict inequalities
+There are a number of inequalities occurring in the definitions and we
+have to choose which ones to make strict and which ones should not be
+strict.
+*** Swapping
+When swapping two trajectories \(r_1\) and \(r_2\) at time \(t_1\) and
+\(t_2\) we have to choose what happens with measurements occurring
+exactly at time \(t_1\) or \(t_2\). In the above definitions I have
+chosen to swap measurements occurring exactly at these times, though
+that choice was fairly random and I'm not sure that is the optimal
+choice.
+
+One reason for not swapping those measurements would be that the proof
+for privacy preservation assuming trajectories are Markov chains
+becomes easier, at least I believe this is the case.
+*** Similarity
+When defining what is means for two measurements to be =similar= I
+have not used strict inequalities. In this case I believe this is the
+only valid option since we otherwise have no way of requiring exact
+equality (putting \(\chi\) or \(\tau\) to zero) which could make sense
+in some cases, in particular in a discrete setting.
+* Swaps using grids
+Above we discussed using grids as an alternative to distance for
+defining similarity of measurements and swaps. We here give a formal
+definition of this and also an algorithm for it.
+
+We keep the same definitions for trajectories and co-trajectories but
+we redefine what it means for two measurements to be =similar= and
+when a swap is =valid=. Most definitions come naturally but we have to
+take care of some edge cases.
+** Grid
+With a grid we mean a partition of a set into disjoint subsets. In
+general we'll refer to it simply as a partition and not as a grid.
+
+For time we'll always use a partition consisting of half open
+intervals of the same size covering the real line, given \(\tau \in
+\mathbb{R}\) we have the partition given by
+\begin{equation}
+  \mathbb{R} = \bigcup_{i=-\infty}^\infty [i\tau, (i+1)\tau)
+\end{equation}
+and we'll use the notation \(\tau_i = [i\tau, (i+1)\tau)\). The choice
+of \(\tau\) depends on the particular problem.
+
+For \(L\) the partitioning will depend both on the precise choice of
+\(L\) and also on the current problem. The general notation we'll use
+is that \(L\) is partitioned into the sets \(\{\chi_i\}_{i \in I}\)
+for some index set \(I\) with \(\chi_i \subset L\) and \(\chi_i \cap
+\chi_j = \emptyset\) if \(i \not= j\) and so that we have
+\begin{equation}
+  L = \bigcup_{i \in I} \chi_i.
+\end{equation}
+In general we think of the subsets \(\chi_i\) as connected and fairly
+regular. For example if \(L = \mathbb{R}^n\) a natural partitioning is
+into half open boxes of the same size. If \(L\) is a graph we could
+partition it into its nodes. Another example would be to have \(L\) be
+given by a compact subset of \(\mathbb{R}^2\) representing a map of
+some city or other geographical area, then it could be natural to
+choose the partition using its geographic properties, partitioning it
+into parts bounded by rivers, mountains or similar.
+
+*Remarks:* The precise choice of the partition is highly dependent on
+the problem. How fine the partitions should be depends on how often
+measurements are taken and how precise the measured location is. In
+cases when the precision of the measurements are not uniform over
+\(L\) it might be natural to choose a nonuniform partition over \(L\),
+this would for example be the case with data from cell phones where
+the precision depends on number of cell towers in the area.
+** Similarity
+With the above definitions of a partition the definition of similarity
+for measurements become very simple. Two measurements \((x_1, t_1)\)
+and \((x_2, t_2)\) are similar if \(x_1\) and \(x_2\) belong to the
+same part \(\chi_i\) and \(t_1\) and \(t_2\) belong to the same part
+\(\tau_i\).
+
+This gives some important differences compared to defining similarity
+based on distance between measurements. The most important difference
+is that =being similar= becomes an equivalence relation on \(L \times
+\mathbb{R}\), what was missing before was the transitivity. Having an
+equivalence relation comes with a number of benefits, as we'll see
+below.
+** Swaps
+We could define a swap to be =valid= in exactly the same way as before
+only using the new notion of similarity. With the grid approach we do
+however have some more options and we'll use a slightly different
+approach.
+
+To begin with, since similarity is now an equivalence relation it will
+partition the set of measurements into groups where all measurements
+are similar to each other. It then makes sense to define swapping on
+these groups of measurements instead of only pairwise, as we did
+before.
+
+We begin by considering only the case when every trajectory has at
+most one measurement for each time partition \(\tau_i\), in this case
+the natural and simple. After that we'll consider the case with the
+trajectories possibly having several measurements in a time partition.
+We'll see that we have a couple of different options with what to do
+then, all of them coming with some problems.
+
+Now, assume that the measurements \(m_1, m_2, \dots, m_n\) belonging
+to the trajectories \(r_1, r_2, \dots, r_n\) all are similar and lie
+in the set \(\chi_i \times \tau_j \). Further assume that none of the
+trajectories have any other measurements in the time given by
+\(\tau_j\). A swap of these trajectories is given by a permutation
+\(\pi \in S_n\) and gives the trajectories \(s_1, s_2, \dots, s_n\)
+given by
+\begin{equation}
+  s_k = \{(x, t) \in r_k: t < \hi{\tau_j}\}
+   \cup \{(x, t) \in r_{\pi(k)}}: t \geq \hi{\tau_j}\},\ 1 \leq k \leq n.
+\end{equation}
+
+*Remarks:* One difference in this definition compared to the previous
+one is that we explicitly give the permutation to perform the swap
+with. When we had two trajectories we only had two choices, perform
+the swap or don't perform the swap, and it made sense to define the
+swap as actually performing it. Now that we have several choices when
+performing the swap it makes more sense to explicitly give this
+choice, note that this means that we can have a swap using the
+identity permutation.
+
+Now to the case when trajectories might have several measurements in
+the same time partition. Assume we have the trajectories \(r_1, r_2,
+\dots, r_n\) and each trajectory have a number of measurements
+occurring in the part of the grid given by \(\chi_i \times \tau_j\).
+More specifically we have for each \(1 \leq k \leq n\) the
+measurements \(m_k^1, m_k^2, \dots, m_k^{n_k} \in r_k\) which also
+belong to \(\chi_i \times \tau_j\). Note that in this case the
+trajectories could also have other measurements occurring in the time
+\(\tau_j\) but with a location not belonging to \(\chi_i\).
+
+The choice we have now is on exactly were to perform the swap. We
+could perform it after \(\tau_j\) similar to how we did it above but
+we could also perform it at other times. One option is to perform it
+at the time for the first measurement, another at the time for the
+last. I all cases a swap of these trajectories is given by a
+permutation \(\pi \in S_n\) and gives the trajectories \(s_1, s_2,
+\dots, s_n\). If we perform the swap after \(\tau_j\) we get the same
+as before:
+\begin{equation}
+  s_k = \{(x, t) \in r_k: t < \hi{\tau_j}\}
+   \cup \{(x, t) \in r_{\pi(k)}}: t \geq \hi{\tau_j}\},\ 1 \leq k \leq n.
+\end{equation}
+If we perform it at the time for the first measurement we get, with
+\(t_k^l\) being the time for the measurement \(m_k^l\),
+\begin{equation}
+  s_k = \{(x, t) \in r_k: t \leq t_k^1 \}
+   \cup \{(x, t) \in r_{\pi(k)}}: t > t_{\pi(k)}^1\},\ 1 \leq k \leq n.
+\end{equation}
+And with the time for the last measurement
+\begin{equation}
+  s_k = \{(x, t) \in r_k: t \leq t_k^{n_k} \}
+   \cup \{(x, t) \in r_{\pi(k)}}: t > t_{\pi(k)}^{n_{\pi(k)}\},\ 1 \leq k \leq n.
+\end{equation}
+
+All of these choices have problems and can give trajectories which are
+very odd after having been swapped. For example of these problems see
+the section about problematic examples below. We'll go with the first
+one, swapping after \(\tau_j\).
+
+*Remarks:* One other option would be to only allow trajectories to
+ swap at one of their measurements in each time partition. This would
+ reduce the number of possible swaps. But that would allow us to have
+ a coarser grid for the time which in turns might allow more swaps.
+ There might also be other ways to solve this problem which will be
+ discussed below.
+** Swaps on co-trajectories
+We'll now discuss some of the problems related to performing several
+swaps on a co-trajectory \(R\). We discuss which swaps to perform and
+how the order of the swaps matter.
+*** Swaps to perform
+With the grid approach it is much easier compute the set of swaps to
+perform. We simply look at all the measurements occurring in our
+co-trajectory and group them into equivalence classes as given by the
+relation =being similar=. Swaps will then be performed on each of
+these groups.
+*** Order of swaps
+When using the distance approach we saw that the order of the swaps
+mattered and also that we had to update which swaps were valid because
+the ids were changing.
+
+With the grid approach we'll see that the order still matters, but not
+as much as before. The order in which we perform swaps that happen in
+the same time interval matters but the order of swaps at different
+time intervals does not matter. We'll also see that if we perform the
+swaps in decreasing time order we do not have to update which swaps
+are valid, and since the order in time did not matter for the result
+we can always choose to do it in this order.
+
+*Remarks*: I'm fairly certain that the above is correct. I have a
+ proof in my head that I believe to be work but I have yet to write
+ it down and check it.
+** Algorithm
+An implementation of this that is made to be used on the Beijing
+T-drive data can be found in [[file:code/T-drive/swapmob.py]]. It begins
+by parsing the data and saves it in a more compact form. It then
+computes the set of all =valid= swaps and finally it performs all of
+these swaps. The interesting parts are computing the set of all
+=valid= swaps and performing them, they are explained in a bit more
+details below.
+*** Computing the set of swaps
+The function responsible for computing the set of swaps is ~swaps~. It
+takes as an argument an array of grid-mapped measurements with ids and
+the size of the grid. The grid-mapped measurements are tuples on the
+form \((x, y, t, id)\) where \(x\) represents the partition id for the
+latitude and \(y\) for the longitude, \(t\) represents the partition
+id for the timestamp and \(id\) the id of trajectory to which the
+measurement belong. With this two measurements, \((x_1, y_1, t_1,
+id_1)\) and \((x_2, y_2, t_2, id_2)\), are =similar= if \(x_1 = x_2\),
+\(y_1 = y_2\) and \(t_1 = t_2\). We group the array according to this
+and the ids occurring in each group are the ids to swap.
+*** Performing the swaps
+A swap is simply performed by choosing a permutation of the involved
+ids and swap the parts of the trajectories occurring after the given
+time according to this permutation. Since we perform the swaps in a
+time decreasing order we do not have to update them during the
+process. In principle we should choose a random order to perform all
+the swaps taking place at the same time in but for simplicity we skip
+this and just take the order they get.
