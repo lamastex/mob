@@ -156,6 +156,8 @@ def swapmob(R, S):
             print(i)
 
 if __name__ == "__main__":
+    np.random.seed(42)
+
     grid = (np.float64(0.001), np.float64(60))
     originalFile = "R-original.file"
     swappedFile = "R-swapped.file"
