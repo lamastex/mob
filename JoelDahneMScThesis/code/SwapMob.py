@@ -58,7 +58,7 @@ def similar(m1, m2):
     if m1 == m2:
         return False
 
-    if dist(m1[0], m2[0]) < chi and abs(m1[1] - m2[1]) < tau:
+    if dist(m1[0], m2[0]) <= chi and abs(m1[1] - m2[1]) <= tau:
         return True
 
     return False
