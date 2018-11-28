@@ -1,5 +1,5 @@
 \documentclass{llncs}
-%\usepackage[numbers]{natbib} 
+%\usepackage[numbers]{natbib}
 
 %\usepackage{balance}  % for  \balance command ON LAST PAGE  (only there!)
 \usepackage[ruled]{algorithm2e}
@@ -11,7 +11,7 @@
 \usepackage[colorlinks]{hyperref}
 
 \usepackage{graphicx}				% Use pdf, png, jpg, or eps§ with pdflatex; use eps in DVI mode
-								% TeX will automatically convert eps --> pdf in pdflatex		
+								% TeX will automatically convert eps --> pdf in pdflatex
 
 \usepackage{blindtext,graphicx}
 \usepackage{multirow}
@@ -24,7 +24,7 @@
 
 
 \title{SwapMob: Swapping trajectories for mobility anonymization}
-\author{Juli\'an Salas\inst{1}%\thanks{With the support of a UOC postdoctoral fellowship}  
+\author{Juli\'an Salas\inst{1}%\thanks{With the support of a UOC postdoctoral fellowship}
 \and David Meg\'ias\inst{1} \and Vicen\c{c} Torra\inst{2} }
 \institute{Internet Interdisciplinary Institute (IN3), Universitat Oberta de Catalunya (UOC), Barcelona, Spain.\\ CYBERCAT-Center for Cybersecurity Research of Catalonia.\\ \email{jsalaspi@uoc.edu, dmegias@uoc.edu, }
 \and School of Informatics, University of Sk\"{o}vde, Sk\"{o}vde, Sweden. \\ \email{vtorra@his.se}.
@@ -35,12 +35,12 @@
 
 \begin{abstract}
 %
-%Mobility data is a rich and complex resource of patterns, which goes from traffic and congestion trends in a city, to individual movements in closed spaces. 
+%Mobility data is a rich and complex resource of patterns, which goes from traffic and congestion trends in a city, to individual movements in closed spaces.
 Mobility data mining can improve decision making, from planning transports in metropolitan areas to localizing services in towns.
 However, unrestricted access to such data may reveal sensible locations and pose safety risks if the data is associated to a specific moving individual. This is one of the many reasons to consider trajectory anonymization.
 
 
-Some anonymization methods rely on grouping individual registers on a database and publishing summaries in such a way that individual information is protected inside the group. 
+Some anonymization methods rely on grouping individual registers on a database and publishing summaries in such a way that individual information is protected inside the group.
 Other approaches consist of adding noise, such as differential privacy, in a way that the presence of an individual cannot be inferred from the data.
 
 
@@ -59,10 +59,10 @@ We show that home addresses and POIs of specific individuals cannot be inferred 
 Given a probability model, such as Markov chain models, of the data, and a subsequent decision problem (eg. traffic flow prediction from mobility siumlations based on the learnt Markov chain model), we can limit ourselves to data-anonymizing operators that preserve the (minimal) sufficient statistic of the model.
 
 Intuitively speaking, all the information in the data about the parameters of the model are in the sufficient statistic.
-Therefore, by anonymizing the data while preserving the sufficient statistics is decision-theoretically optimal, in the sense of maximizing utility from optimal estimates of the parameters in the probability model. 
+Therefore, by anonymizing the data while preserving the sufficient statistics is decision-theoretically optimal, in the sense of maximizing utility from optimal estimates of the parameters in the probability model.
 
-A {\em sanitizer} $\mathcal{S}$ is a map from the data space $\mathbb{D}$ to a sanitized data space $\mathbb{D}'$, i.e., $\mathcal{S}(d): \mathbb{D} \to \mathbb{D}'$. 
-A sanitizer may or may not preserve the minimimal sufficient statistics in the data. 
+A {\em sanitizer} $\mathcal{S}$ is a map from the data space $\mathbb{D}$ to a sanitized data space $\mathbb{D}'$, i.e., $\mathcal{S}(d): \mathbb{D} \to \mathbb{D}'$.
+A sanitizer may or may not preserve the minimimal sufficient statistics in the data.
 A {\em sufficient sanitizer} preserve the minimal sufficient statistics.
 
 ... then we can choose between them based only on privacy concerns.
@@ -70,15 +70,15 @@ A {\em sufficient sanitizer} preserve the minimal sufficient statistics.
 
 - This is my interpretation of the notes from last day :
 
-We consider probabilistic models for a database $D$ and statistical inference by time homogeneous discrete time Markov Chains with probability matrix $P$ and rate matrix $Q$ which is a sufficient statistic of $D$ for this model 
+We consider probabilistic models for a database $D$ and statistical inference by time homogeneous discrete time Markov Chains with probability matrix $P$ and rate matrix $Q$ which is a sufficient statistic of $D$ for this model
 
 - Rigth now I could generate the probability matrices with states $S_i$ as spatial points with rounded coordinates (coarsened locations), it is quite straightforward, and they still represent square areas in the map.
 
 - Prove that SwapMob preserves the minimal sufficient statistic
 
-- Argue why other methods would not preserve the minimal sufficient statistic 
+- Argue why other methods would not preserve the minimal sufficient statistic
 
-- Explain synthetic generation of trajectories 
+- Explain synthetic generation of trajectories
 
 For future work:
 
@@ -86,33 +86,33 @@ For future work:
 
 
 
-- Where are these used in transportation (some citations and brief explanations) 
+- Where are these used in transportation (some citations and brief explanations)
 
 \subsection{\bf Marina>  SHORTEN and ADD to Intro, still work in progress}
 
 
-Origin Destination Matrices (ODM) comprise an important base for transportation modelling as way to depict travel demand. OD trip generation models serve as basis for transport planning, construction, performance assessment, and as such have potential to affect regional economies. ODM are utilised in transportation studies as part of trip generation modelling, representing estimated traffic flows. 
+Origin Destination Matrices (ODM) comprise an important base for transportation modelling as way to depict travel demand. OD trip generation models serve as basis for transport planning, construction, performance assessment, and as such have potential to affect regional economies. ODM are utilised in transportation studies as part of trip generation modelling, representing estimated traffic flows.
 
 ODM of $m$ Origins $i$ and $n$ Destinations $j$ is a matrix of size $(m+1) \times (n+1)$ containing flow values $T_{ij}$, such as number or share of trips from $i$ to $j$ \cite{Rodrigue2009}. The row $(i+1)$ contains total arrivals to destination $j$ from all origins, the column $(j+1)$ contains total departures from origin $i$ to all destinations, and the bottom right element contains the total flows in the model $T_{i+1,j+1} = \sum_{j=1}^n \sum_{i=1}^m T_{i,j}$ \cite{EVANS1970} (see for example \ref{table:ODMeg}).
 
 \begin{table}[]
 \caption{Example Origin Destination Matrix from a spatial interaction survey}
-\centering 
- 
+\centering
+
 \begin{tabular}{cl ccc r}
 \noalign{\smallskip}
 \noalign{\smallskip}
-											& 							& \multicolumn{3}{c}{Destinations $j$}  	&  \\ [0.5ex] 
-											&  					 	&  Uppsala     & Stockholm    & Arlanda    & $\bf \sum T_i$ \\ [1.3ex] 
-%\cline{2-6} 
+											& 							& \multicolumn{3}{c}{Destinations $j$}  	&  \\ [0.5ex]
+											&  					 	&  Uppsala     & Stockholm    & Arlanda    & $\bf \sum T_i$ \\ [1.3ex]
+%\cline{2-6}
 \multirow{3}{*}{\rotatebox[origin=c]{90}{Origins $i$}} & Uppsala          & 2000          & 5            & 20        & \bf{2025} \\
                              & Stockholm        & 10            & 100          & 10        & \bf{120}  \\
                              & Arlanda          & 20            & 5            & 0         & \bf{25}   \\  [1.3ex]
-%\cline{2-6} 
-\noalign{\smallskip} 
-\multicolumn{1}{l}{}         &  $\bf \sum T_j$      & \bf{2030} & \bf{110} & \bf{30} & 2170         
+%\cline{2-6}
+\noalign{\smallskip}
+\multicolumn{1}{l}{}         &  $\bf \sum T_j$      & \bf{2030} & \bf{110} & \bf{30} & 2170
 \end{tabular}
-\label{table:ODMeg} % is used to refer this table in the text 
+\label{table:ODMeg} % is used to refer this table in the text
 \end{table}
 
 {\bf rephrase the stuff below, a bit repetitive}
@@ -135,30 +135,30 @@ ODM are constructed based on estimations from travel studies: field, online and 
 
 With the pervasive use of smartphones and the location techniques such as GPS, GSM and RFID, the opportunities to deliver content depending on current user location have increased.
 Location Based Services (LBS) provide considerable advantages such as allowing users to benefit from live
-location-based information for transportation, recommendations of places of interest, or even the opportunity to meet friends in nearby locations. 
-Such location-based data can be useful also for intelligent transportation systems, in which vehicles may serve as sensors for collecting information about traffic jams, weather, and road conditions. 
+location-based information for transportation, recommendations of places of interest, or even the opportunity to meet friends in nearby locations.
+Such location-based data can be useful also for intelligent transportation systems, in which vehicles may serve as sensors for collecting information about traffic jams, weather, and road conditions.
 
 
 However, revealing users' locations may have some privacy risks. If the data is linked to the real identities it may reveal personal preferences (e.g., sexual, political or religious orientation), or it may be used for inferring habits and know the time when a person is at home or away.
 To avoid such inconveniences, a variety of anonymization techniques have been developed to hide the identity of the user or her exact location, e.g, \cite{Terrovitis:2011}.
 
 
-Moreover, as Giannotti et al. mention in \cite{Giannotti2012}, big data (in particular trajectory data) may be used  to understand human behavior through the discovery of individual social profiles, by the analysis of collective behaviors, spreading epidemics, social contagion, and to study the evolution of sentiment and opinion; however, trusted networks and privacy-aware social mining must be pursued and methods for protection and anonymization for such data must be developed to enforce the data subjects' rights and promote their participation. 
+Moreover, as Giannotti et al. mention in \cite{Giannotti2012}, big data (in particular trajectory data) may be used  to understand human behavior through the discovery of individual social profiles, by the analysis of collective behaviors, spreading epidemics, social contagion, and to study the evolution of sentiment and opinion; however, trusted networks and privacy-aware social mining must be pursued and methods for protection and anonymization for such data must be developed to enforce the data subjects' rights and promote their participation.
 
 \section{Related work}
 Different solutions have been proposed for anonymizing trajectories in data publishing. Abul et al. \cite{Abul2008}, propose the $(k, \delta)$-anonymity model, which consists on publishing a cylindrical volume of radius $\delta$ that contains the trajectory of at least k moving objects. Note that this idea is an extension of the concept of $k$-anonymity for databases \cite{Samarati:1998}.
 
 
-Terrovitis and Mamoulis \cite{Terrovitis:2008} consider a discrete spatial domain, e.g., spatial information is given in terms of addresses in a city map. 
+Terrovitis and Mamoulis \cite{Terrovitis:2008} consider a discrete spatial domain, e.g., spatial information is given in terms of addresses in a city map.
 Hence, the user trajectories are expressed as sequences of POIs.
 They present the use case of the RFID cards from the Octopus\footnote{http://www.octopuscards.com/} company in Hong Kong, which collects the transaction history of its customers. The company may want to publish sequences of transactions by the same person as trajectories, for extracting movement and behavioral patterns. However, if a given user, Alice, uses her card to pay at different convenience stores that belong to the same chain (e.g., convenience stores), that company may reidentify Alice if her sequence of purchases is unique in the published trajectory database.
 
-  
+
 A similar approach in \cite{Pensa2008} is obtained by transforming sequences by adding, deleting, or substituting some points of the trajectory, while preserving also frequent sequential patterns \cite{Agrawal:1995} obtained by mining the anonymized data.
 
 
-In \cite{Hoh2005} and \cite{Hoh06}, Hoh et al. discuss the use of mobility data for transportation planning and traffic monitoring applications to provide drivers with feedback on road and traffic conditions. 
-For modelling the threats to privacy in such datasets, they assume that an adversary does not have information about which subset of samples belongs to a single user, however by using multi-target tracking algorithms \cite{Reid79analgorithm} subsequent location samples may be linked to an individual that is periodically reporting his anonymized location information. 
+In \cite{Hoh2005} and \cite{Hoh06}, Hoh et al. discuss the use of mobility data for transportation planning and traffic monitoring applications to provide drivers with feedback on road and traffic conditions.
+For modelling the threats to privacy in such datasets, they assume that an adversary does not have information about which subset of samples belongs to a single user, however by using multi-target tracking algorithms \cite{Reid79analgorithm} subsequent location samples may be linked to an individual that is periodically reporting his anonymized location information.
 
 In \cite{Hoh06} they consider the attack of deducing home locations of users by leveraging clustering heuristics used together with the decrease of speed reported by GPS sensors. Then, propose data suppression techniques by changing the sampling rate (e.g, from 1 minute to 2,4 and 10) for protecting from such inferences.
 
@@ -168,7 +168,7 @@ This is done with a constraint on the Quality of Service, which is expressed as 
 
 This is closely related to \cite{Beresford2003} in which Mix Zones are introduced, these are spatial areas on which users' location is not accessible, hence when users are simultaneously present on a mix zone, their pseudonyms are changed. This procedure is performed to difficult the linkage of the incoming and outgoing path segments to the same specific user.
 
-They design a model for location privacy protection that aims to preserve the advantages of location aware services while hiding their identities from the applications that receive the users' locations. 
+They design a model for location privacy protection that aims to preserve the advantages of location aware services while hiding their identities from the applications that receive the users' locations.
 The existence of a trusted middleware system (or sensing infrastructure) is assumed and the applications register their interest in a geographic space with the middleware, such space is called application zone. Examples of such application zones are hospitals, universities or supermarket complexes, in general it could be any open or closed space.
 
 The regions in which applications cannot trace user movements are called mix zones, and the borders between a mix zone and an application zone are called boundary lines.
@@ -185,7 +185,7 @@ model the probability that two pseudonyms represent the same underlying person. 
 However, since the solution to many restricted matching problems (such as this one) is NP-hard \cite{Tanimoto1978}, Beresford and Stajano \cite{Beresford04mixzones} describe a method for achieving partial solutions.
 
 
-An approach that does not consider middleware to obtain location privacy is proposed in Chapter 9 from \cite{Gidofalvi2007}. It consists of a system with an untrusted server and clients communicating in a P2P network for privacy preserving trajectory collection. 
+An approach that does not consider middleware to obtain location privacy is proposed in Chapter 9 from \cite{Gidofalvi2007}. It consists of a system with an untrusted server and clients communicating in a P2P network for privacy preserving trajectory collection.
 The aim of their data collection solution is to preserve anonymity in any set of data being stored, transmitted or
 collected in the system. This is achieved by means of $k$-anonymization and swapping.
 Briefly, the protocol consists of the clients recording their private trajectories, cloaking them among $k$ similar trajectories and exchanging parts of those trajectories with other clients in the P2P network. However, the final step (the data reporting stage) clients send anonymous partial trajectories to the server, that have been generated in such a way that the server can filter all the synthetic trajectory data that has been generated for cloaking during the process, and recover the original trajectory.
@@ -197,14 +197,14 @@ One of the advantages of performing trajectory anonymization on the user side, a
 For a brief overview of privacy protection techniques and a discussion of $k$-anoymity and differential privacy models in different frameworks, cf. \cite{Salas:2018}.
 
 
-In \cite{Chen:2012}, a differential privacy model for transit data publication is considered, using data from the Soci\'{e}t\'{e} de Transport de Montr\'{e}al (STM). The data are modeled as sequential data in a prefix tree that represents all the sequences by grouping the sequences with the same prefix into the same branch. 
+In \cite{Chen:2012}, a differential privacy model for transit data publication is considered, using data from the Soci\'{e}t\'{e} de Transport de Montr\'{e}al (STM). The data are modeled as sequential data in a prefix tree that represents all the sequences by grouping the sequences with the same prefix into the same branch.
 Their algorithm takes a raw sequential dataset $D$, a privacy budget $\epsilon$, a user specified height of the prefix tree $h$ and a location taxonomy tree $T$, and returns a sanitized dataset $\tilde{\mathcal{D}}$ satisfying $\epsilon$-differential privacy.
 For measuring utility, in the STM case, sanitized data are mainly used to perform two
 data mining tasks, count query and frequent sequential pattern mining \cite{Agrawal:1995}.
 
 
 Other $\epsilon$-differentially private mechanism for publishing trajectories called SDD (Sampling Distance and Direction) can be found in \cite{Jiang:2013}.
-They focus on ship trajectories with known starting point and terminal point. 
+They focus on ship trajectories with known starting point and terminal point.
 And consider that two trajectories $T$ and $T'$ with the same number of positions are adjacent if they differ at exactly one position excluding the starting point and the terminal point.
 
 
@@ -213,7 +213,7 @@ Their algorithm considers temporal correlations modeled as a Markov chain and pr
 However, they leave the problem of protecting the entire trace of released locations as future work.
 
 
-In this paper, we present an anonymization method considering that the data are dynamic, the rate at which the information is collected is not constant, and the databases are being generated as the data is received. 
+In this paper, we present an anonymization method considering that the data are dynamic, the rate at which the information is collected is not constant, and the databases are being generated as the data is received.
 %online and in real time with a database that is updating constantly.
 
 
@@ -223,7 +223,7 @@ We propose a method for anonymization of mobility data by swapping trajectories,
 
 
 Our algorithm (SwapMob) simulates an online P2P system for exchanging segments of trajectories. That is, when two users are near they interchange their partial trajectories, see section \ref{sec:cross}.
-In this way, all users' trajectories are mixed incrementally, and the moving users keep generating segments of trajectories that are being swapped. In the end, each trajectory retrieved is made of small segments of trajectories of different individuals, who have met during the day, as depicted in Figure \ref{fig:swap}. Hence, the relation between data subjects and their data is obfuscated while keeping a precise aggregated data, such as the number of users in each place at each time and the locations that have been visited by different anonymous users. 
+In this way, all users' trajectories are mixed incrementally, and the moving users keep generating segments of trajectories that are being swapped. In the end, each trajectory retrieved is made of small segments of trajectories of different individuals, who have met during the day, as depicted in Figure \ref{fig:swap}. Hence, the relation between data subjects and their data is obfuscated while keeping a precise aggregated data, such as the number of users in each place at each time and the locations that have been visited by different anonymous users.
 
 We formalize our method after a brief explanation of previous definitions and assumptions.
 
@@ -245,10 +245,10 @@ Next, we define the following two primitives for our algorithm: \emph{generate r
 
 \item \emph{Swap:}
 Given two trajectories $T_x = (x_1, \ldots, x_i, x_{i+1}, \ldots)$ and \linebreak
-$T_y= (y_1, \ldots, y_j, y_{j+1}, \ldots)$ that meet in points $x_i$ and $y_j$, a swap of $T_x$ with $T_y$ at points $x_i$ and $y_j$ results in $Sw(T_x) = (y_1, \ldots, y_j, x_{i+1}, \ldots)$ and 
+$T_y= (y_1, \ldots, y_j, y_{j+1}, \ldots)$ that meet in points $x_i$ and $y_j$, a swap of $T_x$ with $T_y$ at points $x_i$ and $y_j$ results in $Sw(T_x) = (y_1, \ldots, y_j, x_{i+1}, \ldots)$ and
 \linebreak
 $Sw(T_y)= (x_1, \ldots, x_i, y_{j+1}, \ldots)$.
-\item \emph{Generate random matching:} 
+\item \emph{Generate random matching:}
 
 Given a set of elements $S = s_1, s_2,\ldots, s_m$, we generate a random matching by making pairs of the first $m/2$ with the following $m/2$ numbers, followed by a random permutation of all numbers $m$.
 \end{enumerate}
@@ -280,8 +280,8 @@ Note that changing pseudonyms (IDs) is equivalent to swapping the partial trajec
 \caption{Three trajectories before and after swapping}
 \label{fig:swap}
 }
-\end{figure*}   	
-   	
+\end{figure*}
+
 
 In Figure \ref{fig:swap}, we present an example of three simple trajectories crossing $T_r, T_g, T_b$. We assume that they are moving from left to right and upwards, $T_r = (r_1, r_2, r_3)$, $T_g = (g_1, g_2, g_3, g_4)$ and $T_b = (b_1, b_2, b_3, b_4)$. Note that we are also assuming that the blue trajectory meets the red trajectory first ($b_2 \approx r_2$) and then the green trajectory ($b_3 \approx g_2$). In this tiny example, we can see how the iterative swaps preserve parts of the trajectory intact, but at the end each trajectory has parts of many others, such as the green one which ends having a segment of the blue trajectory, a segment of the red and a segment of its original trajectory $Sw(T_g)=(r_1, r_2, b_3, g_3, g_4)$.
 
@@ -295,7 +295,7 @@ Partition the timestamps $t =\bigcup \tau_j$ in intervals of length $\tau$
 
 \For{each pair of registers $i,j$ in interval $\tau_j$}{
   \If{ $dist(l_i, l_j)< \chi$}{
-    add $i,j$ to close records list (possible swaps) $S_{\tau_j}$ at the given time interval.      
+    add $i,j$ to close records list (possible swaps) $S_{\tau_j}$ at the given time interval.
   }
 }
 generate random matching with possible swaps in $S_{\tau_j}$\
@@ -314,10 +314,10 @@ order all swaps in $\bigcup S_{\tau_j}$ by timestamp\
 \subsection{SwapMob anonymizer}
 
 We follow a similar architecture to the one in \cite{Hoh06} in which a Trusted Third Party ($TTP$) knows the
-vehicles identities but can not access sensor information (such as position and  speed); and a Service Provider ($SP$) knows the sensor measures but not the identities. 
+vehicles identities but can not access sensor information (such as position and  speed); and a Service Provider ($SP$) knows the sensor measures but not the identities.
 Further, the $SP$ calculates which records are close to each other without knowing to which individual they belong and communicates them to the $TTP$ (in this case SwapMob anonymizer) such that it can swap their identities without knowing at which location they were.
 
-This is achieved in the following way (See Figure \ref{fig:protocol}): 
+This is achieved in the following way (See Figure \ref{fig:protocol}):
 \begin{enumerate}
 \item Users communicate with SwapMob, sending their sensor data ($M$) encrypted with the public key ($K_{SP}$) of $SP$. SwapMob keeps the number of register ($i$), which user has sent it ($u_i$), its current pseudonym ($ID_i$), the timestamp ($t_i$) and the encrypted sensor data $E(M_i, K_{SP})$, which includes their encrypted location ($l_i$).
 
@@ -326,8 +326,8 @@ This is achieved in the following way (See Figure \ref{fig:protocol}):
 \item $SP$ sends the set $S_{\tau_j}$ of registers that were at distance less than the predefined threshold $\chi$ during the interval of time $\tau_j$ back to SwapMob, more formally $S_{\tau_j} = \{ i,i' : d(l_i, l_{i'}) < \chi \mbox{ and } t_i,t_{i'} \in \tau_j\}$. SwapMob calculates the swaps and stores the users and swapped $IDs$ list,
 that is, for every record $i$ SwapMob keeps the corresponding swapped id $Sw(ID_i)$ and the user ($u_i$) to which such pseudonym corresponds.
 
-\item Finally, every given period of time which could  be daily, weekly or monthly, SwapMob reports the list  of ($i, Sw(ID_i)$) to $SP$.  
-%In our example, it is reported each 24 hours at 18:05. 
+\item Finally, every given period of time which could  be daily, weekly or monthly, SwapMob reports the list  of ($i, Sw(ID_i)$) to $SP$.
+%In our example, it is reported each 24 hours at 18:05.
 
 \end{enumerate}
 The authentication data integrity of the communications can be guaranteed with a hash-based message authentication code.
@@ -341,24 +341,24 @@ The authentication data integrity of the communications can be guaranteed with a
 }
 \end{figure*}
 
-In this way, $SP$ obtains the measures of all sensors $M$ in real-time (Step 2), and at the end of the day also gets the anonymized trajectories of the users that generated them (Step 4). 
+In this way, $SP$ obtains the measures of all sensors $M$ in real-time (Step 2), and at the end of the day also gets the anonymized trajectories of the users that generated them (Step 4).
 Even, though $SP$ knows which records belong to $S_{\tau_j}$ (Step 3), $SP$ does not know to which other record they have been swapped during period $\tau_j$, and by the iterative swappings it gets even harder to associate them to a specific user.
 
-At the same time, SwapMob only knows the users, the timestamps at which they have crossed, and the reported trajectories are already anonymized by SwapMob (Step 4). 
+At the same time, SwapMob only knows the users, the timestamps at which they have crossed, and the reported trajectories are already anonymized by SwapMob (Step 4).
 
 Our system, can be applied for the use case proposed in \cite{Beresford2003}, by defining a set of swap zones (similar to the mix zones) and adding the restriction that the swapping cannot be performed outside such places. Then, the spatio-temporal trajectories of users between such swap zones could be monitored in an anonymous and precise way.
 
- 
+
 However, there will still be some differences. Namely, the swap zone that we consider is the entire application zone, whereas in \cite{Beresford2003} a user entering a mix zone can be distinguished from another user emerging from the same zone if the size of the mix zone is too large.
 
-This same argument justifies that the distance and time parameters, $\chi$ and $\tau$ must not be too large either in our algorithm, otherwise swapping could not be credible. 
+This same argument justifies that the distance and time parameters, $\chi$ and $\tau$ must not be too large either in our algorithm, otherwise swapping could not be credible.
 
- 
+
 
 \subsection{Protecting against reidentification} % by Home/Work location
 It is well known that de-identification does not necessarily means anonymization. The same attributes that are used for extracting knowledge, may be used for pointing to a specific individual, and uniquely relating his/her data to her real identity.
 
-Other notions of privacy are defined depending on the context, which may be of statistical databases \cite{Danezis15}, networks \cite{Zhou:2008}, or geo-located data. 
+Other notions of privacy are defined depending on the context, which may be of statistical databases \cite{Danezis15}, networks \cite{Zhou:2008}, or geo-located data.
 
 By identifying the POIs of an individual, it is possible to infer his habits (e.g., does sport, travels a lot), the locations that he visits frequently (may be related to political or religious beliefs) or even related to health (clinics, hospitals). This may also be used to infer his schedule, predict his future locations,  and learn his past locations and possibly his personal relations by observing frequent or periodic co-location.
 Moreover, such habits and locations can be easily used to reidentify the individuals behind the data. As it has been proven on previous anonymity studies on anonymity of home/work location.
@@ -380,15 +380,15 @@ An attacker may know several spatio-temporal points of an individual that unique
 Of course, when publishing the trajectories, it should be noted that they have been generated by SwapMob, and the anonymization may be reversed if the SwapMob Anonymizer and the Service Provider (see Figure \ref{fig:protocol}) share their information for guaranteeing accountability.
 
 
- 
+
 \subsection{Utility of swapped data}\label{sect:util}
-In this paper we are assuming that the interest of using data anonymized by SwapMob is for making mobility maps and predictions that may be useful for intelligent transportation systems and for planning in a city. 
-As Hoh and Gruteser proposed in \cite{Hoh2005}, pre-specified vehicles could periodically send their locations, speeds, road temperatures, windshield wiper status and other information to the traffic monitoring facility. These statistics can provide information on the traffic jams, average travel time or the quality of specific roads, and can be used for traffic light scheduling and road design. 
+In this paper we are assuming that the interest of using data anonymized by SwapMob is for making mobility maps and predictions that may be useful for intelligent transportation systems and for planning in a city.
+As Hoh and Gruteser proposed in \cite{Hoh2005}, pre-specified vehicles could periodically send their locations, speeds, road temperatures, windshield wiper status and other information to the traffic monitoring facility. These statistics can provide information on the traffic jams, average travel time or the quality of specific roads, and can be used for traffic light scheduling and road design.
 
 Furthermore, the sensors do not necessarily have to be attached to vehicles, they could be carried on mobile phones, and the utility of using the individuals for sensing is preserved, since all their sensor data, including all their movements and timestamps (in aggregate) are kept intact by SwapMob.
 
 
-In \cite{Calabrese2011}, a real-time urban monitoring platform and its application to the City of Rome was presented, they used 
+In \cite{Calabrese2011}, a real-time urban monitoring platform and its application to the City of Rome was presented, they used
 a wireless sensor network to acquire real-time traffic noise from different spots, GPS traces of locations from 43 taxis and 7268 buses, and voice and data traffic served by each of the base transceiver stations from a telecom company in the urban area of Rome. These are few examples of sensor that could be carried by individuals, anonymized and transmitted to a service provider via SwapMob.
 
 
@@ -402,22 +402,110 @@ In general, lossless maps of flows in the city can be obtained by using SwapMob 
 \section{Empirical evaluation}
 We tested our algorithm on the T-drive dataset \cite{Yuan2010},\cite{Yuan2011} which contains the GPS trajectories of 10,357 taxis during the period of Feb. 2 to Feb. 8, 2008 within Beijing. The total number of points in this dataset is about 15 million and the total distance of the trajectories reaches to 9 million kilometers.
 It is important to note that not all taxis appear every day and not all report their positions at the same interval.
-The average sampling interval is about 177 seconds and 623 meters. 
+The average sampling interval is about 177 seconds and 623 meters.
 Each line contains the following data: taxi id, date time, longitude, latitude.
 
+\subsection{Applying SwapMob on the data}
+Before applying SwapMob to the dataset we perform some cleaning of the
+data. We begin by removing all measurements for which the latitude and
+longitude is outside the box $[115, 117] \times [39, 41]$, these
+measurements are far outside Beijing and most of them have both
+latitude and longitude equal to zero, which indicates that the
+measurement is most likely not valid. When then remove all
+trajectories which have no measurements belonging to them at all.
+Doing this removes 756561 measurements and we end up with 10280
+trajectories.
+
+For applying SwapMob we consider two taxis co-located if they are in
+the same square of width 0.001 degrees ($\chi = 0.001$), about 111
+meters, in a 1-minute interval ($\tau = 60$). Note that this is about
+6 and 3 times less the average sampling interval for distance and time
+in the dataset.
+
+With this we get that the number of possible swaps between all the
+trajectories is 641262. The average number of swaps for each
+trajectory is 137. Of all the 10280 trajectories 9508, 92\%, take part
+in at least 20 swaps, for the 772 trajectories with less than 20 swaps
+we have the distribution found in Figure \ref{fig:swaps-distribution}.
+We see that 324 trajectories don't participate in any swaps at all,
+however 265 of these trajectories have less than 10 measurements
+(compared to an average of more than 1000).
+
+We can conclude that most of the trajectories participate in several
+swaps, only a small amount participate in less than 20 swaps and that
+most of the trajectories that don't participate in any swap have very
+few measurements.
+
+\begin{figure}
+  \center
+  \includegraphics[width=0.5\textwidth]{figures/swaps-distribution.pdf}
+  \caption{Frequency histogram of number of swaps for trajectories for
+    the 772 trajectories participating in less than 20 swaps.}
+  \label{fig:swaps-distribution}
+\end{figure}
+
+\subsection{Reidentification by linkage}
+In this section we simulate an adversary who knows exact locations and
+timestamps, and tries to reidentify a trajectory in the dataset. In
+\cite{demontjoye2013} a similar kind of adversary is considered, but
+in that case it only knows location and timestamp up to some
+resolution, in contrast to this our adversary should be considered to
+be very strong. We discuss how the swapped trajectories could be
+de-anonymized using this kind of information and show that in most
+cases only a small fraction of the full trajectory is disclosed.
+
+Since we assume the adversary know exact locations and timestamps it
+can identify an (unswapped) trajectory using only one such point,
+assuming no two measurements are exactly the same. After applying
+SwapMob the adversary can still identify trajectory with the
+measurement, but it doesn't know exactly which parts of the trajectory
+have been swapped and thus doesn't learn the full trajectory. It does
+however learn part of the trajectory, it can follow the trajectory
+from the known measurement forward in time until the next swap can
+occur and also backwards in time until the previous swap that could
+occur. This part of the trajectory is known to belong to the wanted
+individual, but after the swaps the adversary doesn't know for certain
+which path belongs to the original trajectory.
+
+To measure how much the adversary learns we thus have to look at how
+long the segments between the swaps are. From above we know that every
+trajectory participate in an average of 137 swaps and is thus split
+into an average of 138 segments. Knowing one point the adversary will
+learn one of these segments. To see how much the adversary learns we
+can thus look at how long these segments are. For each trajectory we
+can look at the longest such segment and compare its length to that of
+the whole trajectory. Doing this and plotting the empirical cumulative
+distribution function for it we get the plot in Figure
+\ref{fig:ECDF-max-part}. With length we here mean the number of
+measurements, but elapsed time and distance traveled would both be
+other natural choices for the length.
+
+Figure \ref{fig:ECDF-max-part} shows that for more than 75\% of all
+trajectories the longest unswapped segment makes up less than 20\% of
+the total trajectory. For 90\% of the trajectories the number is less
+than 40\%.
+
+\begin{figure}
+  \center
+  \includegraphics[width=0.5\textwidth]{figures/ECDF-max-part.pdf}
+  \caption{Length of the longest unswapped segment as percentages of
+    the total length for each trajectory. The length was here given by
+    the number of measurements.}
+  \label{fig:ECDF-max-part}
+\end{figure}
 
 \subsection{Reidentification by POIs and home location}
 Recall that our main privacy motivations are to protect locations related to people's habits and also the association of the trajectories to specific individuals.
 
-We show in the next subsections how to infer points of interest of an individual such as his home location. Then, we show that such locations cannot be inferred after applying SwapMob to the data. 
+We show in the next subsections how to infer points of interest of an individual such as his home location. Then, we show that such locations cannot be inferred after applying SwapMob to the data.
 
-%Also, we argue that since the trajectories published are made from different small segments of trajectories, linking an anonymized trajectory to someone will not reveal his real trajectory, and knowing few real points, an adversary still needs to find that they belong to the same trajectory after the swapping process. 
+%Also, we argue that since the trajectories published are made from different small segments of trajectories, linking an anonymized trajectory to someone will not reveal his real trajectory, and knowing few real points, an adversary still needs to find that they belong to the same trajectory after the swapping process.
 
 
 \subsubsection{Inferring points of interest and home location}
-In \cite{Zheng2009}, if an individual remains at less than 200 meters from a given point during at least 20 minutes, then it is considered a stay point (or point of interest) thus the two thresholds used for detecting them are time $\tau = 20$ and distance $\chi = 200$. 
+In \cite{Zheng2009}, if an individual remains at less than 200 meters from a given point during at least 20 minutes, then it is considered a stay point (or point of interest) thus the two thresholds used for detecting them are time $\tau = 20$ and distance $\chi = 200$.
 
-In general, for obtaining points of interest, we discretize the space in square cells of 111.32 m (or 0.001 decimal degrees) and count which are the most populated cells for each individual, considering that the most populated one should contain the home location. 
+In general, for obtaining points of interest, we discretize the space in square cells of 111.32 m (or 0.001 decimal degrees) and count which are the most populated cells for each individual, considering that the most populated one should contain the home location.
 
 This is similar to \cite{Cho2011} that discretize the world into 25 by 25 km cells and define the home location as the average position of check-ins in the cell with the most check-ins, see also \cite{scellato2011sociospatial}.
 
@@ -425,7 +513,7 @@ In \cite{Beresford2003}, Beresford and Stajano tested this kind of attack on rea
 
 
 We validated this assumption empirically by looking at the distribution of timestamps for such set of locations, which is greater than 5\% and increases consistently from 20 h until 6 h where it reaches its peak and decreases below 5\% around 10 h, see Figure \ref{fig:homehours}.
-Also, if we assume that those with more than 5\% of relative frequency, are the correct home locations, we obtain that the correct home locations amount for 83,7\% of the total, a very similar percentage to the one obtained in \cite{Cho2011} 
+Also, if we assume that those with more than 5\% of relative frequency, are the correct home locations, we obtain that the correct home locations amount for 83,7\% of the total, a very similar percentage to the one obtained in \cite{Cho2011}
 by manual inspection which was 85\% accuracy.
 
 
@@ -437,7 +525,7 @@ by manual inspection which was 85\% accuracy.
 \end{figure}
 
 \subsubsection{Home locations after swapping}
-We validated the results of our anonymization technique by trying to infer users home locations after swapping. 
+We validated the results of our anonymization technique by trying to infer users home locations after swapping.
 Considering that the home location is the most relevant POI, we can argue that these experiments prove that not only home locations will be protected by our method, but all POIs.
 
 For carrying out the swapping process, we assumed that two taxis were co-located if they passed at distance at most 111 meters approximately ($\chi= 0.001$) in a 1-minute interval ($\tau = 60$). Note that this is about 6 and 3 times less the average sampling interval for distance and time in the dataset.
@@ -455,12 +543,12 @@ However, we inspected some of them and observed that they didn't swapped probabl
 \subsection{Reidentification by linkage}
 
 In this section we simulate an adversary who knows exact locations and timestamps, and tries to reidentify a trajectory in the dataset.
-We also show that the anonymized trajectories do not always intersect the original ones. This means that, even in the case that the adversary can link the data points that he knows, he may not learn the entire original trajectory. 
+We also show that the anonymized trajectories do not always intersect the original ones. This means that, even in the case that the adversary can link the data points that he knows, he may not learn the entire original trajectory.
 %This tackles a common problem when reidentification occurs, that is, all the data from the re-identified individuals may be revealed.
 
 In Figure \ref{fig:ECDF-a} we represent the empirical cumulative distribution function of the intersection between original and anonymized trajectories, and in Figure \ref{fig:ECDF-b} the percentage of each trajectory disclosed depending on how many exact spatio-temporal points an adversary knows.
 
-Figure \ref{fig:ECDF-a} shows that 
+Figure \ref{fig:ECDF-a} shows that
 84\% of all the anonymized trajectories intersect in less than 1/4 their corresponding original trajectory, 68\% in less than 1/10 and 28\% in less than 1/100.
 Figure \ref{fig:ECDF-b} shows that adversaries knowing as many as 10 precise spatio-temporal points, are still not able to reidentify 58\% of the population, and even when they are able to find the corresponding anonymized trajectory to the one that they are attacking, they will not learn more than 50\% of the original trajectory in 95\% of the cases.
 This is in contrast to the results on \cite{demontjoye2013}, in which 4 spatio-temporal points are enough to uniquely characterize 95\% of the traces, and the traces considered the most difficult to identify can be characterized with 11 points.
@@ -470,7 +558,7 @@ This is in contrast to the results on \cite{demontjoye2013}, in which 4 spatio-t
   \includegraphics[width=0.5\textwidth]{figures/Rplot19}
   \label{fig:ECDF-a}
 }
-\hfil 
+\hfil
 \subfloat[\scriptsize attackers capability of inferring trajectories from known locations] {
   \includegraphics[width=0.5\textwidth]{figures/Rplot18}
   \label{fig:ECDF-b}
@@ -482,7 +570,7 @@ This is in contrast to the results on \cite{demontjoye2013}, in which 4 spatio-t
 
 We have defined and tested a novel algorithm for real-time mobility data \linebreak
 anonymization that consists on swapping trajectory segments. In contrast to the $k$-anonymity or differential privacy models for trajectory anonymization, the proposed method does not modify the data, but its association to specific individuals, and it is performed on real time, without the need of having the entire dataset.
-The proposed protocol tackles both identity and location privacy, 
+The proposed protocol tackles both identity and location privacy,
  and our data model can be adapted to protect either single trajectory positions, as they lose the relation to the individual who has generated the data, or the whole trajectories, since they are mixed among many different peers.
 
 We show that is not possible to infer correctly the home locations after the anonymization and, also, that an adversary who knows exact points of the trajectory is not able to use them for reidentification, because in most cases they no longer correspond to the anonymized trajectory. And, even in the improbable case that the adversary correctly relates the anonymized trajectory with the original, we have shown that he cannot infer the entire trajectory but just a small part of it.
@@ -493,9 +581,9 @@ We have simulated our protocol with an offline algorithm, although, the protocol
 %In this paper, we considered that the SwapMob anonymizer is used for intelligent transportation systems, however, it could also anonymize different sensor data in addition to car sensors, such as smartphones or any mobile device, it could even be used for anonymizing transactions, and any other types of trajectory data.
 %
 
-It must be pointed out that swapping cannot be carried out when an individual does not cross anyone in her path. Hence, the proposed technique will not anonymize the individuals who do not cross anyone in their daily activity. 
-%This will depend on the period on which the trajectory information is retrieved by the server from SwapMob. 
-However, it is not very common for an individual to spend too much time without meeting someone or going out from home. Moreover, such individuals can be kept outside the database without compromising its utility.  
+It must be pointed out that swapping cannot be carried out when an individual does not cross anyone in her path. Hence, the proposed technique will not anonymize the individuals who do not cross anyone in their daily activity.
+%This will depend on the period on which the trajectory information is retrieved by the server from SwapMob.
+However, it is not very common for an individual to spend too much time without meeting someone or going out from home. Moreover, such individuals can be kept outside the database without compromising its utility.
 The use case considered is for obtaining aggregate mobility data and exact count queries, which neither $k$-anonymity or differential privacy can provide.
 
 Nevertheless, this comes at the cost of modifying the trajectories and possibly losing individual trajectory mining utility.
@@ -513,10 +601,3 @@ This work is partly funded by the Spanish Government through grant TIN2014-57364
 
 
 \end{document}
-
-
-
-
-
-
-
