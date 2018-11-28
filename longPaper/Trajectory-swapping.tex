@@ -10,6 +10,14 @@
 
 \usepackage[colorlinks]{hyperref}
 
+\usepackage{graphicx}				% Use pdf, png, jpg, or eps§ with pdflatex; use eps in DVI mode
+								% TeX will automatically convert eps --> pdf in pdflatex		
+
+\usepackage{blindtext,graphicx}
+\usepackage{multirow}
+\usepackage[utf8]{inputenc}
+\setlength{\tabcolsep}{13pt}
+
 
 \begin{document}
 
@@ -64,10 +72,6 @@ A {\em sufficient sanitizer} preserve the minimal sufficient statistics.
 
 We consider probabilistic models for a database $D$ and statistical inference by time homogeneous discrete time Markov Chains with probability matrix $P$ and rate matrix $Q$ which is a sufficient statistic of $D$ for this model 
 
-- Where are these used in transportation (some citations and brief explanations) 
-Marina> I will work on it by citing stuff like \cite{Cascetta1988}
-
-
 - Rigth now I could generate the probability matrices with states $S_i$ as spatial points with rounded coordinates (coarsened locations), it is quite straightforward, and they still represent square areas in the map.
 
 - Prove that SwapMob preserves the minimal sufficient statistic
@@ -79,6 +83,49 @@ Marina> I will work on it by citing stuff like \cite{Cascetta1988}
 For future work:
 
 - Calculating privacy and utility may be left as future work.
+
+
+
+- Where are these used in transportation (some citations and brief explanations) 
+
+\subsection{\bf Marina>  SHORTEN and ADD to Intro, still work in progress}
+
+
+Origin Destination Matrices (ODM) comprise an important base for transportation modelling as way to depict travel demand. OD trip generation models serve as basis for transport planning, construction, performance assessment, and as such have potential to affect regional economies. ODM are utilised in transportation studies as part of trip generation modelling, representing estimated traffic flows. 
+
+ODM of $m$ Origins $i$ and $n$ Destinations $j$ is a matrix of size $(m+1) \times (n+1)$ containing flow values $T_{ij}$, such as number or share of trips from $i$ to $j$ \cite{Rodrigue2009}. The row $(i+1)$ contains total arrivals to destination $j$ from all origins, the column $(j+1)$ contains total departures from origin $i$ to all destinations, and the bottom right element contains the total flows in the model $T_{i+1,j+1} = \sum_{j=1}^n \sum_{i=1}^m T_{i,j}$ \cite{EVANS1970} (see for example \ref{table:ODMeg}).
+
+\begin{table}[]
+\caption{Example Origin Destination Matrix from a spatial interaction survey}
+\centering 
+ 
+\begin{tabular}{cl ccc r}
+\noalign{\smallskip}
+\noalign{\smallskip}
+											& 							& \multicolumn{3}{c}{Destinations $j$}  	&  \\ [0.5ex] 
+											&  					 	&  Uppsala     & Stockholm    & Arlanda    & $\bf \sum T_i$ \\ [1.3ex] 
+%\cline{2-6} 
+\multirow{3}{*}{\rotatebox[origin=c]{90}{Origins $i$}} & Uppsala          & 2000          & 5            & 20        & \bf{2025} \\
+                             & Stockholm        & 10            & 100          & 10        & \bf{120}  \\
+                             & Arlanda          & 20            & 5            & 0         & \bf{25}   \\  [1.3ex]
+%\cline{2-6} 
+\noalign{\smallskip} 
+\multicolumn{1}{l}{}         &  $\bf \sum T_j$      & \bf{2030} & \bf{110} & \bf{30} & 2170         
+\end{tabular}
+\label{table:ODMeg} % is used to refer this table in the text 
+\end{table}
+
+{\bf rephrase the stuff below, a bit repetitive}
+
+ODM [implicit] parameters include: cut-off departure time from Origins, cut-off arrival time to Destinations, mode of transportation, spatial aggregation level for Origins ({\it e.g.} by TAZ - Traffic Analysis Zones, ZIP code areas, square grid, {\it etc.}), spatial aggregation levels for Destinations. Spatial aggregation of O and D data by zones can provide zone measurements and disaggregation by links can provide link based counts. In other words, keeping overall ODM counts but not keeping the trajectory data in between can be used as input to traditional traffic allocation models. Keeping link flows but not keeping the OD for each trajectory enables to calibrate flows within these models.
+
+Estimating OD demand is an important input into traffic assignment models, used to plan infrastructure and access performance. Traffic flows can be estimated using OD demand matrix, infrastructure network capacity and traffic controls. And later using sensor observations of density and travel time, these modelled flows can be compared to the observed traffic ODM to derive performance measures. Moreover, disaggregated OD matrices (by hour or more generally by 1 time unit) can be used to calibrate traffic assignment models to predict flows through specific links.
+
+
+This means that aggregated ODM is good for total demand estimation, but disaggregated ODM are useful for observing flows in the network links and comparing those to the output flows from traffic allocation models.
+
+ODM are constructed based on estimations from travel studies: field, online and telephone traffic surveys, traffic volume counts \cite{robillard1975},  check-point intercept interviews, license plate and other video analyses, {\it etc}. Automatically generated data (e.g. CDR \cite{iqbal2014}) are increasingly used as a base for constructing ODM, reducing survey costs and improving accuracy of route choice estimations. All of these methods yield an incomplete matrix, so often Spatial Interaction Models \cite{WILSON1967} are used to estimate the complete ODM.
+
 
 
 
