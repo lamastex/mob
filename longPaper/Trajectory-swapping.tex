@@ -590,10 +590,17 @@ be considered acceptable.
 We have defined and tested a novel algorithm for real-time mobility data \linebreak
 anonymization that consists on swapping trajectory segments. In contrast to the $k$-anonymity or differential privacy models for trajectory anonymization, the proposed method does not modify the data, but its association to specific individuals, and it is performed on real time, without the need of having the entire dataset.
 The proposed protocol tackles both identity and location privacy,
- and our data model can be adapted to protect either single trajectory positions, as they lose the relation to the individual who has generated the data, or the whole trajectories, since they are mixed among many different peers.
+and our data model can be adapted to protect either single trajectory positions, as they lose the relation to the individual who has generated the data, or the whole trajectories, since they are mixed among many different peers.
 
-We show that is not possible to infer correctly the home locations after the anonymization and, also, that an adversary who knows exact points of the trajectory is not able to use them for reidentification, because in most cases they no longer correspond to the anonymized trajectory. And, even in the improbable case that the adversary correctly relates the anonymized trajectory with the original, we have shown that he cannot infer the entire trajectory but just a small part of it.
-
+We show that for the T-drive dataset a high number of swaps occur and
+most trajectories participate in several swaps. We can see that the
+original trajectories are split up into many smaller segments and that
+it makes it hard even for an adversary that knows exact points of the
+trajectory to infer much of the full trajectory. However, when adding
+the restriction of preserving the ODM the number of swaps quickly
+decrease as the grid is made finer and it becomes much easier for an
+adversary to infer a big portion of the trajectory of an individual
+knowing only a few measurements.
 
 We have simulated our protocol with an offline algorithm, although, the protocol could be run in real time in which data is transmitted by user devices to our anonymizer that communicates and collaborates with a server. By changing the anonymizer for a group protocol, the protocol could provide security against collusion between the service provider and the anonymizer.
 %
