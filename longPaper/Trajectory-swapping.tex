@@ -400,10 +400,16 @@ In general, lossless maps of flows in the city can be obtained by using SwapMob 
 
 
 \section{Empirical evaluation}
-We tested our algorithm on the T-drive dataset \cite{Yuan2010},\cite{Yuan2011} which contains the GPS trajectories of 10,357 taxis during the period of Feb. 2 to Feb. 8, 2008 within Beijing. The total number of points in this dataset is about 15 million and the total distance of the trajectories reaches to 9 million kilometers.
-It is important to note that not all taxis appear every day and not all report their positions at the same interval.
-The average sampling interval is about 177 seconds and 623 meters.
-Each line contains the following data: taxi id, date time, longitude, latitude.
+We tested our algorithm on the T-drive dataset
+\cite{Yuan2010},\cite{Yuan2011} which contains the GPS trajectories of
+10,357 taxis during the period of Feb. 2 to Feb. 8, 2008 within
+Beijing. The total number of points in this dataset is about 15
+million and the total distance of the trajectories reaches to 9
+million kilometers. It is important to note that not all taxis appear
+every day and not all report their positions at the same interval. The
+average sampling interval is about 177 seconds and 623 meters. Each
+measurement contains the following data: taxi id, date time,
+longitude, latitude.
 
 \subsection{Applying SwapMob on the data}
 Before applying SwapMob to the dataset we perform some cleaning of the
@@ -411,22 +417,23 @@ data. We begin by removing all measurements for which the latitude and
 longitude is outside the box $[115, 117] \times [39, 41]$, these
 measurements are far outside Beijing and most of them have both
 latitude and longitude equal to zero, which indicates that the
-measurement is most likely not valid. When then remove all
-trajectories which have no measurements belonging to them at all.
-Doing this removes 756561 measurements and we end up with 10280
-trajectories.
+measurement is most likely not valid. We then remove all trajectories
+which have no measurements belonging to them at all. Doing this
+removes 756561 invalid measurements and 77 trajectories that have no
+measurements, we end up with 10280 trajectories and 16906423
+measurements.
 
 For applying SwapMob we consider two taxis co-located if they are in
 the same square of width 0.001 degrees ($\chi = 0.001$), about 111
-meters, in a 1-minute interval ($\tau = 60$). Note that this is about
-6 and 3 times less the average sampling interval for distance and time
+meters, in the same minute ($\tau = 60$). Note that this is about 6
+and 3 times less the average sampling interval for distance and time
 in the dataset.
 
 With this we get that the number of possible swaps between all the
 trajectories is 641262. The average number of swaps for each
 trajectory is 137. Of all the 10280 trajectories 9508, 92\%, take part
 in at least 20 swaps, for the 772 trajectories with less than 20 swaps
-we have the distribution found in Figure \ref{fig:swaps-distribution}.
+we have the distribution seen in Figure \ref{fig:swaps-distribution}.
 We see that 324 trajectories don't participate in any swaps at all,
 however 265 of these trajectories have less than 10 measurements
 (compared to an average of more than 1000).
@@ -445,6 +452,7 @@ few measurements.
 \end{figure}
 
 \subsection{Reidentification by linkage}
+\label{sec:reidentification}
 In this section we simulate an adversary who knows exact locations and
 timestamps, and tries to reidentify a trajectory in the dataset. In
 \cite{demontjoye2013} a similar kind of adversary is considered, but
@@ -454,7 +462,7 @@ be very strong. We discuss how the swapped trajectories could be
 de-anonymized using this kind of information and show that in most
 cases only a small fraction of the full trajectory is disclosed.
 
-Since we assume the adversary know exact locations and timestamps it
+Since we assume the adversary knows exact locations and timestamps it
 can identify an (unswapped) trajectory using only one such point,
 assuming no two measurements are exactly the same. After applying
 SwapMob the adversary can still identify trajectory with the
@@ -464,17 +472,18 @@ however learn part of the trajectory, it can follow the trajectory
 from the known measurement forward in time until the next swap can
 occur and also backwards in time until the previous swap that could
 occur. This part of the trajectory is known to belong to the wanted
-individual, but after the swaps the adversary doesn't know for certain
-which path belongs to the original trajectory.
+individual, since no swaps were performed on it, but after the swaps
+the adversary doesn't know for certain which path belongs to the
+original trajectory.
 
 To measure how much the adversary learns we thus have to look at how
-long the segments between the swaps are. From above we know that every
-trajectory participate in an average of 137 swaps and is thus split
-into an average of 138 segments. Knowing one point the adversary will
-learn one of these segments. To see how much the adversary learns we
-can thus look at how long these segments are. For each trajectory we
-can look at the longest such segment and compare its length to that of
-the whole trajectory. Doing this and plotting the empirical cumulative
+long the segments between the swaps are. Since every trajectory
+participate in an average of 137 swaps and is thus split into an
+average of 138 segments. Knowing one point the adversary will learn
+one of these segments. To see how much the adversary learns we can
+thus look at how long these segments are. For each trajectory we can
+look at the longest such segment and compare its length to that of the
+whole trajectory. Doing this and plotting the empirical cumulative
 distribution function for it we get the plot in Figure
 \ref{fig:ECDF-max-part}. With length we here mean the number of
 measurements, but elapsed time and distance traveled would both be
@@ -483,7 +492,18 @@ other natural choices for the length.
 Figure \ref{fig:ECDF-max-part} shows that for more than 75\% of all
 trajectories the longest unswapped segment makes up less than 20\% of
 the total trajectory. For 90\% of the trajectories the number is less
-than 40\%.
+than 40\%. For most trajectories an adversary will thus learn only a
+small fraction of the original trajectory.
+
+We can also consider the case when the adversary knows several points
+of the trajectory. If the extra points lie on the same segment of the
+trajectory as the first one no more knowledge is gained. However, if
+the extra points lie on other segments of the trajectory the adversary
+learns also these and more of the trajectory is disclosed. If the
+adversary knows several segments of the trajectory it can also try to
+infer which way was taken between them, that way learning more than
+just the disclosed segments. Analysing this is however outside the
+scope of this article and left as further research.
 
 \begin{figure}
   \center
@@ -494,78 +514,77 @@ than 40\%.
   \label{fig:ECDF-max-part}
 \end{figure}
 
-\subsection{Reidentification by POIs and home location}
-Recall that our main privacy motivations are to protect locations related to people's habits and also the association of the trajectories to specific individuals.
+\subsection{Privacy when preserving the ODM}
+We now look at what happens with the privacy measures when we restrict
+swapping to preserve the ODM, introduced in Section \ref{sec:ODM}. The
+data is precisely the same as before but now, for two trajectories to
+swap they have to start and end in the same destination, this is in
+addition to the earlier requirements for allowing a swap.
 
-We show in the next subsections how to infer points of interest of an individual such as his home location. Then, we show that such locations cannot be inferred after applying SwapMob to the data.
+We define the destinations used in the ODM by a grid, we partition the
+city into a grid of equally sized squares. Bigger squares give a
+coarser grid and smaller squares a finer grid. How coarse the grid is
+will be given by the width of the squares in degrees (latitude and
+longitude), a lower width then corresponds to a finer grid. Starting
+location for a trajectory will be given by the square that its first
+measurement belongs to and end location by the square that its last
+measurement belongs to. In general it might be more appropriate to
+have start and end location to be determined by the location of the
+trajectory at a certain time of the day. However, for keeping it
+simple, we choose to use only the first and last measurement.
 
-%Also, we argue that since the trajectories published are made from different small segments of trajectories, linking an anonymized trajectory to someone will not reveal his real trajectory, and knowing few real points, an adversary still needs to find that they belong to the same trajectory after the swapping process.
+We'll look at how the preserved privacy change when we go from having
+no grid to having a very coarse grid and then making it finer and
+finer.
 
+In Figure \ref{fig:num-swaps-OD} we see how the number of possible
+swaps change when we make the grid finer. At first we have the number
+of swaps without a grid and then we have the numbers for grids of
+squares of the given width. The largest width used is 1 degree, about
+11100 meters, which can be compared to the distance of 0.001 degrees,
+about 111 meters, that we used for determining if two trajectories
+were close. It splits the city into four parts, of which two contains
+most of the measurements. The smallest width is 0.01 degrees, about
+1110 meters, which is then 10 times the length used for determining
+proximity.
 
-\subsubsection{Inferring points of interest and home location}
-In \cite{Zheng2009}, if an individual remains at less than 200 meters from a given point during at least 20 minutes, then it is considered a stay point (or point of interest) thus the two thresholds used for detecting them are time $\tau = 20$ and distance $\chi = 200$.
+We see that the number of possible swaps quickly decrease as the grid
+gets finer. Even at the coarsest grid the number of swaps is halved
+compared to having no grid. When the grid width goes below 0.1 we have
+very few possible swaps.
 
-In general, for obtaining points of interest, we discretize the space in square cells of 111.32 m (or 0.001 decimal degrees) and count which are the most populated cells for each individual, considering that the most populated one should contain the home location.
+Since the preserved privacy heavily depends on the number of possible
+swaps we expect it to quickly decrease as the grid becomes finer. We
+can confirm this by computing the same measurement as in Section
+\ref{sec:reidentification} for each grid size, see Figure
+\ref{fig:ECDF-max-part-OD}. The line corresponding to having no grid
+is the same as in Figure \ref{fig:ECDF-max-part} and we can see that
+the privacy decreases as the grid becomes finer.
 
-This is similar to \cite{Cho2011} that discretize the world into 25 by 25 km cells and define the home location as the average position of check-ins in the cell with the most check-ins, see also \cite{scellato2011sociospatial}.
-
-In \cite{Beresford2003}, Beresford and Stajano tested this kind of attack on real location data from the Active Bat, consisting in following the trajectory of a pseudonym to a ``home'' location (in this case the user's desk in the office) and successfully de-anonymize all the users by correlating  where does any given pseudonym spend most of its time and who spends more time than anyone else at any given desk.
-
-
-We validated this assumption empirically by looking at the distribution of timestamps for such set of locations, which is greater than 5\% and increases consistently from 20 h until 6 h where it reaches its peak and decreases below 5\% around 10 h, see Figure \ref{fig:homehours}.
-Also, if we assume that those with more than 5\% of relative frequency, are the correct home locations, we obtain that the correct home locations amount for 83,7\% of the total, a very similar percentage to the one obtained in \cite{Cho2011}
-by manual inspection which was 85\% accuracy.
-
-
-\begin{figure}
-\center
-  \includegraphics[width=0.5\textwidth]{figures/HomeHour}
-\caption{Frequency histogram of hours at deduced home locations, as a percentage of total number of measurements for each hour.}
-  \label{fig:homehours}
-\end{figure}
-
-\subsubsection{Home locations after swapping}
-We validated the results of our anonymization technique by trying to infer users home locations after swapping.
-Considering that the home location is the most relevant POI, we can argue that these experiments prove that not only home locations will be protected by our method, but all POIs.
-
-For carrying out the swapping process, we assumed that two taxis were co-located if they passed at distance at most 111 meters approximately ($\chi= 0.001$) in a 1-minute interval ($\tau = 60$). Note that this is about 6 and 3 times less the average sampling interval for distance and time in the dataset.
-
-We found out that the inferred location after swapping was always different from the real one, for all except for the 51 trajectories that did not swapped.
-However, we inspected some of them and observed that they didn't swapped probably due to the fact that they are outside Beijing, as we can see in Figure \ref{fig:noSwap}.
-
-\begin{figure}
-\center{
-  \includegraphics[width=0.35\textwidth]{figures/noSwaps}
-}  \caption{Some trajectories that did not swapped}
-  \label{fig:noSwap}
-\end{figure}
-
-\subsection{Reidentification by linkage}
-
-In this section we simulate an adversary who knows exact locations and timestamps, and tries to reidentify a trajectory in the dataset.
-We also show that the anonymized trajectories do not always intersect the original ones. This means that, even in the case that the adversary can link the data points that he knows, he may not learn the entire original trajectory.
-%This tackles a common problem when reidentification occurs, that is, all the data from the re-identified individuals may be revealed.
-
-In Figure \ref{fig:ECDF-a} we represent the empirical cumulative distribution function of the intersection between original and anonymized trajectories, and in Figure \ref{fig:ECDF-b} the percentage of each trajectory disclosed depending on how many exact spatio-temporal points an adversary knows.
-
-Figure \ref{fig:ECDF-a} shows that
-84\% of all the anonymized trajectories intersect in less than 1/4 their corresponding original trajectory, 68\% in less than 1/10 and 28\% in less than 1/100.
-Figure \ref{fig:ECDF-b} shows that adversaries knowing as many as 10 precise spatio-temporal points, are still not able to reidentify 58\% of the population, and even when they are able to find the corresponding anonymized trajectory to the one that they are attacking, they will not learn more than 50\% of the original trajectory in 95\% of the cases.
-This is in contrast to the results on \cite{demontjoye2013}, in which 4 spatio-temporal points are enough to uniquely characterize 95\% of the traces, and the traces considered the most difficult to identify can be characterized with 11 points.
+We can conclude that the preserved privacy is greatly influenced by
+the grid size of the ODM. If the grid is to fine almost no swaps occur
+and the SwapMob algorithm is not efficient. For very coarse grids the
+privacy is still reduced but could depending on the application still
+be considered acceptable.
 
 \begin{figure}
-\subfloat[\scriptsize intersection between original and anonymized trajectories] {
-  \includegraphics[width=0.5\textwidth]{figures/Rplot19}
-  \label{fig:ECDF-a}
-}
-\hfil
-\subfloat[\scriptsize attackers capability of inferring trajectories from known locations] {
-  \includegraphics[width=0.5\textwidth]{figures/Rplot18}
-  \label{fig:ECDF-b}
-}
-  \caption{Empirical cumulative distributions}
-  \label{fig:ECDF}
+  \subfloat[\scriptsize The number of possible swaps depending on the
+  grid size. Going from having no grid to a very fine grid.] {
+    \includegraphics[width=0.5\textwidth]{figures/num-swaps-OD.pdf}
+    \label{fig:num-swaps-OD}
+  }
+  \hfil
+  \subfloat[\scriptsize Length of the longest unswapped segment as
+  percentages of the total length for each trajectory for different grid
+  sizes. The length of the trajectory was here given by the number of
+  measurements.] {
+    \includegraphics[width=0.5\textwidth]{figures/ECDF-max-part-OD.pdf}
+    \label{fig:ECDF-max-part-OD}
+  }
+  \caption{Preserved privacy when also preserving the ODM}
+  \label{fig:OD}
 \end{figure}
+
 \section{Conclusions}
 
 We have defined and tested a novel algorithm for real-time mobility data \linebreak
