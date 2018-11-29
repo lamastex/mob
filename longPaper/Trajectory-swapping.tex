@@ -96,7 +96,7 @@ For future work:
 \subsection{\bf Marina  SHORTEN and ADD to Intro, still work in progress}
 
 
-Origin Destination Matrices (ODM) comprise an important base for transportation modelling as way to depict travel demand. OD trip generation models serve as basis for transport planning, construction, performance assessment, and as such have potential to affect regional economies. ODM are utilised in transportation studies as part of trip generation modelling, representing estimated traffic flows.
+Origin Destination Matrices (ODM) comprise an important base for transportation modelling as a way to depict travel demand. ODM are utilised in transportation studies as part of trip generation modelling, representing estimated traffic flows. OD trip generation models serve as basis for transport planning, construction, performance assessment, and as such have potential to affect regional economies. 
 
 ODM of $m$ Origins $i$ and $n$ Destinations $j$ is a matrix of size $(m+1) \times (n+1)$ containing flow values $T_{ij}$, such as number or share of trips from $i$ to $j$ \cite{Rodrigue2009}. The row $(i+1)$ contains total arrivals to destination $j$ from all origins, the column $(j+1)$ contains total departures from origin $i$ to all destinations, and the bottom right element contains the total flows in the model $T_{i+1,j+1} = \sum_{j=1}^n \sum_{i=1}^m T_{i,j}$ \cite{EVANS1970} (see for example \ref{table:ODMeg}).
 
@@ -120,16 +120,18 @@ ODM of $m$ Origins $i$ and $n$ Destinations $j$ is a matrix of size $(m+1) \time
 \label{table:ODMeg} % is used to refer this table in the text
 \end{table}
 
+ODM are constructed based on estimations from travel studies as part of traffic census: field, online and telephone traffic surveys, traffic volume counts \cite{robillard1975},  check-point intercept interviews, license plate and other video analyses, {\it etc}. Automatically generated data (e.g. CDR \cite{iqbal2014}) are increasingly used as a base for constructing ODM, reducing survey costs and improving accuracy of route choice estimations. All of these methods yield an incomplete matrix, so Spatial Interaction Models \cite{WILSON1967} are often used to estimate the complete ODM.
+
+
 {\bf rephrase the stuff below, a bit repetitive}
 
-ODM [implicit] parameters include: cut-off departure time from Origins, cut-off arrival time to Destinations, mode of transportation, spatial aggregation level for Origins ({\it e.g.} by TAZ - Traffic Analysis Zones, ZIP code areas, square grid, {\it etc.}), spatial aggregation levels for Destinations. Spatial aggregation of O and D data by zones can provide zone measurements and disaggregation by links can provide link based counts. In other words, keeping overall ODM counts but not keeping the trajectory data in between can be used as input to traditional traffic allocation models. Keeping link flows but not keeping the OD for each trajectory enables to calibrate flows within these models.
+ODM [implicit] parameters include: cut-off departure time from Origins, cut-off arrival time to Destinations, mode of transportation, and spatial aggregation level for Origins and Destinations ({\it e.g.} by TAZ - Traffic Analysis Zones, ZIP code areas, square grid, {\it etc.}). Spatial aggregation of Origins and Destinations by zones can provide zone measurements and disaggregation by links can provide link based counts. In other words, keeping overall ODM counts but not keeping the trajectory data in between can be used as input to traditional traffic allocation models. Keeping link flows but not keeping the OD for each trajectory enables to calibrate flows within these models.
 
 Estimating OD demand is an important input into traffic assignment models, used to plan infrastructure and access performance. Traffic flows can be estimated using OD demand matrix, infrastructure network capacity and traffic controls. And later using sensor observations of density and travel time, these modelled flows can be compared to the observed traffic ODM to derive performance measures. Moreover, disaggregated OD matrices (by hour or more generally by 1 time unit) can be used to calibrate traffic assignment models to predict flows through specific links.
 
 
 This means that aggregated ODM is good for total demand estimation, but disaggregated ODM are useful for observing flows in the network links and comparing those to the output flows from traffic allocation models.
 
-ODM are constructed based on estimations from travel studies: field, online and telephone traffic surveys, traffic volume counts \cite{robillard1975},  check-point intercept interviews, license plate and other video analyses, {\it etc}. Automatically generated data (e.g. CDR \cite{iqbal2014}) are increasingly used as a base for constructing ODM, reducing survey costs and improving accuracy of route choice estimations. All of these methods yield an incomplete matrix, so often Spatial Interaction Models \cite{WILSON1967} are used to estimate the complete ODM.
 
 
 
