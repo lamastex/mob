@@ -98,7 +98,7 @@ For future work:
 
 Origin Destination Matrices (ODM) comprise an important base for transportation modelling as a way to depict travel demand. Traffic flows can be estimated as part of trip generation modelling, using OD demand matrix, infrastructure network capacity and traffic controls. OD trip generation models serve as basis for transport planning, construction, performance assessment, and as such have potential to affect regional economies. 
 
-ODM of $m$ Origins $i$ and $n$ Destinations $j$ is a matrix of size $(m+1) \times (n+1)$ containing flow values $T_{ij}$, such as number or share of trips from $i$ to $j$ \cite{Rodrigue2009}. The row $(i+1)$ contains total arrivals to destination $j$ from all origins, the column $(j+1)$ contains total departures from origin $i$ to all destinations, and the bottom right element contains the total flows in the model $T_{i+1,j+1} = \sum_{j=1}^n \sum_{i=1}^m T_{i,j}$ \cite{EVANS1970} (see for example \ref{table:ODMeg}).
+ODM of $n$ Origins $i$ and $n$ Destinations $j$ is a matrix of size $(n+1) \times (n+1)$ containing flow values $T_{ij}$, such as number or share of trips from $i$ to $j$ \cite{Rodrigue2009}. The row $(i+1)$ contains total arrivals to destination $j$ from all origins, the column $(j+1)$ contains total departures from origin $i$ to all destinations, and the bottom right element contains the total flows in the model $T_{i+1,j+1} = \sum_{j=1}^n \sum_{i=1}^n T_{i,j}$ \cite{EVANS1970} (see for example \ref{table:ODMeg}).
 
 \begin{table}[]
 \caption{Example Origin Destination Matrix from a spatial interaction survey}
