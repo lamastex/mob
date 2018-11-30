@@ -44,10 +44,10 @@ Some anonymization methods rely on grouping individual registers on a database a
 Other approaches consist of adding noise, such as differential privacy, in a way that the presence of an individual cannot be inferred from the data.
 
 
-In this paper, we present a perturbative anonymization method based on swapping segments for trajectory data (SwapMob). It preserves the aggregate information of the spatial database and at the same time, provides anonymity to the individuals.
+In this paper, we present a perturbative anonymization method based on swapping segments for trajectory data (SwapMob). It is a sufficient anonymizer for various statistical decision problems as it not only preserves the aggregate information of the spatial database in the form of sufficient statistics but also provides anonymity to the individuals. 
 
 
-{\color{red} We have performed tests on a set of GPS trajectories of
+	{\color{red} {\bf JULINA: this will depend on what you want to do with the home location results}: We have performed tests on a set of GPS trajectories of
   10,357 taxis during the period of Feb. 2 to Feb. 8, 2008, within
   Beijing. We show that home addresses and POIs of specific
   individuals cannot be inferred after anonymizing them with SwapMob,
@@ -209,7 +209,7 @@ Thus, a sufficient anonymizer for ODMs from trajectory data, can allow for the u
 %TMI%These methods yield an incomplete matrix, so various methods are used to estimate the complete ODM, e.g. Spatial Interaction Models \cite{WILSON1967}, or synthesis from observed link flows \cite{taylor2017}.
 
 ODM parameters include: cut-off departure time from Origins, cut-off arrival time to Destinations, mode of transportation, and spatial resolution or aggregation level for Origins and Destinations. 
-In Section~\ref{S:PrivacyODM}, we empirically assess the loss of privacy under a given metric as this spatial resolution varies.  %({\it e.g.} by TAZ - Traffic Analysis Zones, ZIP code areas, square grid, {\it etc.}). Spatial aggregation of Origins and Destinations by zones can provide zone measurements and disaggregation by links can provide link based counts. 
+In Section~\ref{S:PrivacyODM}, we empirically assess the loss of privacy under a given metric as this spatial resolution varies for a single ODM.  %({\it e.g.} by TAZ - Traffic Analysis Zones, ZIP code areas, square grid, {\it etc.}). Spatial aggregation of Origins and Destinations by zones can provide zone measurements and disaggregation by links can provide link based counts. 
 %In other words, keeping overall ODM counts but not keeping the trajectory data in between can be used as input to traditional traffic allocation models. Keeping link flows but not keeping the OD for each trajectory enables to calibrate flows within these models.
 
 
@@ -217,13 +217,6 @@ In Section~\ref{S:PrivacyODM}, we empirically assess the loss of privacy under a
 %%% general blurb
 More sophisticated Markov chain models, including those that allow dependence on past few states or those that allow the transition probabilities to depend on time with more involved sufficient statistics, can in principle be treated with the basic ideas illustrated here using simple but useful Markov chain models of mobility. 
 Thus, any subsequent decision problem (eg. traffic flow prediction from mobility siumlations based on the learnt Markov chain model), based on {\em sufficient anonymizers} that preserve the sufficient statistic for the model can allow for optimal decisions under the model for a desired level of anonymity. 
-
-
-- Prove that SwapMob preserves the minimal sufficient statistic
-
-- Argue why other methods would not preserve the minimal sufficient statistic
-
-
 
 
 \section{Proposed method: SwapMob}
@@ -415,6 +408,8 @@ Another example is the offline mining in \cite{Yuan2011} representing the knowle
 
 In general, lossless maps of flows in the city can be obtained by using SwapMob at several aggregation levels and for different timestamps.
 
+- Prove that SwapMob preserves the sufficient statistics of counts, transition counts, and ODM-preserving transition counts
+- Argue why other methods would not preserve the minimal sufficient statistic
 
 
 \section{Empirical evaluation}
