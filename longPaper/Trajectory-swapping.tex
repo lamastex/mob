@@ -566,22 +566,38 @@ measurement belongs to. In general it might be more appropriate to
 have start and end locations to be determined by the location of the
 trajectory at a certain time of the day. However, for keeping it
 simple, we choose to use only the first and last measurement.
-More generally, our approach allows for an arbirtary set of subsets of the city and arbitrary time-intervals to specifiy Origins and Destinations in ODM, but we use a simple grid-based partition at different spatial resolutions to illustrate the effects on privacy here.  
+More generally, our approach allows for an arbirtary set of subsets of the city and arbitrary time-intervals to specifiy Origins and Destinations in a single ODM, or even a sequence of ODMs, but we use a simple grid-based partition at different spatial resolutions to illustrate the effects on privacy here.  
 
 We'll look at how the preserved privacy change when we go from having
 no grid to having a very coarse grid and then making it finer and
 finer.
 
+\begin{figure}
+  \subfloat[\scriptsize The number of possible swaps depending on the
+  grid size. Going from having no grid to a very fine grid.] {
+    \includegraphics[width=0.5\textwidth]{figures/num-swaps-OD.pdf}
+    \label{fig:num-swaps-OD}
+  }
+  \hfil
+  \subfloat[\scriptsize Length of the longest unswapped segment as
+  percentages of the total length for each trajectory for different grid
+  sizes. The length of the trajectory was here given by the number of
+  measurements.] {
+    \includegraphics[width=0.5\textwidth]{figures/ECDF-max-part-OD.pdf}
+    \label{fig:ECDF-max-part-OD}
+  }
+  \caption{Preserved privacy when also preserving the ODM}
+  \label{fig:OD}
+\end{figure}
+
 In Figure \ref{fig:num-swaps-OD} we see how the number of possible
 swaps change when we make the grid finer. At first we have the number
-of swaps without a grid and then we have the numbers for grids of
+of swaps without a grid (same as Figure~\ref{fig:ECDF-max-part}) and then we have the numbers for grids of
 squares of the given height. The largest height used is 1 degree, about
 11100 meters, which can be compared to the distance of 0.001 degrees,
-about 111 meters, that we used for determining if two trajectories
-were close. It splits the city into four parts, of which two contain
-most of the measurements. The smallest width is 0.01 degrees, about
-1110 meters, which is then 10 times the distance used for determining
-proximity.
+about 111 meters, that we used for determining if two trajectories are swappable, i.e.~close enough to be swapped.  
+This grid splits the city into four parts, of which two contain
+most of the measurements. On the other extreme, the finest grid is made up of squares of width 0.01 degrees or about 1110 meters, and this is 10 times the proximity threshold for swappability.
 
 We see that the number of possible swaps quickly decreases as the grid
 gets finer. Even at the coarsest grid the number of swaps is halved
@@ -602,28 +618,13 @@ and the SwapMob algorithm is not efficient. For very coarse grids the
 privacy is still reduced but could depending on the application still
 be considered acceptable.
 
-\begin{figure}
-  \subfloat[\scriptsize The number of possible swaps depending on the
-  grid size. Going from having no grid to a very fine grid.] {
-    \includegraphics[width=0.5\textwidth]{figures/num-swaps-OD.pdf}
-    \label{fig:num-swaps-OD}
-  }
-  \hfil
-  \subfloat[\scriptsize Length of the longest unswapped segment as
-  percentages of the total length for each trajectory for different grid
-  sizes. The length of the trajectory was here given by the number of
-  measurements.] {
-    \includegraphics[width=0.5\textwidth]{figures/ECDF-max-part-OD.pdf}
-    \label{fig:ECDF-max-part-OD}
-  }
-  \caption{Preserved privacy when also preserving the ODM}
-  \label{fig:OD}
-\end{figure}
+Furthermore, by defining a sequence of ODMs, say $(M_1,M_2,\ldots,M_m)$, specified by arbitrary subsets of space 
+and intervals of time $[\underline{t}_{i,o},\overline{t}_{i,o}]$ and $[\underline{t}_{i,d},\overline{t}_{i,d}]$ for each $M_i$, one can increase privacy by increasing the number of swappable trajectories. Such a sequence of ODMs should generally be of greater utility for certain decision problems. We defer a thorough investigation of sufficient anonymizers that preserve sufficient statistics for such sequences of ODMs across spatial and temporal resolutions in a principled manner for future research.  
 
 \section{Conclusions}
 
 We have defined and tested a novel algorithm for real-time mobility data \linebreak
-anonymization that consists on swapping trajectory segments. In contrast to the $k$-anonymity or differential privacy models for trajectory anonymization, the proposed method does not modify the data, but its association to specific individuals, and it is performed on real time, without the need of having the entire dataset.
+anonymization that consists of swapping trajectory segments. In contrast to the $k$-anonymity or differential privacy models for trajectory anonymization, the proposed method does not modify the data, but its association to specific individuals, and it is performed in real time, without the need of having the entire dataset.
 The proposed protocol tackles both identity and location privacy,
 and our data model can be adapted to protect either single trajectory positions, as they lose the relation to the individual who has generated the data, or the whole trajectories, since they are mixed among many different peers.
 
@@ -635,24 +636,27 @@ trajectory to infer much of the full trajectory. However, when adding
 the restriction of preserving the ODM the number of swaps quickly
 decrease as the grid is made finer and it becomes much easier for an
 adversary to infer a big portion of the trajectory of an individual
-knowing only a few measurements.
+knowing only a few measurements.  
+This is the natural tradeoff between the {\em societal utility gained} through the preservation of the ODM in decision problems where ODM is a sufficient statistic and the {\em individual privacy lost} by the sufficient anonymizer.
 
 We have simulated our protocol with an offline algorithm, although, the protocol could be run in real time in which data is transmitted by user devices to our anonymizer that communicates and collaborates with a server. By changing the anonymizer for a group protocol, the protocol could provide security against collusion between the service provider and the anonymizer.
 %
 %In this paper, we considered that the SwapMob anonymizer is used for intelligent transportation systems, however, it could also anonymize different sensor data in addition to car sensors, such as smartphones or any mobile device, it could even be used for anonymizing transactions, and any other types of trajectory data.
 %
 
-It must be pointed out that swapping cannot be carried out when an individual does not cross anyone in her path. Hence, the proposed technique will not anonymize the individuals who do not cross anyone in their daily activity.
+It must be pointed out that swapping cannot be carried out when an individual does not come close to anyone along their path. 
+Hence, the proposed technique will not anonymize an individual who does not proximally encounter anyone in their daily activity.
 %This will depend on the period on which the trajectory information is retrieved by the server from SwapMob.
 However, it is not very common for an individual to spend too much time without meeting someone or going out from home. Moreover, such individuals can be kept outside the database without compromising its utility.
-The use case considered is for obtaining aggregate mobility data and exact count queries, which neither $k$-anonymity or differential privacy can provide.
+The use case considered is for obtaining aggregate mobility data that preserve sufficient statistics for various statistical decision problems used in traffic engineering and city planning, including exact count queries, transition count queries and ODM queries, which neither $k$-anonymity nor differential privacy can provide.
 
 Nevertheless, this comes at the cost of modifying the trajectories and possibly losing individual trajectory mining utility.
-Future work directions to solve this issue are to add the restriction of non-swapping streets or non-swapping zones for improving the utility to better preserve entire trajectories inside a given street or zone.
+Future work directions to solve this issue are to add the restriction of non-swapping streets or non-swapping zones for improving the utility to better preserve entire trajectories inside a given street or zone.  
+A formal privacy-preserving decision-theoretic framework based on probabilistic models and statistical experiments for co-trajectories that can be integrated across multiple spatial and temporal resolutions needs further investigations, especially when the computational setting becomes distributed to handle mobility data at a massive scale.
 
 \section*{Acknowledgments}
 Juli\'{a}n Salas acknowledges the support of a UOC postdoctoral fellowship.
-This work is partly funded by the Spanish Government through grant TIN2014-57364-C2-2-R ``SMARTGLACIS'', and Swedish VR (project VR 2016-03346).
+This work is partly funded by the Spanish Government through grant TIN2014-57364-C2-2-R ``SMARTGLACIS'', Swedish VR (project VR 2016-03346) and a grant to Raazesh Sainudiin from Blavatnik Interdisciplinary Cyber Research Center.
 
 \bibliographystyle{splncs03}
 %\bibliographystyle{IEEEtran}%
