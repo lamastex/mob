@@ -160,7 +160,7 @@ When a sanitizer that is used to preserve privacy by anonymization is called an 
 
 Next we give three concrete examples of sufficient statistics that have utility in decision problems routinely faced in traffic engineering, city and transportation planning, etc.
 
-\subsubsection{State Counts}
+\subsubsection{State Counts:}
 One of the simplest statistical experiments for mobility data can be based on an independent and identical distribution for the probability of being found in location or state $i$ from among $k+1$ states based on a labelled partition of the support set of the trajectories into $k+1$ cells or states given by $[k] := \{0,1,\ldots,k\}$.  
 For such a simple experiment $\{P_{\theta}: \theta \in \triangle^k \}$, i.e., $P_{\theta}$ is a discrete probability distribution specified by the 
 parameter $\theta$ taking values in 
@@ -168,12 +168,12 @@ $\triangle^k := \{ \theta \in \mathbb{R}^{k+1} : \sum_{i=0}^k \theta_i = 1, \the
 the probability $k$-simplex. 
 A consistent nonparametric estimate of $\theta$ is obtained from the relative frequency of visits to each state in $[k]$ and its sufficient statistic is simply $\{N_i: i \in [k]\}$, where $N_i$ is merely the frequency or count of the number of visits to state $i$.  
 
-\subsubsection{State Transision Counts}
+\subsubsection{State Transision Counts:}
 A more useful statistical experiment for trajectory data is the time-homogeneous Markov chain model of independent random transitions. This model is more general than that from previous section by allowing the probability of the next location to depend on that of the current location.   
 Here $\{P_{\theta}: \theta \in (\triangle^k)^k\}$, i.e., $P_{\theta}$ is the transition probability matrix of a Markov chain based on a partition of the support set of the trajectories into $k+1$ labelled cells or states given by $[k]$.  
 Recall that the transition counts $N_{i,j}$ between states $i$ and $j$ for each pair $(i,j) \in [k]^2$ is the sufficient statistics for such a simple Markov chain model, as it will allow us to nonparametrically estimate the transition matrix itself.  
 
-\subsubsection{Origin-Destination Matrices}
+\subsubsection{Origin-Destination Matrices:}
 Origin-Destination Matrices (ODMs) are routinely used in transportation modelling to depict travel demand.  
 Traffic flows can be estimated as part of trip generation modelling using Origin-Destination (OD) demand matrix, infrastructure network capacity and traffic controls. 
 OD trip generation models serve as basis for transport planning, construction, performance assessment, and as such have potential to affect regional economies. 
@@ -213,7 +213,7 @@ In Section~\ref{S:PrivacyODM}, we empirically assess the loss of privacy under a
 %In other words, keeping overall ODM counts but not keeping the trajectory data in between can be used as input to traditional traffic allocation models. Keeping link flows but not keeping the OD for each trajectory enables to calibrate flows within these models.
 
 
-\subsubsection{More general Markov models}
+\subsubsection{General Markov models:}
 %%% general blurb
 More sophisticated Markov chain models, including those that allow dependence on past few states or those that allow the transition probabilities to depend on time with more involved sufficient statistics, can in principle be treated with the basic ideas illustrated here using simple but useful Markov chain models of mobility. 
 Thus, any subsequent decision problem (eg. traffic flow prediction from mobility siumlations based on the learnt Markov chain model), based on {\em sufficient anonymizers} that preserve the sufficient statistic for the model can allow for optimal decisions under the model for a desired level of anonymity. 
@@ -257,7 +257,7 @@ Given a set of elements $S = s_1, s_2,\ldots, s_m$, we generate a random matchin
 
 Note that, in case that the number of elements $m$ is odd, to generate a matching we must leave out one element and that all possible random matchings can be generated following our procedure.
 
-\subsubsection{Crossing paths and Swapping} \label{sec:cross}
+\subsubsection{Crossing paths and Swapping:} \label{sec:cross}
 We propose a model such that two peers get in contact (meet) if they have been co-located on a similar timestamp depending on parameters of proximity $\chi$ and time $\tau$.
 
 
@@ -405,12 +405,16 @@ a wireless sensor network to acquire real-time traffic noise from different spot
 
 Another example is the offline mining in \cite{Yuan2011} representing the knowledge from taxi-drivers as a landmark graph could be done with SwapMob anonymized data. A landmark is defined as a road segment that has been frequently traversed by taxis, and a directed edge connecting two landmarks represents the frequent transition of taxis between the two landmarks. This graph is then used for traffic prediction and for providing a personalized routing service.
 
+\subsubsection{SwapMob is a Sufficient Anonymizer:}
+In general, lossless maps of flows, up to a statistical experiment and its sufficient statistics, encoded by {\em sufficiently anonymized trajectories} can be obtained by using SwapMob at several aggregation levels and time resolutions specified by $\chi$ and $\tau$, respectively.  
+Next we show that unlike $k$-anonymity and $\epsilon$-differential privacy based approaches, SwapMob does indeed preserve the sufficient statistics of counts, transition counts and Origin-Destination matrix (ODM) -- the three sufficient statistics with their corresponding statistical experiments described in Section~\ref{S:SufficientSanitizer}.
 
-In general, lossless maps of flows in the city can be obtained by using SwapMob at several aggregation levels and for different timestamps.
-
-- Prove that SwapMob preserves the sufficient statistics of counts, transition counts, and ODM-preserving transition counts
-- Argue why other methods would not preserve the minimal sufficient statistic
-
+It is easy to see that the SwapMob anonymizer for a given time interval $\tau$ and spatial resolution specified by $\chi$, preserves the sufficient statistics of counts in each cell or state given by the $\chi$-specified spatial partition.  
+First, the swapping operation within each cell only swaps random pairs of trajectories within it and thus leaves the counts invariant.  
+Also, the points of entry and exit for each trajectory for a given spatio-temporal cell is preserved as the swapping operation only happens across random pairs of trajectories inside the cell.  
+Thus, the number of transitions between any two spatio-temporal cells will also be preserved.  
+This actually preserves the sufficient statistics for the time-inhomogeneous Markov chain and not merely that of the time-homogeneous Markov chain. 
+Note that, although we have talked about discrete time Markov chains specified by units of $\tau$, we can just as easily generalize the underlying models to continuous-time Markov chains by appropriate projections and the use of timestamp information in the trajectories.   
 
 \section{Empirical evaluation}
 We tested our algorithm on the T-drive dataset
