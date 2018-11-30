@@ -59,16 +59,35 @@ In this paper, we present a perturbative anonymization method based on swapping 
 \end{abstract}
 
 
-\subsection{...TO DO*}
+\subsection{Sufficient Sanitizer}
 
-Given a probability model, such as Markov chain models, of the data, and a subsequent decision problem (eg. traffic flow prediction from mobility siumlations based on the learnt Markov chain model), we can limit ourselves to data-anonymizing operators that preserve the (minimal) sufficient statistic of the model.
-
-Intuitively speaking, all the information in the data about the parameters of the model are in the sufficient statistic.
+Recall that the sufficient statistics $T$ of data $X$ under a statistical experiment, i.e., a family of probability models $\{P_{\theta}: \theta \in \mathbf{\Theta}\}$, that is parametrized by $\theta \in \mathbf{\Theta}$, contains all the information in the data about $\theta$.  
+More formally, $T(X)=t$ is a sufficient statistic for the underlying parameter $\theta$ if the conditional probability $P_{\theta}(X | T(X)=t)$ is independent of $\theta$.  
+Intuitively speaking, all the information in the data about the typically unknown parameter of the probability model is captured by the sufficient statistic.  
 Therefore, by anonymizing the data while preserving the sufficient statistics is decision-theoretically optimal, in the sense of maximizing utility from optimal estimates of the parameters in the probability model.
 
-A {\em sanitizer} $\mathcal{S}$ is a map from the data space $\mathbb{D}$ to a sanitized data space $\mathbb{D}'$, i.e., $\mathcal{S}(d): \mathbb{D} \to \mathbb{D}'$.
-A sanitizer may or may not preserve the minimimal sufficient statistics in the data.
-A {\em sufficient sanitizer} preserve the minimal sufficient statistics.
+A {\em sanitizer} $\mathcal{S}$ is a map from the data space $\mathbb{D}$ to a sanitized data space $\tilde{\mathcal{D}}$, i.e., $\mathcal{S}(d): \mathbb{D} \to \tilde{\mathcal{D}}$.
+A sanitizer may or may not preserve the sufficient statistics in the data for a given statistical experiment.
+A {\em sufficient sanitizer} preserve the sufficient statistics. 
+When a sanitizer that is used to preserve privacy by anonymization is called an {\em anonymizer}.
+
+Next we give three examples of statistical experiments and their sufficient statistics for concreteness.
+
+\subsubsection{State Counts}
+One of the simplest statistical experiments for mobility data can be based on an independent and identical distribution for the probability of being found in location or state $i$ from among $k+1$ states based on a labelled partition of the support set of the trajectories into $k+1$ cells or states given by $[k] := \{0,1,\ldots,k\}$.  
+For such a simple experiment $\{P_{\theta}: \theta \in \triangle^k \}$, i.e., $P_{\theta}$ is a discrete probability distribution specified by the 
+parameter $\theta$ taking values in 
+$\triangle^k := \{ \theta \in \mathbb{R}^{k+1} : \sum_{i=0}^k \theta_i = 1, \theta_i \geq 0, i \in [k] \}$, 
+the probability $k$-simplex. 
+A consistent nonparametric estimate of $\theta$ is obtained from the relative frequency of visits to each state in $[k]$ and its sufficient statistic is simply $\{N_i: i \in [k]\}$, where $N_i$ is merely the frequency or count of the number of visits to state $i$.  
+
+\subsubsection{State Transision Counts}
+A more useful statistical experiment for trajectory data is the Markov chain model of independent random transitions.  
+Here $\{P_{\theta}: \theta \in (\triangle^k)^k\}$, i.e., $P_{\theta}$ is the transition probability matrix of a Markov chain based on a partition of the support set of the trajectories into $k+1$ labelled cells or states given by $[k]$.  
+Recall that the transition counts $N_{i,j}$ between states $i$ and $j$ for each pair $(i,j) \in [k]^2$ is the sufficient statistics for such a simple Markov chain model, as it will allow us to nonparametrically estimate the transition matrix itself.
+
+Any subsequent decision problem (eg. traffic flow prediction from mobility siumlations based on the learnt Markov chain model), we can limit ourselves to data-anonymizing operators or {\em anonymizers} that preserve the sufficient statistic for the model. 
+
 
 ... then we can choose between them based only on privacy concerns.
 
