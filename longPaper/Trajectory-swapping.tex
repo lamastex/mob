@@ -29,9 +29,11 @@
 
 \title{SwapMob: Swapping trajectories for mobility anonymization}
 \author{Juli\'an Salas\inst{1}%\thanks{With the support of a UOC postdoctoral fellowship}
-\and David Meg\'ias\inst{1} \and Vicen\c{c} Torra\inst{2} }
+\and David Meg\'ias\inst{1} \and Vicen\c{c} Torra\inst{2} \and Marina Toger\inst{3} \and Joel Dahne\inst{4} \and Raazesh Sainudiin\inst{4}}
 \institute{Internet Interdisciplinary Institute (IN3), Universitat Oberta de Catalunya (UOC), Barcelona, Spain.\\ CYBERCAT-Center for Cybersecurity Research of Catalonia.\\ \email{jsalaspi@uoc.edu, dmegias@uoc.edu, }
-\and School of Informatics, University of Sk\"{o}vde, Sk\"{o}vde, Sweden. \\ \email{vtorra@his.se}.
+\and School of Informatics, University of Sk\"{o}vde, Sk\"{o}vde, Sweden. \\ \email{vtorra@his.se}
+\and Department of Economic and Cultural Geography, Uppsala University,\\ \email{marina.toger@kultgeog.uu.se}
+\and Department of Mathematics, Uppsala University, Uppsala, Sweden.\\ \email{joel@dahne.eu}, \email{raazesh.sainudiin@math.uu.se}
 }
 
 
@@ -79,7 +81,7 @@ To avoid such inconveniences, a variety of anonymization techniques have been de
 Moreover, as Giannotti et al. mention in \cite{Giannotti2012}, big data (in particular trajectory data) may be used  to understand human behavior through the discovery of individual social profiles, by the analysis of collective behaviors, spreading epidemics, social contagion, and to study the evolution of sentiment and opinion; however, trusted networks and privacy-aware social mining must be pursued and methods for protection and anonymization for such data must be developed to enforce the data subjects' rights and promote their participation.
 
 \section{Related work}
-Different solutions have been proposed for anonymizing trajectories in data publishing. Abul et al. \cite{Abul2008}, propose the $(k, \delta)$-anonymity model, which consists on publishing a cylindrical volume of radius $\delta$ that contains the trajectory of at least k moving objects. Note that this idea is an extension of the concept of $k$-anonymity for databases \cite{Samarati:1998}.
+Different solutions have been proposed for anonymizing trajectories in data publishing. Abul et al. \cite{Abul2008}, propose the $(k, \delta)$-anonymity model, which consists of publishing a cylindrical volume of radius $\delta$ that contains the trajectory of at least k moving objects. Note that this idea is an extension of the concept of $k$-anonymity for databases \cite{Samarati:1998}.
 
 
 Terrovitis and Mamoulis \cite{Terrovitis:2008} consider a discrete spatial domain, e.g., spatial information is given in terms of addresses in a city map.
@@ -112,7 +114,7 @@ In order to measure location privacy, Beresford and Stajano \cite{Beresford04mix
 
 
 This is modeled in \cite{Beresford04mixzones} as a movement matrix in which they record the frequency of ingress and egress points to the mix zone at several times.
-Then, a bipartite weighted graph is defined in which vertices model ingress and egress pseudonyms and edge weights
+Then, a bipartite weighted graph is defined in which vertices model ingress and egress pseudonyms and edge-weights
 model the probability that two pseudonyms represent the same underlying person. Therefore, a maximal cost perfect matching of these graphs represents the most probable mapping among incoming and outgoing pseudonyms.
 
 However, since the solution to many restricted matching problems (such as this one) is NP-hard \cite{Tanimoto1978}, Beresford and Stajano \cite{Beresford04mixzones} describe a method for achieving partial solutions.
@@ -127,7 +129,7 @@ One of the advantages of performing trajectory anonymization on the user side, a
 
 %\subsection{Differential privacy approaches}
 
-For a brief overview of privacy protection techniques and a discussion of $k$-anoymity and differential privacy models in different frameworks, cf. \cite{Salas:2018}.
+For a brief overview of privacy protection techniques and a discussion of $k$-anonymity and differential privacy models in different frameworks, cf. \cite{Salas:2018}.
 
 
 In \cite{Chen:2012}, a differential privacy model for transit data publication is considered, using data from the Soci\'{e}t\'{e} de Transport de Montr\'{e}al (STM). The data are modeled as sequential data in a prefix tree that represents all the sequences by grouping the sequences with the same prefix into the same branch.
@@ -172,7 +174,7 @@ $\triangle^k := \{ \theta \in \mathbb{R}^{k+1} : \sum_{i=0}^k \theta_i = 1, \the
 the probability $k$-simplex. 
 A consistent nonparametric estimate of $\theta$ is obtained from the relative frequency of visits to each state in $[k]$ and its sufficient statistic is simply $\{N_i: i \in [k]\}$, where $N_i$ is merely the frequency or count of the number of visits to state $i$.  
 
-\subsubsection{State Transision Counts:}
+\subsubsection{State Transition Counts:}
 A more useful statistical experiment for trajectory data is the time-homogeneous Markov chain model of independent random transitions. This model is more general than that from previous section by allowing the probability of the next location to depend on that of the current location.   
 Here $\{P_{\theta}: \theta \in (\triangle^k)^k\}$, i.e., $P_{\theta}$ is the transition probability matrix of a Markov chain based on a partition of the support set of the trajectories into $k+1$ labelled cells or states given by $[k]$.  
 Recall that the transition counts $N_{i,j}$ between states $i$ and $j$ for each pair $(i,j) \in [k]^2$ is the sufficient statistics for such a simple Markov chain model, as it will allow us to nonparametrically estimate the transition matrix itself.  
@@ -220,7 +222,7 @@ In Section~\ref{S:PrivacyODM}, we empirically assess the loss of privacy under a
 \subsubsection{General Markov models:}
 %%% general blurb
 More sophisticated Markov chain models, including those that allow dependence on past few states or those that allow the transition probabilities to depend on time with more involved sufficient statistics, can in principle be treated with the basic ideas illustrated here using simple but useful Markov chain models of mobility. 
-Thus, any subsequent decision problem (eg. traffic flow prediction from mobility siumlations based on the learnt Markov chain model), based on {\em sufficient anonymizers} that preserve the sufficient statistic for the model can allow for optimal decisions under the model for a desired level of anonymity. 
+Thus, any subsequent decision problem (eg. traffic flow prediction from mobility simulations based on the learnt Markov chain model), based on {\em sufficient anonymizers} that preserve the sufficient statistic for the model can allow for optimal decisions under the model for a desired level of anonymity. 
 
 
 \section{Proposed method: SwapMob}
@@ -255,8 +257,7 @@ $T_y= (y_1, \ldots, y_j, y_{j+1}, \ldots)$ that meet in points $x_i$ and $y_j$, 
 \linebreak
 $Sw(T_y)= (x_1, \ldots, x_i, y_{j+1}, \ldots)$.
 \item \emph{Generate random matching:}
-
-Given a set of elements $S = s_1, s_2,\ldots, s_m$, we generate a random matching by making pairs of the first $m/2$ with the following $m/2$ numbers, followed by a random permutation of all numbers $m$.
+Given a set of elements $S = \{s_1, s_2,\ldots, s_m\}$, we generate a random matching by making pairs of the first $m/2$ with the following $m/2$ numbers, followed by a random permutation of all numbers $m$.
 \end{enumerate}
 
 Note that, in case that the number of elements $m$ is odd, to generate a matching we must leave out one element and that all possible random matchings can be generated following our procedure.
@@ -320,7 +321,7 @@ order all swaps in $\bigcup S_{\tau_j}$ by timestamp\
 \subsection{SwapMob anonymizer}
 
 We follow a similar architecture to the one in \cite{Hoh06} in which a Trusted Third Party ($TTP$) knows the
-vehicles identities but cannot access sensor information (such as position and  speed); and a Service Provider ($SP$) knows the sensor measures but not the identities.
+vehicles' identities but cannot access sensor information (such as position and  speed); and a Service Provider ($SP$) knows the sensor measures but not the identities.
 Further, the $SP$ calculates which records are close to each other without knowing to which individual they belong and communicates them to the $TTP$ (in this case SwapMob anonymizer) such that it can swap their identities without knowing at which location they were.
 
 This is achieved in the following way (See Figure \ref{fig:protocol}):
@@ -397,7 +398,7 @@ We argue that SwapMob preserves anonymity by dissociating the segments of trajec
 \subsection{Utility of swapped data as privacy-preserving decisions}\label{sect:util}
 
 In this paper we are assuming that the interest of using data anonymized by SwapMob is for making mobility maps and predictions that may be useful for intelligent transportation systems and for planning in a city.
-Our main contribution here is to formalize the relationship between statistical decision procedures that are used to extract utility from the data on one hand and anonymizers that attempt to guarantee a particular mesure of privacy via anonymity on the other.  
+Our main contribution here is to formalize the relationship between statistical decision procedures that are used to extract utility from the data on one hand and anonymizers that attempt to guarantee a particular measure of privacy via anonymity on the other.  
 
 \subsubsection{Current examples:}
 As Hoh and Gruteser proposed in \cite{Hoh2005}, pre-specified vehicles could periodically send their locations, speeds, road temperatures, windshield wiper status and other information to the traffic monitoring facility. These statistics can provide information on the traffic jams, average travel time or the quality of specific roads, and can be used for traffic light scheduling and road design.
@@ -446,7 +447,7 @@ measurements, and we end up with 10280 trajectories and 16906423
 measurements.
 
 For applying SwapMob we consider two taxis co-located if they are in
-the same spatio-temporal cell -- the saptial cell is given by a square of side-length 0.001 degrees ($\chi = 0.001$), about 111
+the same spatio-temporal cell -- the spatial cell is given by a square of side-length 0.001 degrees ($\chi = 0.001$), about 111
 meters, and the temporal interval is specified by being in the same minute ($\tau = 60$). 
 Note that this is about 6 and 3 times less than the average sampling interval for distance and time, respectively, 
 in the dataset.
@@ -566,7 +567,7 @@ measurement belongs to. In general it might be more appropriate to
 have start and end locations to be determined by the location of the
 trajectory at a certain time of the day. However, for keeping it
 simple, we choose to use only the first and last measurement.
-More generally, our approach allows for an arbirtary set of subsets of the city and arbitrary time-intervals to specifiy Origins and Destinations in a single ODM, or even a sequence of ODMs, but we use a simple grid-based partition at different spatial resolutions to illustrate the effects on privacy here.  
+More generally, our approach allows for an arbitrary set of subsets of the city and arbitrary time-intervals to specify Origins and Destinations in a single ODM, or even a sequence of ODMs, but we use a simple grid-based partition at different spatial resolutions to illustrate the effects on privacy here.  
 
 We'll look at how the preserved privacy change when we go from having
 no grid to having a very coarse grid and then making it finer and
