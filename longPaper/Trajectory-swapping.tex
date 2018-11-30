@@ -4,11 +4,11 @@
 %\usepackage{balance}  % for  \balance command ON LAST PAGE  (only there!)
 \usepackage[ruled]{algorithm2e}
 \usepackage{subfig}
-\usepackage{graphicx}
 \usepackage{url}
 \usepackage{amsmath,amssymb}
 
 \usepackage[colorlinks]{hyperref}
+
 
 \usepackage{graphicx}				% Use pdf, png, jpg, or eps§ with pdflatex; use eps in DVI mode
 								% TeX will automatically convert eps --> pdf in pdflatex
@@ -18,6 +18,10 @@
 \usepackage[utf8]{inputenc}
 \setlength{\tabcolsep}{13pt}
 
+% Select what to do with command \comment:  
+% \newcommand{\comment}[1]{}  %comment not showed
+\newcommand{\comment}[1]{\par {\bfseries \color{blue} #1 \par}} %comment showed
+\usepackage{soul} % strike out text
 
 \begin{document}
 
@@ -95,7 +99,7 @@ In \cite{Hoh2005}, in order to prevent adversaries from tracking complete indivi
 This is done with a constraint on the Quality of Service, which is expressed as the mean location error between the actual and the observed locations. They argue that adequate levels of privacy can only be obtained if the density of users is sufficiently high.
 
 
-This is closely related to \cite{Beresford2003} in which Mix Zones are introduced, these are spatial areas on which users' location is not accessible, hence when users are simultaneously present on a mix zone, their pseudonyms are changed. This procedure is performed to difficult the linkage of the incoming and outgoing path segments to the same specific user.
+This is closely related to \cite{Beresford2003} in which Mix Zones are introduced, these are spatial areas on which users' location is not accessible, hence when users are simultaneously present on a mix zone, their pseudonyms are changed. This procedure is performed to disrupt the linkage of the incoming and outgoing path segments to the same specific user.
 
 They design a model for location privacy protection that aims to preserve the advantages of location aware services while hiding their identities from the applications that receive the users' locations.
 The existence of a trusted middleware system (or sensing infrastructure) is assumed and the applications register their interest in a geographic space with the middleware, such space is called application zone. Examples of such application zones are hospitals, universities or supermarket complexes, in general it could be any open or closed space.
@@ -117,7 +121,7 @@ However, since the solution to many restricted matching problems (such as this o
 An approach that does not consider middleware to obtain location privacy is proposed in Chapter 9 from \cite{Gidofalvi2007}. It consists of a system with an untrusted server and clients communicating in a P2P network for privacy preserving trajectory collection.
 The aim of their data collection solution is to preserve anonymity in any set of data being stored, transmitted or
 collected in the system. This is achieved by means of $k$-anonymization and swapping.
-Briefly, the protocol consists of the clients recording their private trajectories, cloaking them among $k$ similar trajectories and exchanging parts of those trajectories with other clients in the P2P network. However, the final step (the data reporting stage) clients send anonymous partial trajectories to the server, that have been generated in such a way that the server can filter all the synthetic trajectory data that has been generated for cloaking during the process, and recover the original trajectory.
+Briefly, the protocol consists of the clients recording their private trajectories, cloaking them among $k$ similar trajectories and exchanging parts of those trajectories with other clients in the P2P network. However, the final step (the data reporting stage) clients send anonymous partial trajectories to the server that have been generated in such a way that the server can filter all the synthetic trajectory data that has been generated for cloaking during the process, and recover the original trajectory.
 
 One of the advantages of performing trajectory anonymization on the user side, as in \cite{Romero-Tris2016}, is that the anonymization process is no longer centralized. Thus data subjects gain control, transparency and more security for their data.
 
@@ -316,7 +320,7 @@ order all swaps in $\bigcup S_{\tau_j}$ by timestamp\
 \subsection{SwapMob anonymizer}
 
 We follow a similar architecture to the one in \cite{Hoh06} in which a Trusted Third Party ($TTP$) knows the
-vehicles identities but can not access sensor information (such as position and  speed); and a Service Provider ($SP$) knows the sensor measures but not the identities.
+vehicles identities but cannot access sensor information (such as position and  speed); and a Service Provider ($SP$) knows the sensor measures but not the identities.
 Further, the $SP$ calculates which records are close to each other without knowing to which individual they belong and communicates them to the $TTP$ (in this case SwapMob anonymizer) such that it can swap their identities without knowing at which location they were.
 
 This is achieved in the following way (See Figure \ref{fig:protocol}):
@@ -344,7 +348,7 @@ The authentication data integrity of the communications can be guaranteed with a
 \end{figure*}
 
 In this way, $SP$ obtains the measures of all sensors $M$ in real-time (Step 2), and at the end of the day also gets the anonymized trajectories of the users that generated them (Step 4).
-Even, though $SP$ knows which records belong to $S_{\tau_j}$ (Step 3), $SP$ does not know to which other record they have been swapped during period $\tau_j$, and by the iterative swappings it gets even harder to associate them to a specific user.
+Even, though $SP$ knows which records belong to $S_{\tau_j}$ (Step 3), $SP$ does not know to which other record they have been swapped during period $\tau_j$, and by the iterative swaps it gets even harder to associate them to a specific user.
 
 At the same time, SwapMob only knows the users, the timestamps at which they have crossed, and the reported trajectories are already anonymized by SwapMob (Step 4).
 
@@ -363,13 +367,13 @@ It is well known that de-identification does not necessarily means anonymization
 Other notions of privacy are defined depending on the context, which may be of statistical databases \cite{Danezis15}, networks \cite{Zhou:2008}, or geo-located data.
 
 By identifying the POIs of an individual, it is possible to infer his habits (e.g., does sport, travels a lot), the locations that he visits frequently (may be related to political or religious beliefs) or even related to health (clinics, hospitals). This may also be used to infer his schedule, predict his future locations,  and learn his past locations and possibly his personal relations by observing frequent or periodic co-location.
-Moreover, such habits and locations can be easily used to reidentify the individuals behind the data. As it has been proven on previous anonymity studies on anonymity of home/work location.
+Moreover, such habits and locations can be easily used to reidentify the individuals behind the data, as it has been proven on previous anonymity studies on anonymity of home/work location.
 
 Regarding this topic, Golle and Partridge studied in \cite{Golle:2009} workers who revealed their home and work location with noise or rounding on the order of a city block, a kilometer or tens of kilometers (census block, census tract, or county) and showed that the sizes of the anonymity set were respectively 1, 21 and 34,980. That is, when the data granularity was on the order of a census block, the individuals were uniquely identifiable, and for granularities on the order of census track or county, they were protected within sets of size 21 or 34,980.
 In \cite{Zang:2011},  Zang and Bolot inferred the top $N$ locations of a user from call records and correlated such information with publicly-available side  information such as census data.  Then, they showed that the top 2 locations likely correspond to home and work location and that the anonymity sets are drastically reduced if an attacker infers them.
 
 
-Therefore, for protecting the individuals against reidentification, is crucial to protect their home addresses and POIs, to provide them with minimum guarantees of keeping them anonymous.
+Therefore, for protecting the individuals against reidentification, it is crucial to protect their home addresses and POIs, to provide them with minimum guarantees of keeping them anonymous.
 Swapped data may not allow for following a specific individual and his whereabouts, and thus, this will not permit personalization or individual classification, which are ways of protecting their privacy.
 
 
@@ -441,7 +445,7 @@ measurements, we end up with 10280 trajectories and 16906423
 measurements.
 
 For applying SwapMob we consider two taxis co-located if they are in
-the same square of width 0.001 degrees ($\chi = 0.001$), about 111
+the same square of height 0.001 degrees ($\chi = 0.001$), about 111
 meters, in the same minute ($\tau = 60$). Note that this is about 6
 and 3 times less the average sampling interval for distance and time
 in the dataset.
@@ -552,9 +556,8 @@ addition to the earlier requirements for allowing a swap.
 
 We define the destinations used in the ODM by a grid, we partition the
 city into a grid of equally sized squares. Bigger squares give a
-coarser grid and smaller squares a finer grid. How coarse the grid is
-will be given by the width of the squares in degrees (latitude and
-longitude), a lower width then corresponds to a finer grid. Starting
+coarser grid and smaller squares a finer grid. The resolution of the grid is given by the height of the squares in degrees of latitude {\color{red}\st{and
+longitude}} \comment{\st{degrees of latitude are always the same size thus i proposed to change `width' of squares to `height' everywhere, possible `side' instead}} (1 degree of latitude is about 111000 m in Beijing), a lower height then corresponds to a finer grid. Starting
 location for a trajectory will be given by the square that its first
 measurement belongs to and end location by the square that its last
 measurement belongs to. In general it might be more appropriate to
@@ -569,17 +572,17 @@ finer.
 In Figure \ref{fig:num-swaps-OD} we see how the number of possible
 swaps change when we make the grid finer. At first we have the number
 of swaps without a grid and then we have the numbers for grids of
-squares of the given width. The largest width used is 1 degree, about
+squares of the given height. The largest height used is 1 degree, about
 11100 meters, which can be compared to the distance of 0.001 degrees,
 about 111 meters, that we used for determining if two trajectories
-were close. It splits the city into four parts, of which two contains
+were close. It splits the city into four parts, of which two contain
 most of the measurements. The smallest width is 0.01 degrees, about
-1110 meters, which is then 10 times the length used for determining
+1110 meters, which is then 10 times the distance used for determining
 proximity.
 
-We see that the number of possible swaps quickly decrease as the grid
+We see that the number of possible swaps quickly decreases as the grid
 gets finer. Even at the coarsest grid the number of swaps is halved
-compared to having no grid. When the grid width goes below 0.1 we have
+compared to having no grid. When the grid height goes below 0.1 we have
 very few possible swaps.
 
 Since the preserved privacy heavily depends on the number of possible
@@ -591,7 +594,7 @@ is the same as in Figure \ref{fig:ECDF-max-part} and we can see that
 the privacy decreases as the grid becomes finer.
 
 We can conclude that the preserved privacy is greatly influenced by
-the grid size of the ODM. If the grid is to fine almost no swaps occur
+the grid size of the ODM. If the grid is too fine almost no swaps occur
 and the SwapMob algorithm is not efficient. For very coarse grids the
 privacy is still reduced but could depending on the application still
 be considered acceptable.
