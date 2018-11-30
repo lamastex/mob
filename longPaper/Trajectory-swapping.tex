@@ -158,7 +158,7 @@ A sanitizer may or may not preserve the sufficient statistics in the data for a 
 A {\em sufficient sanitizer} preserve the sufficient statistics. 
 When a sanitizer that is used to preserve privacy by anonymization is called an {\em anonymizer}.
 
-Next we give three examples of statistical experiments and their sufficient statistics for concreteness.
+Next we give three concrete examples of sufficient statistics that have utility in decision problems routinely faced in traffic engineering, city and transportation planning, etc.
 
 \subsubsection{State Counts}
 One of the simplest statistical experiments for mobility data can be based on an independent and identical distribution for the probability of being found in location or state $i$ from among $k+1$ states based on a labelled partition of the support set of the trajectories into $k+1$ cells or states given by $[k] := \{0,1,\ldots,k\}$.  
@@ -203,9 +203,14 @@ The last row contains total arrivals to each destination $j$ from all origins, t
 \label{table:ODMeg} % is used to refer this table in the text
 \end{table}
 
-ODM are constructed based on estimations from travel studies as part of traffic census: field, online and telephone traffic surveys, traffic volume counts \cite{robillard1975},  check-point intercept interviews, license plate and other video analyses, {\it etc}. Automatically generated data (e.g. CDR \cite{iqbal2014}) are increasingly used as a base for constructing ODM, reducing survey costs and improving accuracy of route choice estimations. These methods yield an incomplete matrix, so various methods are used to estimate the complete ODM, e.g. Spatial Interaction Models \cite{WILSON1967}, or synthesis from observed link flows \cite{taylor2017}.
+ODM are constructed based on estimations from travel studies as part of traffic census: field, online and telephone traffic surveys, traffic volume counts \cite{robillard1975}, check-point intercept interviews, license plate and other video analyses, {\it etc}.  
+Automatically generated data (e.g. CDR \cite{iqbal2014}) are increasingly used as a base for constructing ODMs, reducing survey costs and improving accuracy of route choice estimations. 
+Thus, a sufficient anonymizer for ODMs from trajectory data, can allow for the utility to be gained from ODM while preserving the identity of the individual associated with the trajectory. 
+%TMI%These methods yield an incomplete matrix, so various methods are used to estimate the complete ODM, e.g. Spatial Interaction Models \cite{WILSON1967}, or synthesis from observed link flows \cite{taylor2017}.
 
-ODM parameters include: cut-off departure time from Origins, cut-off arrival time to Destinations, mode of transportation, and spatial aggregation level for Origins and Destinations ({\it e.g.} by TAZ - Traffic Analysis Zones, ZIP code areas, square grid, {\it etc.}). Spatial aggregation of Origins and Destinations by zones can provide zone measurements and disaggregation by links can provide link based counts. In other words, keeping overall ODM counts but not keeping the trajectory data in between can be used as input to traditional traffic allocation models. Keeping link flows but not keeping the OD for each trajectory enables to calibrate flows within these models.
+ODM parameters include: cut-off departure time from Origins, cut-off arrival time to Destinations, mode of transportation, and spatial resolution or aggregation level for Origins and Destinations. 
+In Section~\ref{S:PrivacyODM}, we empirically assess the loss of privacy under a given metric as this spatial resolution varies.  %({\it e.g.} by TAZ - Traffic Analysis Zones, ZIP code areas, square grid, {\it etc.}). Spatial aggregation of Origins and Destinations by zones can provide zone measurements and disaggregation by links can provide link based counts. 
+%In other words, keeping overall ODM counts but not keeping the trajectory data in between can be used as input to traditional traffic allocation models. Keeping link flows but not keeping the OD for each trajectory enables to calibrate flows within these models.
 
 
 \subsubsection{More general Markov models}
@@ -527,7 +532,7 @@ scope of this article and left as further research.
   \label{fig:ECDF-max-part}
 \end{figure}
 
-\subsection{Privacy when preserving the ODM}
+\subsection{Privacy when preserving the ODM}\label{S:PrivacyODM}
 We now look at what happens with the privacy measures when we restrict
 swapping to preserve the ODM, introduced in Section \ref{sec:ODM}. The
 data is precisely the same as before but now, for two trajectories to
