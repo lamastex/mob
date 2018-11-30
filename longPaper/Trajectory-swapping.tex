@@ -423,7 +423,7 @@ Note that, although we have talked about discrete time Markov chains specified b
 
 \section{Empirical evaluation}
 We tested our algorithm on the T-drive dataset
-\cite{Yuan2010},\cite{Yuan2011} which contains the GPS trajectories of
+\cite{Yuan2010,Yuan2011} which contains the GPS trajectories of
 10,357 taxis during the period of Feb. 2 to Feb. 8, 2008 within
 Beijing. The total number of points in this dataset is about 15
 million and the total distance of the trajectories reaches nearly 9
@@ -442,13 +442,13 @@ latitude and longitude equal to zero, which indicates that the
 measurement is most likely not valid. We then remove all trajectories
 which have no measurements belonging to them at all. Doing this
 removes 756561 invalid measurements and 77 trajectories that have no
-measurements, we end up with 10280 trajectories and 16906423
+measurements, and we end up with 10280 trajectories and 16906423
 measurements.
 
 For applying SwapMob we consider two taxis co-located if they are in
-the same square of height 0.001 degrees ($\chi = 0.001$), about 111
-meters, in the same minute ($\tau = 60$). Note that this is about 6
-and 3 times less the average sampling interval for distance and time
+the same spatio-temporal cell -- the saptial cell is given by a square of side-length 0.001 degrees ($\chi = 0.001$), about 111
+meters, and the temporal interval is specified by being in the same minute ($\tau = 60$). 
+Note that this is about 6 and 3 times less than the average sampling interval for distance and time, respectively, 
 in the dataset.
 
 With this we get that the number of possible swaps between all the
@@ -487,19 +487,19 @@ few measurements.
 
 \subsection{Reidentification by linkage}
 \label{sec:reidentification}
-In this section we simulate an adversary who knows exact locations and
+In this section we simulate an adversary who knows finitely many exact locations and
 timestamps, and tries to reidentify a trajectory in the dataset. In
 \cite{demontjoye2013} a similar kind of adversary is considered, but
 in that case it only knows location and timestamp up to some
 resolution, in contrast to this our adversary should be considered to
-be very strong. We discuss how the swapped trajectories could be
+be very well-informed. We discuss how the swapped trajectories could be
 de-anonymized using this kind of information and show that in most
 cases only a small fraction of the full trajectory is disclosed.
 
 Since we assume the adversary knows exact locations and timestamps it
 can identify an (unswapped) trajectory using only one such point,
 assuming no two measurements are exactly the same. After applying
-SwapMob the adversary can still identify trajectory with the
+SwapMob the adversary can still identify a trajectory with the
 measurement, but it doesn't know exactly which parts of the trajectory
 have been swapped and thus doesn't learn the full trajectory. It does
 however learn part of the trajectory, it can follow the trajectory
@@ -531,11 +531,11 @@ small fraction of the original trajectory.
 
 We can also consider the case when the adversary knows several points
 of the trajectory. If the extra points lie on the same segment of the
-trajectory as the first one no more knowledge is gained. However, if
+trajectory as the first one, no more knowledge is gained. However, if
 the extra points lie on other segments of the trajectory the adversary
 learns also these and more of the trajectory is disclosed. If the
 adversary knows several segments of the trajectory it can also try to
-infer which way was taken between them, that way learning more than
+infer which way was taken between them, and thus learning more than
 just the disclosed segments. Analysing this is however outside the
 scope of this article and left as further research.
 
@@ -552,19 +552,21 @@ scope of this article and left as further research.
 We now look at what happens with the privacy measures when we restrict
 swapping to preserve the ODM, introduced in Section~\ref{S:SufficientSanitizer}. The
 data is precisely the same as before but now, for two trajectories to
-swap they have to start and end in the same destination, this is in
-addition to the earlier requirements for allowing a swap.
+swap they have to share the same starting location or origin and ending location or destination.  
+This is in addition to the earlier requirements for allowing a swap.
 
-We define the destinations used in the ODM by a grid, we partition the
-city into a grid of equally sized squares. Bigger squares give a
-coarser grid and smaller squares a finer grid. The resolution of the grid is given by the height of the squares in degrees of latitude {\color{red}\st{and
-longitude}} \comment{\st{degrees of latitude are always the same size thus i proposed to change `width' of squares to `height' everywhere, possible `side' instead}} (1 degree of latitude is about 111000 m in Beijing), a lower height then corresponds to a finer grid. Starting
-location for a trajectory will be given by the square that its first
-measurement belongs to and end location by the square that its last
+We define the states or locations used in the ODM by the labelled cells or states in a grid obtained by partitioning the
+city into equally sized squares (in units of degrees).  
+Bigger squares give a coarser grid and smaller squares a finer grid.  
+The resolution of the grid is given by the width or side-length of the squares in degrees of latitude and
+longitude (1 degree of latitude is about 111000 m in Beijing), a lower width then corresponds to a finer grid. 
+The start location or origin for a trajectory will be given by the square that its first
+measurement belongs to and the end location or destination by the square that its last
 measurement belongs to. In general it might be more appropriate to
-have start and end location to be determined by the location of the
+have start and end locations to be determined by the location of the
 trajectory at a certain time of the day. However, for keeping it
 simple, we choose to use only the first and last measurement.
+More generally, our approach allows for an arbirtary set of subsets of the city and arbitrary time-intervals to specifiy Origins and Destinations in ODM, but we use a simple grid-based partition at different spatial resolutions to illustrate the effects on privacy here.  
 
 We'll look at how the preserved privacy change when we go from having
 no grid to having a very coarse grid and then making it finer and
