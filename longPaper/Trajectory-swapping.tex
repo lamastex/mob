@@ -451,10 +451,14 @@ With this we get that the number of possible swaps between all the
 trajectories is 641262. The average number of swaps for each
 trajectory is 137. Of all the 10280 trajectories 9508, 92\%, take part
 in at least 20 swaps, for the 772 trajectories with less than 20 swaps
-we have the distribution seen in Figure \ref{fig:swaps-distribution}.
-We see that 324 trajectories don't participate in any swaps at all,
-however 265 of these trajectories have less than 10 measurements
-(compared to an average of more than 1000).
+we have the distribution seen in Figure
+\ref{fig:swaps-distribution-20}. We see that 324 trajectories don't
+participate in any swaps at all, however 265 of these trajectories
+have less than 10 measurements (compared to an average of more than
+1000). In Figure \ref{fig:swaps-distribution-all} we can also see the
+distribution for all trajectories, here we can see that most
+trajectories have less than 500 swaps but a few participate in
+thousands of swaps.
 
 We can conclude that most of the trajectories participate in several
 swaps, only a small amount participate in less than 20 swaps and that
@@ -462,10 +466,18 @@ most of the trajectories that don't participate in any swap have very
 few measurements.
 
 \begin{figure}
-  \center
-  \includegraphics[width=0.5\textwidth]{figures/swaps-distribution.pdf}
-  \caption{Frequency histogram of number of swaps for trajectories for
-    the 772 trajectories participating in less than 20 swaps.}
+  \subfloat[\scriptsize Frequency histogram of number of swaps for all
+  the 772 trajectories participating in less than 20 swaps.] {
+    \includegraphics[width=0.5\textwidth]{figures/swaps-distribution-20.pdf}
+    \label{fig:swaps-distribution-20}
+  }
+  \hfil
+  \subfloat[\scriptsize Frequency histogram of number of swaps for all
+  trajectories.] {
+    \includegraphics[width=0.5\textwidth]{figures/swaps-distribution-all.pdf}
+    \label{fig:swaps-distribution-all}
+  }
+  \caption{Frequency histograms of number of swaps for trajectories.}
   \label{fig:swaps-distribution}
 \end{figure}
 
