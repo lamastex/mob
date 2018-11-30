@@ -362,20 +362,18 @@ This same argument justifies that the distance and time parameters, $\chi$ and $
 
 
 \subsection{Protecting against reidentification} % by Home/Work location
-It is well known that de-identification does not necessarily means anonymization. The same attributes that are used for extracting knowledge, may be used for pointing to a specific individual, and uniquely relating his/her data to her real identity.
+It is well known that de-identification does not necessarily means anonymization. The same attributes that are used for extracting knowledge, may be used for pointing to a specific individual, and uniquely relating their data to their real identity.
 
 Other notions of privacy are defined depending on the context, which may be of statistical databases \cite{Danezis15}, networks \cite{Zhou:2008}, or geo-located data.
 
-By identifying the POIs of an individual, it is possible to infer his habits (e.g., does sport, travels a lot), the locations that he visits frequently (may be related to political or religious beliefs) or even related to health (clinics, hospitals). This may also be used to infer his schedule, predict his future locations,  and learn his past locations and possibly his personal relations by observing frequent or periodic co-location.
-Moreover, such habits and locations can be easily used to reidentify the individuals behind the data, as it has been proven on previous anonymity studies on anonymity of home/work location.
+By identifying the POIs of an individual, it is possible to infer their habits (e.g., does sport, travels a lot), the locations that he visits frequently (may be related to political or religious beliefs) or even related to health (clinics, hospitals). This may also be used to infer their schedule, predict their future locations, learn their past locations and possibly even infer their personal relations by observing frequent or periodic co-locations.
+Moreover, such habits and locations can be easily used to reidentify the individuals behind the data, as it has been shown on previous studies on anonymity of home/work location.
 
 Regarding this topic, Golle and Partridge studied in \cite{Golle:2009} workers who revealed their home and work location with noise or rounding on the order of a city block, a kilometer or tens of kilometers (census block, census tract, or county) and showed that the sizes of the anonymity set were respectively 1, 21 and 34,980. That is, when the data granularity was on the order of a census block, the individuals were uniquely identifiable, and for granularities on the order of census track or county, they were protected within sets of size 21 or 34,980.
 In \cite{Zang:2011},  Zang and Bolot inferred the top $N$ locations of a user from call records and correlated such information with publicly-available side  information such as census data.  Then, they showed that the top 2 locations likely correspond to home and work location and that the anonymity sets are drastically reduced if an attacker infers them.
 
-
 Therefore, for protecting the individuals against reidentification, it is crucial to protect their home addresses and POIs, to provide them with minimum guarantees of keeping them anonymous.
 Swapped data may not allow for following a specific individual and his whereabouts, and thus, this will not permit personalization or individual classification, which are ways of protecting their privacy.
-
 
 A different approach regarding the possibility of reidentification and the (im)possibility of protection, is in \cite{demontjoye2013}, where they measure the uniqueness of human mobility traces depending on their resolution and the available outside information, assuming that an adversary knows $p$ random spatio-temporal points. Then, they coarsen such data spatially and temporally to find a formula for uniqueness depending on such parameters.
 
@@ -396,16 +394,19 @@ We argue that SwapMob preserves anonymity by dissociating the segments of trajec
 
 
 
-\subsection{Utility of swapped data}\label{sect:util}
+\subsection{Utility of swapped data as privacy-preserving decisions}\label{sect:util}
+
 In this paper we are assuming that the interest of using data anonymized by SwapMob is for making mobility maps and predictions that may be useful for intelligent transportation systems and for planning in a city.
+Our main contribution here is to formalize the relationship between statistical decision procedures that are used to extract utility from the data on one hand and anonymizers that attempt to guarantee a particular mesure of privacy via anonymity on the other.  
+
+\subsubsection{Current examples:}
 As Hoh and Gruteser proposed in \cite{Hoh2005}, pre-specified vehicles could periodically send their locations, speeds, road temperatures, windshield wiper status and other information to the traffic monitoring facility. These statistics can provide information on the traffic jams, average travel time or the quality of specific roads, and can be used for traffic light scheduling and road design.
 
 Furthermore, the sensors do not necessarily have to be attached to vehicles, they could be carried on mobile phones, and the utility of using the individuals for sensing is preserved, since all their sensor data, including all their movements and timestamps (in aggregate) are kept intact by SwapMob.
 
 
 In \cite{Calabrese2011}, a real-time urban monitoring platform and its application to the City of Rome was presented, they used
-a wireless sensor network to acquire real-time traffic noise from different spots, GPS traces of locations from 43 taxis and 7268 buses, and voice and data traffic served by each of the base transceiver stations from a telecom company in the urban area of Rome. These are few examples of sensor that could be carried by individuals, anonymized and transmitted to a service provider via SwapMob.
-
+a wireless sensor network to acquire real-time traffic noise from different spots, GPS traces of locations from 43 taxis and 7268 buses, and voice and data traffic served by each of the base transceiver stations from a telecom company in the urban area of Rome. These are few examples of sensors that could be carried by individuals, anonymized and transmitted to a service provider via SwapMob.
 
 Another example is the offline mining in \cite{Yuan2011} representing the knowledge from taxi-drivers as a landmark graph could be done with SwapMob anonymized data. A landmark is defined as a road segment that has been frequently traversed by taxis, and a directed edge connecting two landmarks represents the frequent transition of taxis between the two landmarks. This graph is then used for traffic prediction and for providing a personalized routing service.
 
@@ -425,7 +426,7 @@ We tested our algorithm on the T-drive dataset
 \cite{Yuan2010},\cite{Yuan2011} which contains the GPS trajectories of
 10,357 taxis during the period of Feb. 2 to Feb. 8, 2008 within
 Beijing. The total number of points in this dataset is about 15
-million and the total distance of the trajectories reaches to 9
+million and the total distance of the trajectories reaches nearly 9
 million kilometers. It is important to note that not all taxis appear
 every day and not all report their positions at the same interval. The
 average sampling interval is about 177 seconds and 623 meters. Each
