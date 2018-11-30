@@ -146,7 +146,7 @@ In this paper, we present an anonymization method considering that the data are 
 %online and in real time with a database that is updating constantly.
 
 
-\section{Sufficient Sanitizer}
+\section{Sufficient Sanitizer}\label{S:SufficientSanitizer}
 
 Recall that the sufficient statistics $T$ of data $X$ under a statistical experiment, i.e., a family of probability models $\{P_{\theta}: \theta \in \mathbf{\Theta}\}$, that is parametrized by $\theta \in \mathbf{\Theta}$, contains all the information in the data about $\theta$.  
 More formally, $T(X)=t$ is a sufficient statistic for the underlying parameter $\theta$ if the conditional probability $P_{\theta}(X | T(X)=t)$ is independent of $\theta$.  
@@ -534,7 +534,7 @@ scope of this article and left as further research.
 
 \subsection{Privacy when preserving the ODM}\label{S:PrivacyODM}
 We now look at what happens with the privacy measures when we restrict
-swapping to preserve the ODM, introduced in Section \ref{sec:ODM}. The
+swapping to preserve the ODM, introduced in Section~\ref{S:SufficientSanitizer}. The
 data is precisely the same as before but now, for two trajectories to
 swap they have to start and end in the same destination, this is in
 addition to the earlier requirements for allowing a swap.
