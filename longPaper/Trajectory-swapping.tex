@@ -178,25 +178,27 @@ Origin-Destination Matrices (ODMs) are routinely used in transportation modellin
 Traffic flows can be estimated as part of trip generation modelling using Origin-Destination (OD) demand matrix, infrastructure network capacity and traffic controls. 
 OD trip generation models serve as basis for transport planning, construction, performance assessment, and as such have potential to affect regional economies. 
 
-ODM of $n$ Origins $i$ and $n$ Destinations $j$ is a matrix of size $(n+1) \times (n+1)$ containing flow values $T_{ij}$, such as number or share of trips from $i$ to $j$ \cite{Rodrigue2009}.  
-The row $(i+1)$ contains total arrivals to destination $j$ from all origins, the column $(j+1)$ contains total departures from origin $i$ to all destinations, and the bottom right element contains the total flows in the model $T_{i+1,j+1} = \sum_{j=1}^n \sum_{i=1}^n T_{i,j}$ \cite{EVANS1970} (see for example \ref{table:ODMeg}).
+Although ODMs can be more general, we consider an ODM based on $n$ states that can be the origin $i$ and/or the destination $j$. 
+Such an ODM shown in Table~\ref{table:ODMeg} is a matrix of size $(n+1) \times (n+1)$ containing flow values $N_{ij}$, such as number or share of trips from $i$ to $j$ \cite{Rodrigue2009}.  
+The last row contains total arrivals to each destination $j$ from all origins, the last column contains the total departures from each origin $i$ to all destinations, and the bottom right element contains the total flows in the model 
+%$N_{i+1,j+1} = \sum_{j=1}^n \sum_{i=1}^n N_{i,j}$ 
+\cite{EVANS1970}.
 
 \begin{table}[]
-\caption{Example Origin Destination Matrix from a spatial interaction survey}
+\caption{An Origin Destination Matrix from a spatial interaction survey}
 \centering
-
 \begin{tabular}{cl ccc r}
 \noalign{\smallskip}
-\noalign{\smallskip}
+%\noalign{\smallskip}
 											& 							& \multicolumn{3}{c}{Destinations $j$}  	&  \\ [0.5ex]
-											&  					 	&  Uppsala     & Stockholm    & Arlanda    & $\bf \sum T_i$ \\ [1.3ex]
+											&  					 	&  Uppsala     & Stockholm    & Arlanda    & Departures \\ [1.3ex]
 %\cline{2-6}
-\multirow{3}{*}{\rotatebox[origin=c]{90}{Origins $i$}} & Uppsala          & 2000          & 5            & 20        & \bf{2025} \\
-                             & Stockholm        & 10            & 100          & 10        & \bf{120}  \\
-                             & Arlanda          & 20            & 5            & 0         & \bf{25}   \\  [1.3ex]
+\multirow{3}{*}{\rotatebox[origin=c]{90}{Origins $i$}} & Uppsala          & 2000          & 5            & 20        & 2025 \\
+                             & Stockholm        & 10            & 100          & 10        & 120  \\
+                             & Arlanda          & 20            & 5            & 0         & 25   \\  [1.3ex]
 %\cline{2-6}
 \noalign{\smallskip}
-\multicolumn{1}{l}{}         &  $\bf \sum T_j$      & \bf{2030} & \bf{110} & \bf{30} & 2170
+\multicolumn{1}{l}{}         &  Arrivals      & 2030 & 110 & 30 & 2170
 \end{tabular}
 \label{table:ODMeg} % is used to refer this table in the text
 \end{table}
@@ -206,8 +208,7 @@ ODM are constructed based on estimations from travel studies as part of traffic 
 ODM parameters include: cut-off departure time from Origins, cut-off arrival time to Destinations, mode of transportation, and spatial aggregation level for Origins and Destinations ({\it e.g.} by TAZ - Traffic Analysis Zones, ZIP code areas, square grid, {\it etc.}). Spatial aggregation of Origins and Destinations by zones can provide zone measurements and disaggregation by links can provide link based counts. In other words, keeping overall ODM counts but not keeping the trajectory data in between can be used as input to traditional traffic allocation models. Keeping link flows but not keeping the OD for each trajectory enables to calibrate flows within these models.
 
 
-\subsection{More general Markov models}
-
+\subsubsection{More general Markov models}
 %%% general blurb
 More sophisticated Markov chain models, including those that allow dependence on past few states or those that allow the transition probabilities to depend on time with more involved sufficient statistics, can in principle be treated with the basic ideas illustrated here using simple but useful Markov chain models of mobility. 
 Thus, any subsequent decision problem (eg. traffic flow prediction from mobility siumlations based on the learnt Markov chain model), based on {\em sufficient anonymizers} that preserve the sufficient statistic for the model can allow for optimal decisions under the model for a desired level of anonymity. 
