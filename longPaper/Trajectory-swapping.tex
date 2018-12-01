@@ -51,7 +51,7 @@ Some anonymization methods rely on grouping individual registers on a database a
 Other approaches consist of adding noise, such as differential privacy, in a way that the presence of an individual cannot be inferred from the data.
 
 
-In this paper, we define the concept of sanitizer and show that the sanitization method based on swapping segments for trajectory data (SwapMob), is a sufficient sanitizer for various statistical decision problems as it not only preserves the aggregate information of the spatial database in the form of sufficient statistics but also provides privacy to the individuals. 
+In this paper, we we formalize the concept of sufficient sanitizer and show that the sanitization method based on swapping segments for trajectory data (SwapMob), is a sufficient sanitizer for various statistical decision problems as it not only preserves the aggregate information of the spatial database in the form of sufficient statistics but also provides privacy to the individuals. 
 We test the utility of the data obtained after applying SwapMob sanitization in terms of Origin-Destination matrices, a fundamental tool in  transportation modelling.
 
 \end{abstract}
@@ -140,12 +140,12 @@ Their algorithm considers temporal correlations modeled as a Markov chain and pr
 However, they leave the problem of protecting the entire trace of released locations as future work.
 
 
-**** In this paper, we present an sanitization method considering that the data are dynamic, the rate at which the information is collected is not constant, and the databases are being generated as the data is received.
-%online and in real time with a database that is updating constantly.
+In this paper, we present a sanitization method considering that the data are dynamic, the rate at which the information is collected is not constant, and the databases are being generated as the data is received.
 
-*** The rest of the paper is organized as follows: ...
 
-\section{Sufficient Sanitizer}\label{S:SufficientSanitizer}
+The rest of the paper is organized as follows in Section \ref{Sec:SufficientS} we formalize the concept of sufficient sanitizer and provide some examples of sufficient statistcs related to traffic engineering and transportation planning. In Section \ref{Sec:swapmob} we define our algorithm, and discuss some of its properties of privacy and utility, in Section \ref{Sec:evaluation}, we evaluate our method also when including the additional guarantee of preserving Origin-Destination matrices. We finish with some conclusions and future work on Section \ref{Sec:conclusions}
+
+\section{Sufficient Sanitizer}\label{S:SufficientSanitizer}\label{Sec:SufficientS}
 
 Recall that the sufficient statistics $T$ of data $X$ under a statistical experiment, i.e., a family of probability models $\{P_{\theta}: \theta \in \mathbf{\Theta}\}$, that is parametrized by $\theta \in \mathbf{\Theta}$, contains all the information in the data about $\theta$.  
 More formally, $T(X)=t$ is a sufficient statistic for the underlying parameter $\theta$ if the conditional probability $P_{\theta}(X | T(X)=t)$ is independent of $\theta$.  
@@ -221,7 +221,7 @@ More sophisticated Markov chain models, including those that allow dependence on
 Thus, any subsequent decision problem (eg. traffic flow prediction from mobility simulations based on the learnt Markov chain model), based on {\em sufficient sanitizers} that preserve the sufficient statistic for the model can allow for optimal decisions under the model for a desired level of privacy. 
 
 
-\section{Proposed method: SwapMob}
+\section{Proposed method: SwapMob}\label{Sec:swapmob}
 
 We propose a method for anonymization of mobility data by swapping trajectories, which works in a similar way as the mix zones but in a non-restricted space.
 
@@ -405,7 +405,7 @@ Thus, the number of transitions between any two spatio-temporal cells will also 
 This actually preserves the sufficient statistics for the time-inhomogeneous Markov chain and not merely that of the time-homogeneous Markov chain. 
 Note that, although we have talked about discrete time Markov chains specified by units of $\tau$, we can just as easily generalize the underlying models to continuous-time Markov chains by appropriate projections and the use of timestamp information in the trajectories.   
 
-\section{Empirical evaluation}
+\section{Empirical evaluation}\label{Sec:evaluation}
 We tested our algorithm on the T-drive dataset
 \cite{Yuan2010,Yuan2011} which contains the GPS trajectories of
 10,357 taxis during the period of Feb. 2 to Feb. 8, 2008 within
@@ -600,7 +600,7 @@ be considered acceptable.
 Furthermore, by defining a sequence of ODMs, say $(M_1,M_2,\ldots,M_m)$, specified by arbitrary subsets of space 
 and intervals of time $[\underline{t}_{i,o},\overline{t}_{i,o}]$ and $[\underline{t}_{i,d},\overline{t}_{i,d}]$ for each $M_i$, one can increase privacy by increasing the number of swappable trajectories. Such a sequence of ODMs should generally be of greater utility for certain decision problems. We defer a thorough investigation of sufficient sanitizers that preserve sufficient statistics for such sequences of ODMs across spatial and temporal resolutions in a principled manner for future research.  
 
-\section{Conclusions}
+\section{Conclusions}\label{Sec:conclusions}
 
 We have defined and tested a novel algorithm for mobility data \linebreak
 sanitization that consists of swapping trajectory segments. In contrast to the $k$-anonymity or differential privacy models for trajectory sanitization, the proposed method does not modify the data, but its association to specific individuals, and it is performed in real time, without the need of having the entire dataset.
