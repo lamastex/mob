@@ -124,6 +124,23 @@ isbn="978-3-642-39077-7"
  keywords = {communication networks, human mobility, social networks},
 } 
 
+@inproceedings{Damiani:2009,
+ author = {Damiani, Maria Luisa and Bertino, Elisa and Silvestri, Claudio},
+ title = {Protecting Location Privacy Against Spatial Inferences: The PROBE Approach},
+ booktitle = {Proceedings of the 2Nd SIGSPATIAL ACM GIS 2009 International Workshop on Security and Privacy in GIS and LBS},
+ series = {SPRINGL '09},
+ year = {2009},
+ isbn = {978-1-60558-853-7},
+ location = {Seattle, Washington},
+ pages = {32--41},
+ numpages = {10},
+ url = {http://doi.acm.org/10.1145/1667502.1667511},
+ doi = {10.1145/1667502.1667511},
+ acmid = {1667511},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {location based services, location privacy},
+
 @techreport{Danezis15,
      author    = {George Danezis and
                Josep Domingo{-}Ferrer and
@@ -137,6 +154,44 @@ isbn="978-3-642-39077-7"
 	 year = {2015},
 
 }
+
+@InProceedings{Dwork:2006,
+author="Dwork, Cynthia
+and McSherry, Frank
+and Nissim, Kobbi
+and Smith, Adam",
+editor="Halevi, Shai
+and Rabin, Tal",
+title="Calibrating Noise to Sensitivity in Private Data Analysis",
+booktitle="Theory of Cryptography",
+year="2006",
+publisher="Springer Berlin Heidelberg",
+address="Berlin, Heidelberg",
+pages="265--284",
+abstract="We continue a line of research initiated in [10,11]on privacy-preserving statistical databases. Consider a trusted server that holds a database of sensitive information. Given a query function f mapping databases to reals, the so-called true answer is the result of applying f to the database. To protect privacy, the true answer is perturbed by the addition of random noise generated according to a carefully chosen distribution, and this response, the true answer plus noise, is returned to the user.",
+isbn="978-3-540-32732-5"
+}
+
+@Article{Ghinita:2011,
+author="Ghinita, Gabriel
+and Kalnis, Panos
+and Kantarcioglu, Murat
+and Bertino, Elisa",
+title="Approximate and exact hybrid algorithms for private nearest-neighbor queries with database protection",
+journal="GeoInformatica",
+year="2011",
+month="Oct",
+day="01",
+volume="15",
+number="4",
+pages="699--726",
+abstract="Mobile devices with global positioning capabilities allow users to retrieve points of interest (POI) in their proximity. To protect user privacy, it is important not to disclose exact user coordinates to un-trusted entities that provide location-based services. Currently, there are two main approaches to protect the location privacy of users: (i) hiding locations inside cloaking regions (CRs) and (ii) encrypting location data using private information retrieval (PIR) protocols. Previous work focused on finding good trade-offs between privacy and performance of user protection techniques, but disregarded the important issue of protecting the POI dataset D. For instance, location cloaking requires large-sized CRs, leading to excessive disclosure of POIs (O(|D|) in the worst case). PIR, on the other hand, reduces this bound to {\$}O({\backslash}sqrt{\{}|D|{\}}){\$}, but at the expense of high processing and communication overhead. We propose hybrid, two-step approaches for private location-based queries which provide protection for both the users and the database. In the first step, user locations are generalized to coarse-grained CRs which provide strong privacy. Next, a PIR protocol is applied with respect to the obtained query CR. To protect against excessive disclosure of POI locations, we devise two cryptographic protocols that privately evaluate whether a point is enclosed inside a rectangular region or a convex polygon. We also introduce algorithms to efficiently support PIR on dynamic POI sub-sets. We provide solutions for both approximate and exact NN queries. In the approximate case, our method discloses O(1) POI, orders of magnitude fewer than CR- or PIR-based techniques. For the exact case, we obtain optimal disclosure of a single POI, although with slightly higher computational overhead. Experimental results show that the hybrid approaches are scalable in practice, and outperform the pure-PIR approach in terms of computational and communication overhead.",
+issn="1573-7624",
+doi="10.1007/s10707-010-0121-4",
+url="https://doi.org/10.1007/s10707-010-0121-4"
+}
+
+
 
 @article{Giannotti2012,
 author="Giannotti, F.
@@ -269,6 +324,25 @@ month={Oct},}
   year = 2013
 }
 
+@article{Paulet:2014,
+ author = {Paulet, Russell and Kaosar, Md. Golam and Yi, Xun and Bertino, Elisa},
+ title = {Privacy-Preserving and Content-Protecting Location Based Queries},
+ journal = {IEEE Trans. on Knowl. and Data Eng.},
+ issue_date = {May 2014},
+ volume = {26},
+ number = {5},
+ month = may,
+ year = {2014},
+ issn = {1041-4347},
+ pages = {1200--1210},
+ numpages = {11},
+ url = {https://doi.org/10.1109/TKDE.2013.87},
+ doi = {10.1109/TKDE.2013.87},
+ acmid = {2705577},
+ publisher = {IEEE Educational Activities Department},
+ address = {Piscataway, NJ, USA},
+} 
+
 @conference {Pensa2008,
 	title = {Pattern-Preserving k-Anonymization of Sequences and its Application to Mobility Data Mining},
 	booktitle = {PiLBA},
@@ -318,14 +392,65 @@ doi="10.1007/978-3-319-29883-2_17",
 url="https://doi.org/10.1007/978-3-319-29883-2_17"
 }
  
+
+@article{Romero-Tris:2018,
+ author = {Romero-Tris, Cristina and Meg\'{\i}as, David},
+ title = {Protecting Privacy in Trajectories with a User-Centric Approach},
+ journal = {ACM Trans. Knowl. Discov. Data},
+ issue_date = {October 2018},
+ volume = {12},
+ number = {6},
+ month = aug,
+ year = {2018},
+ issn = {1556-4681},
+ pages = {67:1--67:27},
+ articleno = {67},
+ numpages = {27},
+ url = {http://doi.acm.org/10.1145/3233185},
+ doi = {10.1145/3233185},
+ acmid = {3233185},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {Trajectory anonymization, privacy, user-centric protocol},
+} 
+ 
+ 
 @article{Salas:2018,
-author = {Juli{\'a}n Salas and Josep Domingo{-}Ferrer},
-title = {Some basics on privacy techniques, anonymization and their big data challenges},
-journal = {Mathematics in Computer Science},
-year = {2018},
-publisher = {Springer},
-doi = {10.1007/s11786-018-0344-6}
+author="Salas, Juli{\'a}n
+and Domingo-Ferrer, Josep",
+title="Some Basics on Privacy Techniques, Anonymization and their Big Data Challenges",
+journal="Mathematics in Computer Science",
+year="2018",
+month="Sep",
+day="01",
+volume="12",
+number="3",
+pages="263--274",
+abstract="With the progress in the information and communication fields, new opportunities and technologies for statistical analysis, knowledge discovery, data mining, and many other research areas have emerged, together with new challenges for privacy and data protection. Nowadays several personal records are kept in computerized databases. Personal data is collected and kept in census databases, medical databases, employee databases, among others. There has always been an asymmetry between the benefits of computerized databases and the rights of individual data subjects. Some data protection principles can be derived from the legal framework. In this survey, we present some basic cryptographic and non-cryptographic techniques that may be used for enhancing privacy, we focus mainly on anonymization in databases and networks, discuss some differences and interactions among the well-known models of k-anonymity and differential privacy and finally present some challenges to privacy that come from big data analytics.",
+issn="1661-8289",
+doi="10.1007/s11786-018-0344-6",
+url="https://doi.org/10.1007/s11786-018-0344-6"
 }
+
+
+@InProceedings{Salas:2018-b,
+author="Salas, Juli{\'a}n
+and Torra, Vicen{\c{c}}",
+editor="Garcia-Alfaro, Joaquin
+and Herrera-Joancomart{\'i}, Jordi
+and Livraga, Giovanni
+and Rios, Ruben",
+title="A General Algorithm for k-anonymity on Dynamic Databases",
+booktitle="Data Privacy Management, Cryptocurrencies and Blockchain Technology",
+year="2018",
+publisher="Springer International Publishing",
+address="Cham",
+pages="407--414",
+abstract="In this work we present an algorithm for k-anonymization of datasets that are changing over time. It is intended for preventing identity disclosure in dynamic datasets via microaggregation. It supports adding, deleting and updating records in a database, while keeping k-anonymity on each release.",
+isbn="978-3-030-00305-0"
+}
+
+
 
 @inproceedings{Samarati:1998,
  author = {Samarati, Pierangela and Sweeney, Latanya},
@@ -603,14 +728,8 @@ author = "A.G. Wilson",
 	doi = {10.1016/0041-1647(75)90049-0},
 	pages = {123--128},
 	number = {2},
-	journal = {Transportation Research},
+	journaltitle = {Transportation Research},
+	shortjournal = {Transportation Research},
 	author = {Robillard, Pierre},
-	year = {1975},
-}
-
-@book{taylor2017,
-  title={Understanding traffic systems: data analysis and presentation},
-  author={Taylor, Michael AP and Bonsall, Peter W},
-  year={2017},
-  publisher={Routledge}
+	date = {1975-07-01},
 }
