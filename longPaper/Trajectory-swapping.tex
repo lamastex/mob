@@ -105,8 +105,7 @@ To measure location privacy, Beresford and Stajano \cite{Beresford04mixzones} de
 
 This is modeled in \cite{Beresford04mixzones} as a movement matrix which represents the frequency of ingress and egress points to the mix zone at several times.
 Then, a bipartite weighted graph is defined in which vertices model ingress and egress pseudonyms and edge-weights
-model the probability that two pseudonyms represent the same underlying person. Therefore, a maximal cost perfect matching of these graphs can be used to find the most probable mapping among incoming and outgoing pseudonyms.
-
+model the probability that two pseudonyms represent the same underlying person. Therefore, a maximal cost perfect matching of these graphs can be used to find the most probable mapping among incoming and outgoing pseudonyms.  
 However, since the solution to many restricted matching problems (such as this one) is NP-hard \cite{Tanimoto1978}, Beresford and Stajano \cite{Beresford04mixzones} describe a method for achieving partial solutions.
 
 Other approaches to provide privacy to LBS include the posibility of individual specification of privacy preferences \cite{Damiani:2009}, some are based on Private Information Retrieval (PIR) and Oblivious Transfer \cite{Paulet:2014}, or are a combination of cloaking regions and PIR \cite{Ghinita:2011}, however they use cryptographic primitives and are focused on preventing the disclosure of points of interest.
@@ -118,9 +117,7 @@ Briefly, the protocol consists of the clients recording their private trajectori
 
 One of the advantages of performing trajectory anonymization on the user side, as in \cite{Romero-Tris2016} and \cite{Romero-Tris:2018}, is that the anonymization process is no longer centralized. Thus data subjects gain control, transparency and more security for their data.
 They leverage the concept of $k$-anonymity for trajectories, similarly to Abul et al. \cite{Abul2008}, that propose the $(k, \delta)$-anonymity model, which consists of publishing a cylindrical volume of radius $\delta$ that contains the trajectory of at least k moving objects. 
-
-Note that this idea is an extension of the concept of $k$-anonymity for databases \cite{Samarati:1998} and it may be related to $k$-anonymity for dynamic databases \cite{Salas:2018-b} if we consider that the records of the dynamic database represent locations.
-
+Note that this idea is an extension of the concept of $k$-anonymity for databases \cite{Samarati:1998} and it may be related to $k$-anonymity for dynamic databases \cite{Salas:2018-b} if we consider that the records of the dynamic database represent locations.  
 Also the concept of differential privacy \cite{Dwork:2006} has been extended from databases to many other types of data.
 For a brief overview of privacy protection techniques and a discussion of $k$-anonymity and differential privacy models in different frameworks, cf. \cite{Salas:2018}.
 
@@ -140,9 +137,7 @@ Their algorithm considers temporal correlations modeled as a Markov chain and pr
 However, they leave the problem of protecting the entire trace of released locations as future work.
 
 
-In this paper, we present a sanitization method considering that the data are dynamic, the rate at which the information is collected is not constant, and the databases are being generated as the data is received.
-
-
+In this paper, we present a sanitization method considering that the data are dynamic, the rate at which the information is collected is not constant, and the databases are being generated as the data is received.  
 The rest of the paper is organized as follows in Section \ref{Sec:SufficientS} we formalize the concept of sufficient sanitizer and provide some examples of sufficient statistcs related to traffic engineering and transportation planning. In Section \ref{Sec:swapmob} we define our algorithm, and discuss some of its properties of privacy and utility, in Section \ref{Sec:evaluation}, we evaluate our method also when including the additional guarantee of preserving Origin-Destination matrices. We finish with some conclusions and future work on Section \ref{Sec:conclusions}
 
 \section{Sufficient Sanitizer}\label{S:SufficientSanitizer}\label{Sec:SufficientS}
@@ -153,13 +148,11 @@ Intuitively speaking, all the information in the data about the typically unknow
 Therefore, by anonymizing the data while preserving the sufficient statistics is decision-theoretically optimal, in the sense of maximizing utility from optimal estimates of the parameters in the probability model.
 
 A {\em sanitizer} $\mathcal{S}$ is a map from the data space $\mathbb{D}$ to a sanitized data space $\tilde{\mathcal{D}}$, i.e., $\mathcal{S}(d): \mathbb{D} \to \tilde{\mathcal{D}}$, in such a way that the data in $\tilde{\mathcal{D}}$ has additional privacy guarantees than in $\mathbb{D}$.
-Thus, this notion englobes the notion of $k$-anonymity, differential privacy, and many other privacy enhancing technologies.
-
+Thus, this notion englobes the notion of $k$-anonymity, differential privacy, and many other privacy enhancing technologies.  
 A sanitizer may or may not preserve the sufficient statistics in the data for a given statistical experiment.
 A {\em sufficient sanitizer} preserves the sufficient statistics. 
 
-Next, we give three concrete examples of sufficient statistics that have utility in decision problems routinely faced in traffic engineering, city and transportation planning, etc.
-
+Next, we give three concrete examples of sufficient statistics that have utility in decision problems routinely faced in traffic engineering, city and transportation planning, etc.  
 We end this section with a discussion on General Markov models and sufficient sanitizers.
 
 \subsubsection{State Counts:}
@@ -227,8 +220,7 @@ We propose a method for anonymization of mobility data by swapping trajectories,
 
 
 Our algorithm (SwapMob) simulates an online P2P system for exchanging segments of trajectories. That is, when two users are near they interchange their partial trajectories, see section \ref{sec:cross}.
-In this way, all users' trajectories are mixed incrementally, and the moving users keep generating segments of trajectories that are being swapped. In the end, each trajectory retrieved is made of small segments of trajectories of different individuals, who have met during the day, as depicted in Figure \ref{fig:swap}. Hence, the relation between data subjects and their data is obfuscated while keeping a precise aggregated data, such as the number of users in each place at each time and the locations that have been visited by different anonymous users.
-
+In this way, all users' trajectories are mixed incrementally, and the moving users keep generating segments of trajectories that are being swapped. In the end, each trajectory retrieved is made of small segments of trajectories of different individuals, who have met during the day, as depicted in Figure \ref{fig:swap}. Hence, the relation between data subjects and their data is obfuscated while keeping a precise aggregated data, such as the number of users in each place at each time and the locations that have been visited by different anonymous users.  
 We formalize our method after a brief explanation of previous definitions and assumptions.
 
 \subsection{Definitions}
@@ -352,8 +344,7 @@ At the same time, SwapMob only knows the users, the timestamps at which they hav
 Our system, can be applied for the use case proposed in \cite{Beresford2003}, by defining a set of swap zones (similar to the mix zones) and adding the restriction that the swapping cannot be performed outside such places. Then, the spatio-temporal trajectories of users between such swap zones could be monitored in an anonymous and precise way.
 
 
-However, there will still be some differences. Namely, the swap zone that we consider is the entire application zone, whereas in \cite{Beresford2003} a user entering a mix zone can be distinguished from another user emerging from the same zone if the size of the mix zone is too large.
-
+However, there will still be some differences. Namely, the swap zone that we consider is the entire application zone, whereas in \cite{Beresford2003} a user entering a mix zone can be distinguished from another user emerging from the same zone if the size of the mix zone is too large.  
 This same argument justifies that the distance and time parameters, $\chi$ and $\tau$ must not be too large either in our algorithm, otherwise swapping could not be credible.
 
 
@@ -372,9 +363,7 @@ In \cite{Zang:2011},  Zang and Bolot inferred the top $N$ locations of a user fr
 Therefore, for protecting the individuals against reidentification, it is crucial to protect their home addresses and POIs, to provide them with minimum guarantees of keeping them anonymous.
 Swapped data may not allow for following a specific individual and his whereabouts, and thus, this will not permit personalization or individual classification, which are ways of protecting their privacy.
 
-A different approach regarding the possibility of reidentification and the (im)possibility of protection, is in \cite{demontjoye2013}, where they measure the uniqueness of human mobility traces depending on their resolution and the available outside information, assuming that an adversary knows $p$ random spatio-temporal points. Then, they coarsen such data spatially and temporally to find a formula for uniqueness depending on such parameters.
-
-
+A different approach regarding the possibility of reidentification and the (im)possibility of protection, is in \cite{demontjoye2013}, where they measure the uniqueness of human mobility traces depending on their resolution and the available outside information, assuming that an adversary knows $p$ random spatio-temporal points. Then, they coarsen such data spatially and temporally to find a formula for uniqueness depending on such parameters.  
 We argue that SwapMob preserves privacy by dissociating the segments of trajectories from the subject that generated them.
 
 
@@ -576,8 +565,7 @@ squares of the given height. The largest height used is 1 degree, about
 11100 meters, which can be compared to the distance of 0.001 degrees,
 about 111 meters, that we used for determining if two trajectories are swappable, i.e.~close enough to be swapped.  
 This grid splits the city into four parts, of which two contain
-most of the measurements. On the other extreme, the finest grid is made up of squares of width 0.01 degrees or about 1110 meters, and this is 10 times the proximity threshold for swappability.
-
+most of the measurements. On the other extreme, the finest grid is made up of squares of width 0.01 degrees or about 1110 meters, and this is 10 times the proximity threshold for swappability.  
 We see that the number of possible swaps quickly decreases as the grid
 gets finer. Even at the coarsest grid, the number of swaps is halved
 compared to having no grid. When the grid height goes below 0.1 we have
@@ -595,8 +583,7 @@ We can conclude that the preserved privacy is greatly influenced by
 the grid size of the ODM. If the grid is too fine almost no swaps occur
 and the SwapMob algorithm is not efficient. For very coarse grids the
 privacy is still reduced but depending on the application it could still
-be considered acceptable.
-
+be considered acceptable.  
 Furthermore, by defining a sequence of ODMs, say $(M_1,M_2,\ldots,M_m)$, specified by arbitrary subsets of space 
 and intervals of time $[\underline{t}_{i,o},\overline{t}_{i,o}]$ and $[\underline{t}_{i,d},\overline{t}_{i,d}]$ for each $M_i$, one can increase privacy by increasing the number of swappable trajectories. Such a sequence of ODMs should generally be of greater utility for certain decision problems. We defer a thorough investigation of sufficient sanitizers that preserve sufficient statistics for such sequences of ODMs across spatial and temporal resolutions in a principled manner for future research.  
 
@@ -622,9 +609,8 @@ We have simulated our protocol with an offline algorithm. Although, the protocol
 
 
 It must be mentioned that swapping cannot be carried out when an individual does not come close to anyone along their path. 
-Hence, the proposed technique will not protect an individual who does not proximally encounter anyone in their daily activity.
-
-We consider that is not very common for an individual to spend too much time without meeting someone or going out from home. Moreover, such individuals can be kept outside the database without compromising its utility, e.g., in the case of T-drive data 265 of these 324 trajectories have less than 10 measurements (compared to an average of more than 1000).
+Hence, the proposed technique will not protect an individual who does not proximally encounter anyone in their daily activity.  
+We consider that it is not very common for an individual to spend too much time without meeting someone or going out from home. Moreover, such individuals can be kept outside the database without compromising its utility, e.g., in the case of T-drive data 265 of these 324 trajectories have less than 10 measurements (compared to an average of more than 1000).
 
 
 The use case considered is for obtaining aggregate mobility data that preserve sufficient statistics for various statistical decision problems used in traffic engineering and city planning, including exact count queries, transition count queries and ODM queries, which neither $k$-anonymity nor differential privacy cannot formally guarantee.
