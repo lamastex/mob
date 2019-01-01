@@ -22,31 +22,6 @@
 
 \title{Swapping trajectories with a sufficient sanitizer}
 
-\author[1]{Juli\'an Salas\corref{cor1}}
-\ead{jsalaspi@uoc.edu}
-\author[1]{David Meg\'ias}
-\ead{dmegias@uoc.edu}
-\author[2]{Vicen\c{c} Torra}
-\ead{vtorra@his.se}
-\author[3]{Marina Toger}
-\ead{marina.toger@kultgeog.uu.se}
-\author[4]{Joel Dahne}
-\ead{joel@dahne.eu}
-\author[4]{Raazesh Sainudiin}
-\ead{raazesh.sainudiin@math.uu.se}
-
-
-\cortext[cor1]{Corresponding author \\
-IN3 - Internet Interdisciplinary Institute \\
-(+34) 933 263 651 \\
-Av. Carl Friedrich Gauss, 5 \\
-08860 Castelldefels (Barcelona)}
-\address[1]{Internet Interdisciplinary Institute (IN3), Universitat Oberta de Catalunya (UOC), Barcelona, Spain.\\ CYBERCAT-Center for Cybersecurity Research of Catalonia.}
-\address[2]{Hamilton Institute, Maynooth University, Maynooth, Ireland. \\
-School of Informatics, University of Sk\"{o}vde, Sk\"{o}vde, Sweden. \\}
-\address[3]{Department of Economic and Cultural Geography, Uppsala University, Uppsala, Sweden.}
-\address[4]{Department of Mathematics, Uppsala University, Uppsala, Sweden.}
-
 \begin{abstract}
 
 Mobility data mining can improve decision making, from planning transports in metropolitan areas to localizing services in towns.
@@ -54,12 +29,14 @@ However, unrestricted access to such data may reveal sensible locations and pose
 
 
 Some anonymization methods rely on grouping individual registers on a database and publishing summaries in such a way that individual information is protected inside the group.
-Other approaches consist of adding noise, such as differential privacy, in a way that the presence of an individual cannot be inferred from the data.
+Other approaches, such as differential privacy, are based on adding noise in a way that the presence of an individual cannot be inferred from the data.
 
 
-In this paper, we consider a different approach consisting of swapping partial trajectories,
-formalize the concept of sufficient sanitizer and show that the sanitization method based on swapping segments for trajectory data (SwapMob), is a sufficient sanitizer for various statistical decision problems as it not only preserves the aggregate information of the spatial database in the form of sufficient statistics but also provides privacy to the individuals. 
+In this paper, we consider a different anonymization approach by swapping partial trajectories, formalize the concept of sufficient sanitizer and show that the proposed method (SwapMob), is a sufficient sanitizer for various statistical decision problems. That is, it preserves the aggregate information of the spatial database in the form of sufficient statistics and also provides privacy to the individuals. 
+We measure the privacy provided by SwapMob as the Adversary Information Gain, which measures the capability of an adversary to leverage his knowledge of a given data point to infer a larger segment of the sanitized trajectory.
+
 We test the utility of the data obtained after applying SwapMob sanitization in terms of Origin-Destination matrices, a fundamental tool in  transportation modelling.
+
 \end{abstract}
 
 
@@ -74,13 +51,6 @@ We test the utility of the data obtained after applying SwapMob sanitization in 
 
 
 \maketitle
-
-\section{Acknowledgements}
-Juli\'{a}n Salas acknowledges the support of a UOC postdoctoral fellowship.
-This work is partly funded by the Spanish Government through grant TIN2014-57364-C2-2-R ``SMARTGLACIS'', Swedish VR (project VR 2016-03346) and a grant to Raazesh Sainudiin from Blavatnik Interdisciplinary Cyber Research Center.
-
-
-\end{document}
 
 \section{Introduction}
 
@@ -103,19 +73,19 @@ Hence, the user trajectories are expressed as sequences of points of interest (P
 They present the use case of the RFID cards from the Octopus\footnote{http://www.octopuscards.com/} company in Hong Kong, which collects the transaction history of its customers. The company may want to publish sequences of transactions by the same person as trajectories, for extracting movement and behavioral patterns. However, if a given user, Alice, uses her card to pay at different convenience stores that belong to the same chain (e.g., convenience stores), that company may reidentify Alice if her sequence of purchases is unique in the published trajectory database.
 
 
-A similar approach in \cite{Pensa2008} is obtained by transforming sequences by adding, deleting, or substituting some points of the trajectory, while preserving also frequent sequential patterns \cite{Agrawal:1995} obtained by mining the anonymized data.
+A similar approach is obtained in \cite{Pensa2008} by Pensa et al., transforming sequences by adding, deleting, or substituting some points of the trajectory, while preserving also frequent sequential patterns \cite{Agrawal:1995} obtained by mining the anonymized data.
 
 
 In \cite{Hoh2005} and \cite{Hoh06}, Hoh et al. discuss the use of mobility data for transportation planning and traffic monitoring applications to provide drivers with feedback on road and traffic conditions.
 For modelling the threats to privacy in such datasets, they assume that an adversary does not have information about which subset of samples belongs to a single user, however by using multi-target tracking algorithms \cite{Reid79analgorithm} subsequent location samples may be linked to an individual that is periodically reporting his anonymized location information.
 
-In \cite{Hoh06} they consider the attack of deducing home locations of users by leveraging clustering heuristics used together with the decrease of speed reported by GPS sensors. Then, propose data suppression techniques by changing the sampling rate (e.g, from 1 minute to 2, 4 and 10) for protecting from such inferences.
+In \cite{Hoh06} consider the attack of deducing home locations of users by leveraging clustering heuristics used together with the decrease of speed reported by GPS sensors. Then, propose data suppression techniques by changing the sampling rate (e.g, from 1 minute to 2, 4 and 10) for protecting from such inferences.
 
 In \cite{Hoh2005}, to prevent adversaries from tracking complete individual paths, they propose an algorithm that perturbs slightly the trajectories of different individuals (to make them closer) in such a way that the adversary may not be able to follow which segment of the path corresponds to which user by using multi-target tracking algorithms.
 This is done with a constraint on the Quality of Service, which is expressed as the mean location error between the actual and the observed locations. They argue that adequate levels of privacy can only be obtained if the density of users is sufficiently high.
 
 
-This is closely related to \cite{Beresford2003} in which Mix Zones are introduced. These are spatial areas on which users' location is not accessible, hence when users are simultaneously present on a mix zone, their pseudonyms are changed. This procedure is performed to disrupt the linkage of the incoming and outgoing path segments to the same specific user.
+This is closely related to the concept of Mix Zones introduced in \cite{Beresford2003}. These are spatial areas on which users' location is not accessible, hence when users are simultaneously present on a mix zone, their pseudonyms are changed. This procedure is performed to disrupt the linkage of the incoming and outgoing path segments to the same specific user.
 
 They design a model for location privacy protection that aims to preserve the advantages of location aware services while hiding their identities from the applications that receive the users' locations.
 The existence of a trusted middleware system (or sensing infrastructure) is assumed and the applications register their interest in a geographic space with the middleware, such space is called application zone. Examples of such application zones are hospitals, universities or supermarket complexes; in general it could be any open or closed space.
@@ -166,7 +136,7 @@ In this paper, we present a sanitization method considering that the data are dy
   
 The rest of the paper is organized as follows in Section \ref{Sec:SufficientS} we formalize the concept of sufficient sanitizer and provide some examples of sufficient statistcs related to traffic engineering and transportation planning. In Section \ref{Sec:swapmob} we define our algorithm, and discuss some of its properties of privacy and utility, in Section \ref{Sec:evaluation}, we evaluate our method also when including the additional guarantee of preserving Origin-Destination matrices. We finish with some conclusions and future work on Section \ref{Sec:conclusions}
 
-A preliminary version of this study appeared in \cite{Salas:2018-c}. The main additions to this study are the formalization of sufficent sanitizer from Section \ref{Sec:SufficientS} and the Origin-Destination matrices privacy and utility from Section \ref{Sec:evaluation}. We also consider a new measure of Information Gain for an attacker that is different from the measures used in previous version.
+A preliminary version of this study appeared in \cite{Salas:2018-c}. The main additions to this study are the formalization of sufficent sanitizer from Section \ref{Sec:SufficientS} and the Origin-Destination matrices privacy and utility from Section \ref{Sec:evaluation}. We also consider a new measure of Information Gain for an attacker that is different from the measures in previous version.
 
 
 
@@ -175,7 +145,7 @@ A preliminary version of this study appeared in \cite{Salas:2018-c}. The main ad
 Recall that the sufficient statistics $T$ of data $X$ under a statistical experiment, i.e., a family of probability models $\{P_{\theta}: \theta \in \mathbf{\Theta}\}$, that is parametrized by $\theta \in \mathbf{\Theta}$, contains all the information in the data about $\theta$.  
 More formally, $T(X)=t$ is a sufficient statistic for the underlying parameter $\theta$ if the conditional probability $P_{\theta}(X | T(X)=t)$ is independent of $\theta$.  
 Intuitively speaking, all the information in the data about the typically unknown parameter of the probability model is captured by the sufficient statistic.  
-Therefore, by anonymizing the data while preserving the sufficient statistics is decision-theoretically optimal, in the sense of maximizing utility from optimal estimates of the parameters in the probability model.
+Therefore, sanitizing the data while preserving the sufficient statistics is decision-theoretically optimal, in the sense of maximizing utility from optimal estimates of the parameters in the probability model.
 
 A {\em sanitizer} $\mathcal{S}$ is a map from the data space $\mathbb{D}$ to a sanitized data space $\tilde{\mathcal{D}}$, i.e., $\mathcal{S}(d): \mathbb{D} \to \tilde{\mathcal{D}}$, in such a way that the data in $\tilde{\mathcal{D}}$ has additional privacy guarantees than in $\mathbb{D}$.
 Thus, this notion englobes the notion of $k$-anonymity, differential privacy, and many other privacy enhancing technologies.  
@@ -230,7 +200,7 @@ The last row contains total arrivals to each destination $j$ from all origins, t
 
 ODM are constructed based on estimations from travel studies as part of traffic census: field, online and telephone traffic surveys, traffic volume counts \cite{robillard1975}, check-point intercept interviews, license plate and other video analyses, {\it etc}.  
 Automatically generated data (e.g. CDR \cite{iqbal2014}) are increasingly used as a base for constructing ODMs, reducing survey costs and improving accuracy of route choice estimations. 
-Thus, a sufficient anonymizer for ODMs from trajectory data (as SwapMOb), can allow for the utility to be gained from ODM while preserving the privacy of the individual associated with the trajectory. 
+Thus, a sufficient sanitizer for ODMs from trajectory data (as SwapMob), can allow for the utility to be gained from ODM while preserving the privacy of the individual associated with the trajectory. 
 %TMI%These methods yield an incomplete matrix, so various methods are used to estimate the complete ODM, e.g. Spatial Interaction Models \cite{WILSON1967}, or synthesis from observed link flows \cite{taylor2017}.
 
 ODM parameters include: cut-off departure time from Origins, cut-off arrival time to Destinations, mode of transportation, and spatial resolution or aggregation level for Origins and Destinations. 
@@ -246,7 +216,7 @@ Thus, any subsequent decision problem (eg. traffic flow prediction from mobility
 
 \section{Proposed method: SwapMob}\label{Sec:swapmob}
 
-We propose a method for anonymization of mobility data by swapping trajectories, which works in a similar way as the mix zones but in a non-restricted space.
+We propose a method for sanitization of mobility data by swapping trajectories, which works in a similar way as the mix zones but in a non-restricted space.
 
 
 Our algorithm (SwapMob) simulates an online P2P system for exchanging segments of trajectories. That is, when two users are near they interchange their partial trajectories, see section \ref{sec:cross}.
@@ -340,7 +310,7 @@ order all swaps in $\bigcup S_{\tau_j}$ by timestamp\
 
 We follow a similar architecture to the one in \cite{Hoh06} in which a Trusted Third Party ($TTP$) knows the
 vehicles' identities but cannot access sensor information (such as position and  speed); and a Service Provider ($SP$) knows the sensor measures but not the identities.
-Further, the $SP$ calculates which records are close to each other without knowing to which individual they belong and communicates them to the $TTP$ (in this case SwapMob anonymizer) such that it can swap their identities without knowing at which location they were.
+Further, the $SP$ calculates which records are close to each other without knowing to which individual they belong and communicates them to the $TTP$ (in this case SwapMob sanitizer) such that it can swap their identities without knowing at which location they were.
 
 This is achieved in the following way (See Figure \ref{fig:protocol}):
 \begin{enumerate}
@@ -366,7 +336,7 @@ The authentication data integrity of the communications can be guaranteed with a
 }
 \end{figure*}
 
-In this way, $SP$ obtains the measures of all sensors $M$ in real-time (Step 2), and at the end of the day also gets the anonymized trajectories of the users that generated them (Step 4).
+In this way, $SP$ obtains the measures of all sensors $M$ in real-time (Step 2), and at the end of the day also gets the sanitized trajectories of the users that generated them (Step 4).
 Even, though $SP$ knows which records belong to $S_{\tau_j}$ (Step 3), $SP$ does not know to which other record they have been swapped during period $\tau_j$, and by the iterative swaps it gets even harder to associate them to a specific user.
 
 At the same time, SwapMob only knows the users, the timestamps at which they have crossed, and the reported trajectories are already sanitized by SwapMob (Step 4).
@@ -400,7 +370,7 @@ We argue that SwapMob preserves privacy by dissociating the segments of trajecto
 \subsection{Utility of swapped data as privacy-preserving decisions}\label{sect:util}
 
 In this paper we are assuming that the interest of using data sanitized by SwapMob is for making mobility maps and predictions that may be useful for intelligent transportation systems and for planning in a city.
-Our main contribution here is to formalize the relationship between statistical decision procedures that are used to extract utility from the data on one hand and anonymizers that attempt to guarantee a particular measure of privacy via anonymity on the other.  
+Our main contribution here is to formalize the relationship between statistical decision procedures that are used to extract utility from the data on one hand and sanitizers that attempt to guarantee a particular measure of privacy via sanitization on the other.  
 
 \subsubsection{Current examples:}
 As Hoh and Gruteser proposed in \cite{Hoh2005}, pre-specified vehicles could periodically send their locations, speeds, road temperatures, windshield wiper status and other information to the traffic monitoring facility. These statistics can provide information on the traffic jams, average travel time or the quality of specific roads, and can be used for traffic light scheduling and road design.
@@ -409,7 +379,7 @@ Furthermore, the sensors do not necessarily have to be attached to vehicles, the
 
 
 In \cite{Calabrese2011}, a real-time urban monitoring platform and its application to the City of Rome was presented; they used
-a wireless sensor network to acquire real-time traffic noise from different spots, GPS traces of locations from 43 taxis and 7268 buses, and voice and data traffic served by each of the base transceiver stations from a telecom company in the urban area of Rome. These are few examples of sensors that could be carried by individuals, sanitized and transmitted to a service provider via SwapMob.
+a wireless sensor network to acquire real-time traffic noise from different spots, GPS traces of locations from 43 taxis and 7,268 buses, and voice and data traffic served by each of the base transceiver stations from a telecom company in the urban area of Rome. These are few examples of sensors that could be carried by individuals, sanitized and transmitted to a service provider via SwapMob.
 
 Another example is the offline mining in \cite{Yuan2011} representing the knowledge from taxi-drivers as a landmark graph could be done with SwapMob sanitized data. A landmark is defined as a road segment that has been frequently traversed by taxis, and a directed edge connecting two landmarks represents the frequent transition of taxis between the two landmarks. This graph is then used for traffic prediction and for providing a personalized routing service.
 
@@ -417,7 +387,7 @@ Another example is the offline mining in \cite{Yuan2011} representing the knowle
 In general, lossless maps of flows, up to a statistical experiment and its sufficient statistics, encoded by {\em sufficiently sanitized trajectories} can be obtained by using SwapMob at several aggregation levels and time resolutions specified by $\chi$ and $\tau$, respectively.  
 Next we show that unlike $k$-anonymity and $\epsilon$-differential privacy based approaches, SwapMob does indeed preserve the sufficient statistics of counts, transition counts and Origin-Destination matrix (ODM) -- the three sufficient statistics with their corresponding statistical experiments described in Section~\ref{S:SufficientSanitizer}.
 
-It is easy to see that the SwapMob anonymizer for a given time interval $\tau$ and spatial resolution specified by $\chi$, preserves the sufficient statistics of counts in each cell or state given by the $\chi$-specified spatial partition.  
+It is easy to see that the SwapMob sanitizer for a given time interval $\tau$ and spatial resolution specified by $\chi$, preserves the sufficient statistics of counts in each cell or state given by the $\chi$-specified spatial partition.  
 First, the swapping operation within each cell only swaps random pairs of trajectories within it and thus leaves the counts invariant.  
 Also, the points of entry and exit for each trajectory for a given spatio-temporal cell is preserved as the swapping operation only happens across random pairs of trajectories inside the cell.  
 Thus, the number of transitions between any two spatio-temporal cells will also be preserved.  
@@ -466,8 +436,8 @@ measurements are far outside Beijing and most of them have both
 latitude and longitude equal to zero, which indicates that the
 measurement is most likely not valid. We then remove all trajectories
 which have no measurements belonging to them at all. This
-removes 756561 invalid measurements and 77 trajectories that have no
-measurements in this area, and we end up with 10280 trajectories and 16906423
+removes 756,561 invalid measurements and 77 trajectories that have no
+measurements in this area, and we end up with 10280 trajectories and 16,906,423
 measurements.
 
 For applying SwapMob we consider two taxis co-located if they are in
@@ -477,8 +447,8 @@ Note that this is about 6 and 3 times less than the average sampling interval fo
 in the dataset.
 
 With this we get that the number of possible swaps between all the
-trajectories is 641262. The average number of swaps for each
-trajectory is 137. Of all the 10280 trajectories 9508, 92\%, take part
+trajectories is 641,262. The average number of swaps for each
+trajectory is 137. Of all the 10,280 trajectories 9508, 92\%, take part
 in at least 20 swaps, for the 772 trajectories with less than 20 swaps
 we have the distribution seen in Figure
 \ref{fig:swaps-distribution-20}. We see that 324 trajectories do not
@@ -553,7 +523,7 @@ We define the states or locations used in the ODM by the labelled cells or state
 city into equally sized squares (in units of degrees).  
 %Bigger squares give a coarser grid and smaller squares a finer grid.  
 The resolution of the grid is given by the width or side-length of the squares in degrees of latitude and
-longitude (1 degree of latitude is about 111000 m in Beijing), a lower width then corresponds to a finer grid. 
+longitude (1 degree of latitude is about 111,000 m in Beijing), a lower width then corresponds to a finer grid. 
 The start location or origin for a trajectory will be given by the square that its first
 measurement belongs to and the end location or destination by the square that its last
 measurement belongs to. In general, it might be more appropriate to
@@ -633,7 +603,7 @@ adversary to infer a big portion of the trajectory of an individual
 knowing only a few measurements.  
 This is the natural tradeoff between the {\em societal utility gained} through the preservation of the ODM in decision problems, where ODM is a sufficient statistic, and the {\em individual privacy lost} by the sufficient sanitizer.
 
-We have simulated our protocol with an offline algorithm. Although, the protocol could be run in real time in which data is transmitted by user devices to our sanitizer that communicates and collaborates with a server. By changing the sanitizer for a group protocol, the protocol could provide security against collusion between the service provider and the anonymizer.
+We have simulated our protocol with an offline algorithm. Although, the protocol could be run in real time in which data is transmitted by user devices to our sanitizer that communicates and collaborates with a server. By changing the sanitizer for a group protocol, the protocol could provide security against collusion between the service provider and the sanitizer.
 
 
 It must be mentioned that swapping cannot be carried out when an individual does not come close to anyone along their path. 
