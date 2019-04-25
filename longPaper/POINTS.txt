@@ -1,0 +1,10 @@
+1. Mix-zones are special cases of Swap-Mob, where the swap-mob-resolution is small enough. 
+ - Specifically, a mixed-zone introduces a possibly larger swap-node where the trajectories going in to the swap node get "new ids" as they come out.
+   And, this is equivalent to splitting the trajectoies (by removing the edge that comes of out the swap-node)
+2. Adaptive-Swapping:
+  - Let each swap node i have a swappable fraction $s_i \in [0,1]$. If s_i = 0 for all i then Swap-Mob return the full data and = 1 returns naive swap-mob.
+    In an adaptive Swap-Mob we can set the s_i as close to zero as necessary at the appropriate swap-nodes that are in need of (traffic/security) control operations and therefore require the necessary statistics of mobility data (for eg. longer segments of real trajectories in the viscinity of the traffic jammed area) WHILE guaranteeing k-anoymity specified by the adversary's predicate.
+3. Swap-Mob preserves the estimator \hat{P} of the transition prob matrix of the continuous time first-order Markov chain of independent RWs - therefoe it is a suffcicient sanitizer for this model. Can also allow O-D matrix constrained sap-mob for ensuring more information is preserved.
+4. Differential privacy focused on \hat{P} (see photo).
+   - use maximum_i TV distance between i-th row of \hat{P} and \hat{P'} ()where P' is obtaine dy removing an edge/transition in any one individual to identify highly sensitive trajectory segments and iteratively remove them until the TV distance across all rows for any  \hat{P} and \hat{P'} is < 0.01 or some threshold.
+   - then add "topological noise" and or or random-surfer-stationary noise with mixture weights \epsilon_T and \epsilon_S and (1-\epsilon_S-\epsilon_T) ...
