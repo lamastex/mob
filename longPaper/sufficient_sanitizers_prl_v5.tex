@@ -694,7 +694,7 @@ have less than 10 measurements (compared to an average of more than
  
 For measuring privacy we will define the Adversary Information Gain measure adapting the Sensitive Attribute Risk measure from \cite{Salas:2019}. Sensitive Attribute Risk considers the fraction of the published attributes of an individual that is part of its original attributes. 
 
-By considering the sensitive attributes to be locations in our setting, as opposed to movies in the case of recommender systems, the Adversary Information Gain (AIG) is the fraction of the original trajectory that is disclosed by an adversary who knows a point of it.
+By considering the sensitive attributes to be locations in our setting, as opposed to movies in the classical case of recommender systems, the Adversary Information Gain (AIG) is the fraction of the original trajectory that is disclosed by an adversary who knows a point of it.
 We consider that an adversary can propagate his knowledge of one data point to the whole segment in-between swaps: we assume that the adversary follows the trajectory from the measurement forward and backward in time until the next and previous swaps occured. 
 %Then, we have to measure the 
 %length of the segments between the swaps. 
@@ -750,7 +750,7 @@ However, for keeping it
 simple, we choose to use only the first and last measurement.
 More generally, our approach allows for an arbitrary set of subsets of the city and arbitrary time-intervals to specify Origins and Destinations in a single ODM, or even a sequence of ODMs, but we use a simple grid-based partition at different spatial resolutions to illustrate the effects on privacy here.  
 
-We analyze how the preserved privacy changes when we go from having
+We empirically evaluate how the preserved privacy changes when we go from having
 no grid to having a very coarse grid and then making it finer and
 finer.
 
@@ -793,11 +793,10 @@ swaps, we expect it to quickly decrease as the grid becomes finer, see Figure
 
 We can conclude that the preserved privacy is greatly influenced by
 the grid size of the ODM. If the grid is too fine almost no swaps occur
-and the SwapMob algorithm is not efficient. For very coarse grids the
-privacy is still reduced but depending on the application it could still
-be considered acceptable.  
+and the SwapMob algorithm returns almost the original data and preserves no privacy as measure through AIG. For very coarse grids the privacy is still reduced but depending on the application it could still
+be considered acceptable. 
 Furthermore, by defining a sequence of ODMs, say $(M_1,M_2,\ldots,M_m)$, specified by arbitrary subsets of space 
-and intervals of time $[t_{i,o},t'_{i,o}]$ and $[t_{i,d},t'_{i,d}]$ for each $M_i$, one can increase privacy by increasing the number of swappable trajectories. Such a sequence of ODMs should generally be of greater utility for certain decision problems. We defer a thorough investigation of sufficient sanitizers that preserve sufficient statistics for such sequences of ODMs across spatial and temporal resolutions in a principled manner for future research.  
+and intervals of time $[t_{i,o},t'_{i,o}]$ and $[t_{i,d},t'_{i,d}]$ for each $M_i$, one can increase privacy by increasing the number of swappable trajectories. Such a sequence of ODMs should generally be of greater utility for certain decision problems involving traffic flows. We defer a thorough investigation of sufficient sanitizers that preserve sufficient statistics for such sequences of ODMs across spatial and temporal resolutions in a principled manner for future research.  
 
 \section{Conclusions}\label{Sec:conclusions}
 
