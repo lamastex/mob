@@ -417,7 +417,7 @@ Thus, any subsequent decision problem (e.g. traffic flow prediction from mobilit
 
 \section{SwapMob algorithm}\label{Sec:swapmob}
 
-In this section, we show that the algorithm SwapMob from \cite{Salas:2018-c} is a sufficient sanitizer.
+In this section, we show that the algorithm SwapMob from \cite{Salas:2018-c} is a sufficient sanitizer as it can preserve the sufficient statistics for the first three probability models in the previous section.
 
 We recall that SwapMob may be used for sanitization during data collection.
 The individuals communicate their data in real time to the SwapMob anonymizer that removes their IDs and communicates their locations to the Service Provider, which communicates back to SwapMob anonymizer when there are records that are closer than the prespecified thresholds for time $\tau$ and location $\chi$, to let SwapMob swap their IDs.
