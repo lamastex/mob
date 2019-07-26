@@ -371,11 +371,12 @@ Origin-Destination Matrices (ODMs) are routinely used in transportation modellin
 Traffic flows can be estimated as part of trip generation modelling using Origin-Destination (OD) demand matrices, infrastructure network capacity and traffic controls. 
 OD trip generation models serve as a basis for transport planning, construction, performance assessment and, as such, have potential to affect regional economies. 
 
-Although ODMs can be more general, we consider an ODM based on $n$ states that can be the origin $i$ and/or the destination $j$. 
+Although ODMs can be more general, we consider an ODM based on $n$ states that can be the origin $i$ and/or the destination $j$ under a given time interval. 
 Such an ODM, as shown in Table~\ref{table:ODMeg} is a matrix of size $(n+1) \times (n+1)$ containing flow values $N_{ij}$, such as the number or share of trips from $i$ to $j$ \citep{Rodrigue2009}.  
 The last row contains total arrivals to each destination $j$ from all origins, the last column contains the total departures from each origin $i$ to all destinations, and the bottom right element contains the total flows in the model 
 %$N_{i+1,j+1} = \sum_{j=1}^n \sum_{i=1}^n N_{i,j}$ 
-\citep{EVANS1970}.
+\citep{EVANS1970}. 
+Note that a sequence of ODMs over discrete time intervals are the sufficient statistics for a time-inhomogeneous Markov chain model. 
 
 \begin{table}[]
 \caption{An Origin Destination Matrix from a spatial interaction survey}
@@ -401,7 +402,7 @@ The last row contains total arrivals to each destination $j$ from all origins, t
 
 ODM are constructed based on estimations from travel studies as part of traffic census: field, online and telephone traffic surveys, traffic volume counts \citep{robillard1975}, check-point intercept interviews, license plate and other video analyses, {\it etc}.  
 Automatically generated data \citep[e.g. CDR]{iqbal2014} are increasingly used as a base for constructing ODMs, reducing survey costs and improving accuracy of route choice estimations. 
-Thus, a sufficient sanitizer for ODMs from trajectory data will keep the utility from ODM while providing additional privacy guarantees to the individuals associated with the trajectories. 
+Thus, a sufficient sanitizer that can preserve the ODMs from trajectory data will provide the utility from ODMs while ensuring additional privacy guarantees to the individuals associated with the trajectories. 
 
 ODM parameters include: cut-off departure time from Origins, cut-off arrival time to Destinations, mode of transportation, and spatial resolution or aggregation level for Origins and Destinations. 
 In Section~\ref{S:PrivacyODM}, we empirically assess the loss of privacy under a given metric as this spatial resolution varies for a single ODM (e.g., by Traffic Analysis Zones, ZIP code areas, square grid, etc.). Spatial aggregation of Origins and Destinations by zones can provide zone measurements and disaggregation by links can provide link-based counts. 
