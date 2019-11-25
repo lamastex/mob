@@ -1,0 +1,32 @@
+This is BibTeX, Version 0.99dThe top-level auxiliary file: thesis.aux
+The style file: unsrt.bst
+I couldn't open database file references.bib.bib
+---line 207 of file thesis.aux
+ : \bibdata{references.bib
+ :                        }
+I'm skipping whatever remains of this command
+I found no database files---while reading file thesis.aux
+Warning--I didn't find a database entry for "novak_application_2013"
+Warning--I didn't find a database entry for "pinelli_data-driven_2016"
+Warning--I didn't find a database entry for "de_montjoye_unique_2013"
+Warning--I didn't find a database entry for "gambs_show_2010"
+Warning--I didn't find a database entry for "taylor_no_2016"
+Warning--I didn't find a database entry for "primault_long_2018"
+Warning--I didn't find a database entry for "sweeney_k-anonymity:_2002"
+Warning--I didn't find a database entry for "abul_never_2008"
+Warning--I didn't find a database entry for "machanavajjhala_l-diversity:_2006"
+Warning--I didn't find a database entry for "andres_geo-indistinguishability:_2013"
+Warning--I didn't find a database entry for "ghinita_prive:_2007"
+Warning--I didn't find a database entry for "jiang_publishing_2013"
+Warning--I didn't find a database entry for "quercia_spotme_2011"
+Warning--I didn't find a database entry for "pelekis_privacy-aware_2011"
+Warning--I didn't find a database entry for "kido_protection_2005"
+Warning--I didn't find a database entry for "beresford_location_2003"
+Warning--I didn't find a database entry for "beresford_mix_2004"
+Warning--I didn't find a database entry for "salas_swapmob:_2018"
+Warning--I didn't find a database entry for "yuan_t-drive:_2010"
+Warning--I didn't find a database entry for "yuan_driving_2011"
+Warning--I didn't find a database entry for "gambs_next_2012"
+Warning--I didn't find a database entry for "yan_semitri:_2011"
+Warning--I didn't find a database entry for "norris_markov_1997"
+(There were 2 error messages)

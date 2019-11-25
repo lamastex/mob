@@ -1,3 +1,20 @@
+@BOOK{Torra:book,
+  TITLE = {Data privacy: Foundations, new developments and the big data challenge},
+  AUTHOR = {Torra, Vicen\c{c}},
+  YEAR = {2017}, 
+  PUBLISHER = {Springer}
+}
+
+@ARTICLE{Primault:2019,
+author={V. {Primault} and A. {Boutet} and S. B. {Mokhtar} and L. {Brunie}},
+journal={IEEE Communications Surveys Tutorials},
+title={The Long Road to Computational Location Privacy: A Survey},
+year={2019},
+volume={21},
+number={3},
+pages={2772-2793},
+}
+
 @inproceedings{Abul2008,
  author = {Abul, Osman and Bonchi, Francesco and Nanni, Mirco},
  title = {Never Walk Alone: Uncertainty for Anonymity in Moving Objects Databases},
@@ -6,11 +23,6 @@
  year = {2008},
  isbn = {978-1-4244-1836-7},
  pages = {376--385},
- numpages = {10},
- 
- acmid = {1547219},
- publisher = {IEEE Computer Society},
- address = {Washington, DC, USA},
 } 
 
 @inproceedings{Agrawal:1995,
@@ -21,12 +33,6 @@
  year = {1995},
  isbn = {0-8186-6910-1},
  pages = {3--14},
- numpages = {12},
-
- acmid = {655281},
- publisher = {IEEE Computer Society},
- address = {Washington, DC, USA},
- keywords = {AprioriAll, AprioriSome, algorithms, customer transactions, customer-ID, knowledge acquisition, large database, pattern matching, retail data processing, scale-up properties, sequential pattern mining, transaction time, very large databases},
 }
 
 @article{Beresford2003,
@@ -40,11 +46,6 @@
  year = {2003},
  issn = {1536-1268},
  pages = {46--55},
- numpages = {10},
- acmid = {642740},
- publisher = {IEEE Educational Activities Department},
- address = {Piscataway, NJ, USA},
- keywords = {privacy, anonymity, pseudonymity, location, location-aware, Active Bat, mix network, mix zone},
 }
 
 @inproceedings{Beresford04mixzones,
@@ -77,25 +78,18 @@ year={2011},
 volume={12},
 number={1},
 pages={141-151},
-keywords={cellular radio;mobile handsets;telecommunication traffic;Rome;cell phones;mobile cellular networks;real-time urban monitoring;traffic conditions;Cellular phones;Global Positioning System;Intelligent transportation systems;Monitoring;Real time systems;Sensors;Trajectory;Cell phone network;Global Positioning System (GPS);Global System for Mobile Communications (GSM);intelligent transportation system (ITS);location-based services (LBSs);real-time control systems;wireless locationing},
-
 ISSN={1524-9050},
-month={March},}
+}
 
 @InProceedings{Chatzik:2013,
 author="Chatzikokolakis, Konstantinos
 and Andr{\'e}s, Miguel E.
 and Bordenabe, Nicol{\'a}s Emilio
 and Palamidessi, Catuscia",
-editor="De Cristofaro, Emiliano
-and Wright, Matthew",
 title="Broadening the Scope of Differential Privacy Using Metrics",
 booktitle="Privacy Enhancing Technologies",
 year="2013",
-publisher="Springer Berlin Heidelberg",
-address="Berlin, Heidelberg",
 pages="82--102",
-abstract="Differential Privacy is one of the most prominent frameworks used to deal with disclosure prevention in statistical databases. It provides a formal privacy guarantee, ensuring that sensitive information relative to individuals cannot be easily inferred by disclosing answers to aggregate queries. If two databases are adjacent, i.e. differ only for an individual, then the query should not allow to tell them apart by more than a certain factor. This induces a bound also on the distinguishability of two generic databases, which is determined by their distance on the Hamming graph of the adjacency relation.",
 isbn="978-3-642-39077-7"
 }
 
@@ -108,13 +102,6 @@ isbn="978-3-642-39077-7"
  isbn = {978-1-4503-1462-6},
  location = {Beijing, China},
  pages = {213--221},
- numpages = {9},
- 
- 
- acmid = {2339564},
- publisher = {ACM},
- address = {New York, NY, USA},
- keywords = {data mining, differential privacy, non-interactive release, transit data},
 } 
 
 @inproceedings{Cho2011,
@@ -126,13 +113,6 @@ isbn="978-3-642-39077-7"
  isbn = {978-1-4503-0813-7},
  location = {San Diego, California, USA},
  pages = {1082--1090},
- numpages = {9},
- 
- 
- acmid = {2020579},
- publisher = {ACM},
- address = {New York, NY, USA},
- keywords = {communication networks, human mobility, social networks},
 } 
 
 @inproceedings{Damiani:2009,
@@ -145,12 +125,6 @@ isbn="978-3-642-39077-7"
  location = {Seattle, Washington},
  pages = {32--41},
  numpages = {10},
- 
- 
- acmid = {1667511},
- publisher = {ACM},
- address = {New York, NY, USA},
- keywords = {location based services, location privacy}
 }
 
 @TechReport{Danezis15,
@@ -165,15 +139,10 @@ author="Dwork, Cynthia
 and McSherry, Frank
 and Nissim, Kobbi
 and Smith, Adam",
-editor="Halevi, Shai
-and Rabin, Tal",
 title="Calibrating Noise to Sensitivity in Private Data Analysis",
 booktitle="Theory of Cryptography",
 year="2006",
-publisher="Springer Berlin Heidelberg",
-address="Berlin, Heidelberg",
 pages="265--284",
-abstract="We continue a line of research initiated in [10,11]on privacy-preserving statistical databases. Consider a trusted server that holds a database of sensitive information. Given a query function f mapping databases to reals, the so-called true answer is the result of applying f to the database. To protect privacy, the true answer is perturbed by the addition of random noise generated according to a carefully chosen distribution, and this response, the true answer plus noise, is returned to the user.",
 isbn="978-3-540-32732-5"
 }
 
@@ -207,10 +176,7 @@ day="01",
 volume="15",
 number="4",
 pages="699--726",
-abstract="Mobile devices with global positioning capabilities allow users to retrieve points of interest (POI) in their proximity. To protect user privacy, it is important not to disclose exact user coordinates to un-trusted entities that provide location-based services. Currently, there are two main approaches to protect the location privacy of users: (i) hiding locations inside cloaking regions (CRs) and (ii) encrypting location data using private information retrieval (PIR) protocols. Previous work focused on finding good trade-offs between privacy and performance of user protection techniques, but disregarded the important issue of protecting the POI dataset D. For instance, location cloaking requires large-sized CRs, leading to excessive disclosure of POIs (O(|D|) in the worst case). PIR, on the other hand, reduces this bound to {\$}O({\backslash}sqrt{\{}|D|{\}}){\$}, but at the expense of high processing and communication overhead. We propose hybrid, two-step approaches for private location-based queries which provide protection for both the users and the database. In the first step, user locations are generalized to coarse-grained CRs which provide strong privacy. Next, a PIR protocol is applied with respect to the obtained query CR. To protect against excessive disclosure of POI locations, we devise two cryptographic protocols that privately evaluate whether a point is enclosed inside a rectangular region or a convex polygon. We also introduce algorithms to efficiently support PIR on dynamic POI sub-sets. We provide solutions for both approximate and exact NN queries. In the approximate case, our method discloses O(1) POI, orders of magnitude fewer than CR- or PIR-based techniques. For the exact case, we obtain optimal disclosure of a single POI, although with slightly higher computational overhead. Experimental results show that the hybrid approaches are scalable in practice, and outperform the pure-PIR approach in terms of computational and communication overhead.",
 issn="1573-7624",
-
-
 }
 
 
@@ -231,10 +197,7 @@ day="01",
 volume="214",
 number="1",
 pages="49--75",
-abstract="We present a research roadmap of a Planetary Nervous System (PNS), capable of sensing and mining the digital breadcrumbs of human activities and unveiling the knowledge hidden in the big data for addressing the big questions about social complexity. We envision the PNS as a globally distributed, self-organizing, techno-social system for answering analytical questions about the status of world-wide society, based on three pillars: social sensing, social mining and the idea of trust networks and privacy-aware social mining. We discuss the ingredients of a science and a technology necessary to build the PNS upon the three mentioned pillars, beyond the limitations of their respective state-of-art. Social sensing is aimed at developing better methods for harvesting the big data from the techno-social ecosystem and make them available for mining, learning and analysis at a properly high abstraction level. Social mining is the problem of discovering patterns and models of human behaviour from the sensed data across the various social dimensions by data mining, machine learning and social network analysis. Trusted networks and privacy-aware social mining is aimed at creating a new deal around the questions of privacy and data ownership empowering individual persons with full awareness and control on own personal data, so that users may allow access and use of their data for their own good and the common good. The PNS will provide a goal-oriented knowledge discovery framework, made of technology and people, able to configure itself to the aim of answering questions about the pulse of global society. Given an analytical request, the PNS activates a process composed by a variety of interconnected tasks exploiting the social sensing and mining methods within the transparent ecosystem provided by the trusted network. The PNS we foresee is the key tool for individual and collective awareness for the knowledge society. We need such a tool for everyone to become fully aware of how powerful is the knowledge of our society we can achieve by leveraging our wisdom as a crowd, and how important is that everybody participates both as a consumer and as a producer of the social knowledge, for it to become a trustable, accessible, safe and useful public good.",
 issn="1951-6401",
-
-
 }
 
 
@@ -257,12 +220,6 @@ issn="1951-6401",
  isbn = {978-3-642-01515-1},
  location = {Nara, Japan},
  pages = {390--397},
- numpages = {8},
- 
- 
- acmid = {1560038},
- publisher = {Springer-Verlag},
- address = {Berlin, Heidelberg},
 } 
 
 @ARTICLE{Hoh06,
@@ -273,8 +230,6 @@ year={2006},
 volume={5},
 number={4},
 pages={38-46},
-keywords={data mining;data privacy;database management systems;security of data;traffic information systems;data analysis;data mining algorithm;data suppression technique;intelligent transportation system;probe vehicle;road surface problem;telematics service provider database;traffic-monitoring system;Cameras;Computerized monitoring;Information security;Intelligent transportation systems;Intelligent vehicles;Privacy;Probes;Road transportation;Road vehicles;Telematics;clustering;data integrity;privacy;security;traffic monitoring systems},
-
 ISSN={1536-1268},
 month={Oct},}
 
@@ -286,12 +241,6 @@ month={Oct},}
  year = {2005},
  isbn = {0-7695-2369-2},
  pages = {194--205},
- numpages = {12},
- 
- 
- acmid = {1128483},
- publisher = {IEEE Computer Society},
- address = {Washington, DC, USA},
 }
 
 
@@ -305,13 +254,6 @@ month={Oct},}
  location = {Baltimore, Maryland, USA},
  pages = {12:1--12:12},
  articleno = {12},
- numpages = {12},
- 
- 
- acmid = {2484846},
- publisher = {ACM},
- address = {New York, NY, USA},
- keywords = {differential privacy, noise sampling, trajectory publication},
 } 
 
 @inproceedings{Kifer:2011,
@@ -323,24 +265,12 @@ month={Oct},}
  isbn = {978-1-4503-0661-4},
  location = {Athens, Greece},
  pages = {193--204},
- numpages = {12},
- 
- 
- acmid = {1989345},
- publisher = {ACM},
- address = {New York, NY, USA},
- keywords = {differential privacy, privacy},
 } 
 
 @article{demontjoye2013,
-  added-at = {2015-11-25T18:44:48.000+0100},
   address = {Nature Publishing Group},
   author = {de Montjoye, Yves-Alexandre and Hidalgo, César A and Verleysen, Michel and Blondel, Vincent D},
-  
   journal = {Scientific Reports},
-  keywords = {2015 gsm individual kde mining mobility privacy seminar},
-  publisher = {Macmillan Publishers Limited. All rights reserved},
-  timestamp = {2015-11-25T19:13:12.000+0100},
   title = {Unique in the Crowd: The privacy bounds of human mobility},
   volume = 3,
   year = 2013
@@ -357,31 +287,12 @@ month={Oct},}
  year = {2014},
  issn = {1041-4347},
  pages = {1200--1210},
- numpages = {11},
- 
- 
- acmid = {2705577},
- publisher = {IEEE Educational Activities Department},
- address = {Piscataway, NJ, USA},
 } 
 
 @conference {Pensa2008,
 	title = {Pattern-Preserving k-Anonymization of Sequences and its Application to Mobility Data Mining},
 	booktitle = {PiLBA},
 	year = {2008},
-	abstract = {Sequential pattern mining is a major research field in knowledge
-discovery and data mining. Thanks to the increasing availability of
-transaction data, it is now possible to provide new and improved services
-based on users{\textquoteright} and customers{\textquoteright} behavior. However, this puts the citizen{\textquoteright}s
-privacy at risk. Thus, it is important to develop new privacy-preserving
-data mining techniques that do not alter the analysis results significantly.
-In this paper we propose a new approach for anonymizing sequential
-data by hiding infrequent, and thus potentially sensible, subsequences.
-Our approach guarantees that the disclosed data are k-anonymous and
-preserve the quality of extracted patterns. An application to a real-world
-moving object database is presented, which shows the effectiveness of our
-approach also in complex contexts.},
-	
 	author = {Ruggero G. Pensa and Anna Monreale and Fabio Pinelli and Dino Pedreschi}
 }
 
@@ -397,21 +308,13 @@ approach also in complex contexts.},
 @Incollection{Romero-Tris2016,
 author="Romero-Tris, Cristina
 and Meg{\'i}as, David",
-editor="Garcia-Alfaro, Joaquin
-and Navarro-Arribas, Guillermo
-and Aldini, Alessandro
-and Martinelli, Fabio
-and Suri, Neeraj",
 title="User-Centric Privacy-Preserving Collection and Analysis of Trajectory Data",
-bookTitle="Data Privacy Management, and Security Assurance: 10th International Workshop, DPM 2015, and 4th International Workshop, QASA 2015, Vienna, Austria, September 21--22, 2015. Revised Selected Papers",
+bookTitle="Data Privacy Management, DPM 2015",
 year="2016",
 publisher="Springer International Publishing",
 address="Cham",
 pages="245--253",
-abstract="Due to the increasing use of location-aware devices such as smartphones, there is a large amount of available trajectory data whose improper use or publication can threaten users' privacy. Since trajectory information contains personal mobility data, it may reveal sensitive details like habits of behavior, religious beliefs, and sexual preferences. Current solutions focus on anonymizing data before its publication. Nevertheless, we argue that this approach gives the user no control about the information she shares. For this reason, we propose a novel approach that works inside users' mobile devices, where users can decide and configure the quantity and accuracy of shared data.",
 isbn="978-3-319-29883-2",
-
-
 }
  
 
@@ -426,14 +329,6 @@ isbn="978-3-319-29883-2",
  year = {2018},
  issn = {1556-4681},
  pages = {67:1--67:27},
- articleno = {67},
- numpages = {27},
- 
- 
- acmid = {3233185},
- publisher = {ACM},
- address = {New York, NY, USA},
- keywords = {Trajectory anonymization, privacy, user-centric protocol},
 } 
  
  
@@ -448,27 +343,19 @@ day="01",
 volume="12",
 number="3",
 pages="263--274",
-abstract="With the progress in the information and communication fields, new opportunities and technologies for statistical analysis, knowledge discovery, data mining, and many other research areas have emerged, together with new challenges for privacy and data protection. Nowadays several personal records are kept in computerized databases. Personal data is collected and kept in census databases, medical databases, employee databases, among others. There has always been an asymmetry between the benefits of computerized databases and the rights of individual data subjects. Some data protection principles can be derived from the legal framework. In this survey, we present some basic cryptographic and non-cryptographic techniques that may be used for enhancing privacy, we focus mainly on anonymization in databases and networks, discuss some differences and interactions among the well-known models of k-anonymity and differential privacy and finally present some challenges to privacy that come from big data analytics.",
 issn="1661-8289",
-
-
 }
 
 
 @InProceedings{Salas:2018-b,
 author="Salas, Juli{\'a}n
 and Torra, Vicen{\c{c}}",
-editor="Garcia-Alfaro, Joaquin
-and Herrera-Joancomart{\'i}, Jordi
-and Livraga, Giovanni
-and Rios, Ruben",
 title="A General Algorithm for k-anonymity on Dynamic Databases",
 booktitle="Data Privacy Management, Cryptocurrencies and Blockchain Technology",
 year="2018",
 publisher="Springer International Publishing",
 address="Cham",
 pages="407--414",
-abstract="In this work we present an algorithm for k-anonymization of datasets that are changing over time. It is intended for preventing identity disclosure in dynamic datasets via microaggregation. It supports adding, deleting and updating records in a database, while keeping k-anonymity on each release.",
 isbn="978-3-030-00305-0"
 }
 
@@ -476,15 +363,12 @@ isbn="978-3-030-00305-0"
 author="Salas, Juli{\'a}n
 and Meg{\'i}as, David
 and Torra, Vicen{\c{c}}",
-editor="Domingo-Ferrer, Josep
-and Montes, Francisco",
 title="SwapMob: Swapping Trajectories for Mobility Anonymization",
 booktitle="Privacy in Statistical Databases",
 year="2018",
 publisher="Springer International Publishing",
 address="Cham",
 pages="331--346",
-abstract="Mobility data mining can improve decision making, from planning transports in metropolitan areas to localizing services in towns. However, unrestricted access to such data may reveal sensible locations and pose safety risks if the data is associated to a specific moving individual. This is one of the many reasons to consider trajectory anonymization.",
 isbn="978-3-319-99771-1"
 }
 
@@ -495,11 +379,8 @@ journal="Journal of Ambient Intelligence and Humanized Computing",
 year="2019",
 month="Jul",
 day="13",
-abstract="Big Data is characterized by large volumes of highly dynamical data and is used for discovering hidden trends and correlations. However, as more data is collected, previous pieces of information can be put together to facilitate linkage of private records. In this context, when protecting the privacy of data subjects, the same attributes that are to be protected may be used for further re-identification, that is, sensitive attributes may be used as quasi-identifiers. For example, in high-dimensional data such as recommendations, transaction records or geo-located data, previously published transactions and locations may be used to uncover further private transactions and locations. In this paper, we propose a k-anonymization algorithm and a metric for privacy in databases in which all the attributes are quasi-identifiers as well as sensitive attributes. We apply our algorithm on high dimensional datasets for model-based and memory-based collaborative filtering, and use the metric to perform privacy comparisons between different methods of protection such as k-anonymity and differential privacy. We show the applicability of our method by performing tests on the large and sparse dataset (MovieLens 20M) of 20 million ratings that 138,493 users gave to 27,278 movies.",
 issn="1868-5145",
 }
-
-
 
 
 @inproceedings{Samarati:1998,
@@ -510,24 +391,14 @@ issn="1868-5145",
  year = {1998},
  isbn = {0-89791-996-3},
  location = {Seattle, Washington, USA},
- pages = {188--},
- 
- 
- acmid = {275508},
- publisher = {ACM},
- address = {New York, NY, USA},
+ pages = {188},
 } 
 
 @article{scellato2011sociospatial,
   added-at = {2017-02-02T08:43:09.000+0100},
   author = {Scellato, Salvatore and Noulas, Anastasios and Lambiotte, Renaud and Mascolo, Cecilia},
-  
-  interhash = {931eb78b908849e1db34686f9fc2e5bb},
-  intrahash = {2e084df95a2fd98831e11c72af773139},
   journal = {ICWSM},
-  keywords = {diss inthesis msns network networks social spatio temopral},
   pages = {329--336},
-  timestamp = {2017-02-02T08:43:09.000+0100},
   title = {Socio-spatial properties of online location-based social networks.},
   volume = 11,
   year = 2011
@@ -542,11 +413,6 @@ issn="1868-5145",
  isbn = {3-540-00565-X},
  location = {San Francisco, CA, USA},
  pages = {41--53},
- numpages = {13},
- 
- acmid = {1765303},
- publisher = {Springer-Verlag},
- address = {Berlin, Heidelberg},
 } 
 
 @article{Tanimoto1978,
@@ -560,12 +426,6 @@ issn="1868-5145",
  year = {1978},
  issn = {0004-5411},
  pages = {517--525},
- numpages = {9},
- 
- 
- acmid = {322093},
- publisher = {ACM},
- address = {New York, NY, USA},
 } 
 
 @inproceedings{Terrovitis:2008,
@@ -576,12 +436,6 @@ issn="1868-5145",
  year = {2008},
  isbn = {978-0-7695-3154-0},
  pages = {65--72},
- numpages = {8},
- 
- acmid = {1397842},
- publisher = {IEEE Computer Society},
- address = {Washington, DC, USA},
- keywords = {privacy, trajectories, spatiotemporal, spatial l-diversity},
 } 
 
 @article{Terrovitis:2011,
@@ -595,11 +449,6 @@ issn="1868-5145",
  year = {2011},
  issn = {1931-0145},
  pages = {6--18},
- numpages = {13},
- 
- acmid = {2031334},
- publisher = {ACM},
- address = {New York, NY, USA},
 } 
 
 @inproceedings{Xiao:2015,
@@ -611,12 +460,6 @@ issn="1868-5145",
  isbn = {978-1-4503-3832-5},
  location = {Denver, Colorado, USA},
  pages = {1298--1309},
- numpages = {12},
- 
- acmid = {2813640},
- publisher = {ACM},
- address = {New York, NY, USA},
- keywords = {differential privacy, location privacy, location-based services, planar isotropic mechanism, sensitivity hull},
 } 
 
 @inproceedings{Yuan2010,
@@ -628,13 +471,6 @@ issn="1868-5145",
  isbn = {978-1-4503-0428-3},
  location = {San Jose, California},
  pages = {99--108},
- numpages = {10},
- 
- 
- acmid = {1869807},
- publisher = {ACM},
- address = {New York, NY, USA},
- keywords = {T-drive, driving directions, landmark graph, taxi trajectories, time-dependent fast route},
 }
 
 @inproceedings{Yuan2011,
@@ -646,13 +482,6 @@ issn="1868-5145",
  isbn = {978-1-4503-0813-7},
  location = {San Diego, California, USA},
  pages = {316--324},
- numpages = {9},
- 
- 
- acmid = {2020462},
- publisher = {ACM},
- address = {New York, NY, USA},
- keywords = {cyber-physical, driving directions, traffic prediction, trajectory},
 } 
 
 @inproceedings{Zang:2011,
@@ -664,13 +493,6 @@ issn="1868-5145",
  isbn = {978-1-4503-0492-4},
  location = {Las Vegas, Nevada, USA},
  pages = {145--156},
- numpages = {12},
- 
- 
- acmid = {2030630},
- publisher = {ACM},
- address = {New York, NY, USA},
- keywords = {cellular data, k-anonymity, location, privacy},
 } 
 
 @inproceedings{Zheng2009,
@@ -682,13 +504,6 @@ issn="1868-5145",
  isbn = {978-1-60558-487-4},
  location = {Madrid, Spain},
  pages = {791--800},
- numpages = {10},
- 
- 
- acmid = {1526816},
- publisher = {ACM},
- address = {New York, NY, USA},
- keywords = {GPS trajectories, location recommendation, spatial data mining, user travel experience},
 } 
 
 @article{Zhou:2008,
@@ -702,12 +517,6 @@ issn="1868-5145",
  year = {2008},
  issn = {1931-0145},
  pages = {12--22},
- numpages = {11},
- 
- 
- acmid = {1540279},
- publisher = {ACM},
- address = {New York, NY, USA},
 } 
 
 @book{Rodrigue2009,
@@ -738,8 +547,6 @@ number = "1",
 pages = "19 - 36",
 year = "1970",
 issn = "0041-1647",
-
-
 author = "A.W. Evans",
 }
 
@@ -751,7 +558,6 @@ number = "3",
 pages = "253 - 269",
 year = "1967",
 issn = "0041-1647",
-
 author = "A.G. Wilson",
 }
 
@@ -770,8 +576,6 @@ author = "A.G. Wilson",
 	title = {Estimating the O-D matrix from observed link volumes},
 	volume = {9},
 	issn = {0041-1647},
-	
-	
 	pages = {123--128},
 	number = {2},
 	journal = {Transportation Research},
