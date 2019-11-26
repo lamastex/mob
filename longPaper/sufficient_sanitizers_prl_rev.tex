@@ -163,8 +163,8 @@ We finish with some conclusions and future work on Section \ref{Sec:conclusions}
 Sufficient santizers guarantee that the sufficient statistics after sanitization are not modified and, hence, the decisions obtained after sanitization will be equal to those based on an estimated probability model of the data before sanitization.
 }
 
-A {\em sanitizer} $\mathcal{S}$ is a map from the data space $\mathbb{D}$ to a sanitized data space $\tilde{\mathcal{D}}$, i.e., $\mathcal{S}(d): \mathbb{D} \to \tilde{\mathcal{D}}$, in such a way that the data in $\tilde{\mathcal{D}}$ has additional privacy guarantees than in $\mathbb{D}$.
-{\color{blue} For example, we may consider that  $\tilde{\mathcal{D}}$ is $k$-anonymous, or $\epsilon$-differentially private.}
+A {\em sanitizer} $\mathcal{S}$ is a randomized algorithm from the data space $\mathbb{D}$ to a sanitized data space $\widetilde{\mathbb{D}}$, i.e., $\mathcal{S}(d): \mathbb{D} \to \widetilde{\mathbb{D}}$, in such a way that the data in $\widetilde{\mathbb{D}}$ has additional privacy guarantees than in $\mathbb{D}$.
+{\color{blue} For example, we may consider that  $\widetilde{\mathbb{D}}$ is $k$-anonymous, or $\epsilon$-differentially private.}
 Recall that the sufficient statistics $T$ of data $X$ under a statistical experiment, i.e., a family of probability models $\{P_{\theta}: \theta \in \mathbf{\Theta}\}$ that is parametrized by $\theta \in \mathbf{\Theta}$, contains all the information in the data about $\theta$.  
 More formally, $T(X)=t$ is a sufficient statistic for the underlying parameter $\theta$ if the conditional probability $P_{\theta}(X | T(X)=t)$ is independent of $\theta$.  
 Intuitively speaking, all the information in the data about the typically unknown parameter of the probability model is captured by the sufficient statistic.  
@@ -248,17 +248,19 @@ Users communicate their location data in real time to SwapMob sanitizer that swa
 Therefore, the transitions between adjacent cells are kept intact, preserving the Markov model generated with $\chi$ and $\tau$ parameters.}
 \begin{algorithm}[t]
 \SetAlgoNoLine
-\KwIn{Trajectory database $(T_i)$ and partitions $(\tau_j)$ and $(\chi_k)$}
-\KwOut{Swapped trajectories $Sw(T_i)$}
+\KwIn{Trajectory database $d=(T_i)$ and partitions $(\tau_j)$ and $(\chi_k)$}
+\KwOut{Swapped trajectories $\widetilde{d} = \mathcal{S}(d)$}
+\SetKwInput{kwInit}{Initialization}
+\kwInit{$\widetilde{d} \gets d$}
 \For{each time interval $\tau_j$}{
 \For{each cell $\chi_k$}{
   \If{user $x$ is located at cell $\chi_k$ at timestamp $t_x\in \tau_j$}{
     add user $x$ to swap list $S_{\tau_j, \chi_k}$          
   }
 }
-Swap partial trajectories $T_x$ between users $x\in S_{\tau_j, \chi_k}$\\
+Update $\widetilde{d}$ by swapping partial trajectories $(T_x)$ between users $x\in S_{\tau_j, \chi_k}$\\
 }    
-\KwRet {Swapped trajectories $Sw(T_i)$}
+\KwRet{Swapped trajectories $\widetilde{d}$}
 
 \caption{SwapMob Algorithm from \cite{Salas:2018-c}}\label{Alg:swap}
 \label{alg:one}
@@ -479,7 +481,7 @@ For a brief overview of privacy protection techniques and a discussion of $k$-an
 
 \cite{Chen:2012} consider a differential privacy model for transit data publication using data from the Soci\'{e}t\'{e} de Transport de Montr\'{e}al (STM). 
 The data are modeled sequentially in a prefix tree that represents all the sequences by grouping those with the same prefix into the same branch.
-Their algorithm takes a raw sequential dataset $D$, a privacy budget $\epsilon$, a user specified height of the prefix tree $h$ and a location taxonomy tree $T$, and returns a sanitized dataset $\tilde{\mathcal{D}}$ satisfying $\epsilon$-differential privacy.
+Their algorithm takes a raw sequential dataset $D$, a privacy budget $\epsilon$, a user specified height of the prefix tree $h$ and a location taxonomy tree $T$, and returns a sanitized dataset $\widetilde{\mathbb{D}}$ satisfying $\epsilon$-differential privacy.
 For measuring utility, in the STM case, sanitized data are mainly used to perform two
 data mining tasks, count query and frequent sequential pattern mining \citep{Agrawal:1995}.
 \cite{Xiao:2015} propose a differentially private algorithm for location privacy that follows a discussion on the different notions of adjacency used for  differential privacy \cite{Chatzik:2013,Kifer:2011}.
