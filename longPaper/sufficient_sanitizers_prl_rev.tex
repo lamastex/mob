@@ -416,9 +416,7 @@ most of the measurements. On the other extreme, the finest grid is made up of sq
 %gets finer. 
 {\color{blue} 
 Thus, for grid size 1, the sufficient statistics for the trips between the four quadrants NE, NW, SE and SW of Beijing would be preserved, but not with a high precision, as it would result from a grid size 0.01. In that case, the sufficient statistics for the trips with same origin and destination up to 1,11 km would be preserved.
-}
-
-Since the preserved privacy heavily depends on the number of possible
+} Since the preserved privacy heavily depends on the number of possible
 swaps, we expect it to quickly decrease as the grid becomes finer, see Figure
 \ref{fig:ECDF-max-part-OD}. 
 
@@ -442,7 +440,7 @@ and intervals of time $[t_{i,o},t'_{i,o}]$ and $[t_{i,d},t'_{i,d}]$ for each $M_
 %
 %A similar approach is obtained in \cite{Pensa2008}, transforming sequences by adding, deleting, or substituting some points of the trajectory, while preserving also frequent sequential patterns \citep{Agrawal:1995} obtained by mining the anonymized data.
 %
-
+% AOVOID one sentence paragraphs like the one above - fixed by adding comment here
 \cite{Hoh2005} and \cite{Hoh06} discuss the use of mobility data for transportation planning and traffic monitoring applications to provide drivers with feedback on road and traffic conditions.
 For modelling the threats to privacy in such datasets, they assume that an adversary does not have information about which subset of samples belongs to a single user; 
 however, by using multi-target tracking algorithms \citep{Reid79analgorithm} subsequent location samples may be linked to an individual who is periodically reporting his anonymized location information.
