@@ -163,7 +163,7 @@ We finish with some conclusions and future work on Section \ref{Sec:conclusions}
 Sufficient santizers guarantee that the sufficient statistics after sanitization are not modified and, hence, the decisions obtained after sanitization will be equal to those based on an estimated probability model of the data before sanitization.
 }
 
-A {\em sanitizer} $\mathcal{S}$ is a randomized algorithm from the data space $\mathbb{D}$ to a sanitized data space $\widetilde{\mathbb{D}}$, i.e., $\mathcal{S}(d): \mathbb{D} \to \widetilde{\mathbb{D}}$, in such a way that the data in $\widetilde{\mathbb{D}}$ has additional privacy guarantees than in $\mathbb{D}$.
+A {\em sanitizer} $\mathcal{S}$ is a randomized algorithm from the data space $\mathbb{D}$ to a sanitized data space $\widetilde{\mathbb{D}}$, i.e., $\mathcal{S}(d)=\widetilde{d} : \mathbb{D} \to \widetilde{\mathbb{D}}$, in such a way that the sanitized data in $\widetilde{\mathbb{D}}$ has additional privacy guarantees than in $\mathbb{D}$.
 {\color{blue} For example, we may consider that  $\widetilde{\mathbb{D}}$ is $k$-anonymous, or $\epsilon$-differentially private.}
 Recall that the sufficient statistics $T$ of data $X$ under a statistical experiment, i.e., a family of probability models $\{P_{\theta}: \theta \in \mathbf{\Theta}\}$ that is parametrized by $\theta \in \mathbf{\Theta}$, contains all the information in the data about $\theta$.  
 More formally, $T(X)=t$ is a sufficient statistic for the underlying parameter $\theta$ if the conditional probability $P_{\theta}(X | T(X)=t)$ is independent of $\theta$.  
@@ -242,10 +242,10 @@ Thus, any subsequent decision problem (e.g. traffic flow prediction from mobilit
 In this section we provide some examples of how data can be used for making mobility maps and predictions that may be useful for intelligent transportation systems and for planning in a city.
 Then, we show that the SwapMob algorithm from \cite{Salas:2018-c} is a sufficient sanitizer as it can preserve the sufficient statistics for the first three probability models of the previous section and some of their natural generalizations. Thus, it can be used to sanitize data for intelligent transportation systems and city planning.
 
-Next, we give a high-level description of SwapMob in Algorithm \ref{Alg:swap}, for a more detailed explanation of the algorithm please refer to \cite{Salas:2018-c}. 
-SwapMob uses a grid partition $(\chi_k)$ of the space in squares of side $\chi$ and a partition $(\tau_j)$ of time in intervals of length $\tau$.
-Users communicate their location data in real time to SwapMob sanitizer that swaps their IDs when they are co-located (with respect $\chi$ and $\tau$) and communicates their change of locations to the Service Provider.
-Therefore, the transitions between adjacent cells are kept intact, preserving the Markov model generated with $\chi$ and $\tau$ parameters.}
+Next, we give a high-level description of SwapMob in Algorithm \ref{Alg:swap}. For a more detailed explanation of the algorithm please refer to \cite{Salas:2018-c}. 
+SwapMob uses a grid partition $(\chi_k)$ of the space into squares of side-length $\chi$ and a partition $(\tau_j)$ of time in intervals of length $\tau$.
+Users communicate their location data in real time to SwapMob sanitizer that swaps their IDs when they are co-located (with respect to $\chi$ and $\tau$) and communicates their change of locations to the Service Provider.
+Therefore, the transitions between adjacent cells are kept intact, thus preserving the sufficient statistics of the Markov model over the partitions specified by the parameters: $\chi$ and $\tau$.}
 \begin{algorithm}[t]
 \SetAlgoNoLine
 \KwIn{Trajectory database $d=(T_i)$ and partitions $(\tau_j)$ and $(\chi_k)$}
@@ -296,7 +296,8 @@ This actually preserves the sufficient statistics for the time-inhomogeneous Mar
 Note that, although we have discussed about discrete time Markov chains specified by units of $\tau$, we can just as easily generalize the underlying models to continuous-time Markov chains by appropriate projections and the use of timestamp information in the trajectories.   
 
 {\color{blue}
-Finally, note that any protection method that modifies the cell counts, transition counts or ODMs will not preserve the corresponding sufficient statistics. Thus, if we add noise to provide $\epsilon$-differential privacy or take average values for $k$-anonymity, then the cell counts will be affected, together with the transition counts and the ODMs, therefore $\epsilon$-differential privacy and $k$-anonymity will not be sufficient sanitizers for these statistics.
+Finally, note that any protection method that modifies the cell counts, transition counts or ODMs will not preserve the corresponding sufficient statistics of increasingly sophisticated probability models.  
+If we add noise naively to locations or timestamps for $\epsilon$-differential privacy or use averages for $k$-anonymity, then cell counts, transition counts and ODMs will be affected.  Thus, naive $\epsilon$-differential privacy and $k$-anonymity won't be sufficient sanitizers for these statistics.
 }
 
 \section{Empirical evaluation}\label{Sec:evaluation}
@@ -491,9 +492,9 @@ Their algorithm considers temporal correlations modeled as a Markov chain.
 %However, they leave the problem of protecting the entire trace of released locations as future work.
 
 {\color{blue}
-There are other techniques for anonymizing trajectories in data publishing and specific for
-location privacy. For surveys on this topic, cf. \cite{Fiore:2019} \cite{Primault:2019}.
-For a more general overview on data privacy and big data technologies, cf. \cite{Torra:book}}.  
+There are other techniques for anonymizing trajectories in data publishing and specifically for
+location privacy. For surveys on this topic cf. \cite{Fiore:2019}, \cite{Primault:2019}.
+For a more general overview on data privacy and big data technologies cf. \cite{Torra:book}}.  
 \section{Conclusions}\label{Sec:conclusions}
 We have defined the concept of sufficient sanitizer in which the utility requirement (as a sufficient statistic) is a priori defined, then the sanitization algorithm that preserves such utility is applied to the data.
 
@@ -505,15 +506,14 @@ the Adversary Information Gain (AIG) measure to compare the privacy provided whe
 AIG measures the capability of an adversary who knows exact points of the trajectory to infer a larger part of the full trajectory.
 We have added constraints on SwapMob to preserve the ODMs and performed experiments to show how AIG
 increases when we decrease the grid size for obtaining more precise ODMs.}
-This is the natural tradeoff between the {\em societal utility} gained through the preservation of the ODM, where ODM is a sufficient statistic, and the {\em individual privacy lost} by the sufficient sanitizer.
+This is the natural tradeoff between the {\em societal utility} gained through the preservation of the ODM, where ODM is a sufficient statistic, and the {\em individual privacy lost} by the sufficient sanitizer. 
+We remark that preserving sufficient statistics for various statistical decision problems is useful in traffic engineering and city planning, including exact count queries, transition count queries and ODM queries, which neither $k$-anonymity nor differential privacy can formally guarantee.
 
-We remark that preserving sufficient statistics for various statistical decision problems is useful in traffic engineering and city planning, including exact count queries, transition count queries and ODM queries, which neither $k$-anonymity nor differential privacy cannot formally guarantee.
 
-
-A formal privacy-preserving decision-theoretic framework based on probabilistic models and statistical experiments for co-trajectories that can be integrated across multiple spatial and temporal resolutions needs further investigations, especially when the computational setting becomes distributed to handle mobility data at a massive scale.
+A formal privacy-preserving decision-theoretic framework based on probabilistic models and statistical experiments for co-trajectories that can be integrated across multiple spatial and temporal resolutions in a distributed computational setting to handle massive mobility data needs further investigations.
 
 \section*{Acknowledgements}
-This work is partly funded by the Spanish Government through grants  RTI2018-095094-B-C22 ``CONSENT" and TIN2014-57364-C2-2-R ``SMARTGLACIS'', Swedish VR (project VR 2016-03346). Raazesh Sainudiin was partly funded by Combient Competence Centre for Data Engineering Sciences at Uppsala University and the Research Center for Cyber Security at Tel Aviv University established by the State of Israel, the Prime Minister's Office and Tel-Aviv University. 
+This work is partly funded by the Spanish Government through grants  RTI2018-095094-B-C22 ``CONSENT" and TIN2014-57364-C2-2-R ``SMARTGLACIS'', Swedish VR (project VR 2016-03346). Raaz Sainudiin was partly funded by Combient Competence Centre for Data Engineering Sciences at Uppsala University and the Research Center for Cyber Security at Tel Aviv University established by the State of Israel, the Prime Minister's Office and Tel-Aviv University. 
 Juli\'{a}n Salas acknowledges the support of a UOC postdoctoral fellowship.
 
 
