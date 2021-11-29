@@ -1,22 +1,22 @@
-\select@language {english}
-\contentsline {section}{\numberline {1}Introduction}{2}{section.1}
-\contentsline {section}{\numberline {2}Trajectories and co-trajectories}{3}{section.2}
-\contentsline {section}{\numberline {3}Privacy for co-trajectories}{6}{section.3}
-\contentsline {subsection}{\numberline {3.1}Re-identification for co-trajectories}{7}{subsection.3.1}
-\contentsline {subsection}{\numberline {3.2}Measuring privacy}{8}{subsection.3.2}
-\contentsline {section}{\numberline {4}SwapMob}{9}{section.4}
-\contentsline {subsection}{\numberline {4.1}Definition}{9}{subsection.4.1}
-\contentsline {subsubsection}{\numberline {4.1.1}Swapping for co-trajectories}{14}{subsubsection.4.1.1}
-\contentsline {subsubsection}{\numberline {4.1.2}Comparison to mix-zones}{19}{subsubsection.4.1.2}
-\contentsline {subsection}{\numberline {4.2}Algorithm}{22}{subsection.4.2}
-\contentsline {subsubsection}{\numberline {4.2.1}Performing swaps}{22}{subsubsection.4.2.1}
-\contentsline {subsubsection}{\numberline {4.2.2}Determining swaps}{24}{subsubsection.4.2.2}
-\contentsline {subsection}{\numberline {4.3}Analysis}{25}{subsection.4.3}
-\contentsline {paragraph}{SwapMob as a graph}{26}{section*.10}
-\contentsline {subsubsection}{\numberline {4.3.1}Privacy}{29}{subsubsection.4.3.1}
-\contentsline {paragraph}{Example co-trajectory}{31}{section*.15}
-\contentsline {paragraph}{T-drive co-trajectory}{34}{section*.19}
-\contentsline {subsection}{\numberline {4.4}Utility of data}{38}{subsection.4.4}
-\contentsline {section}{\numberline {5}Modelling co-trajectories}{40}{section.5}
-\contentsline {subsection}{\numberline {5.1}Markov chain models for co-trajectories}{42}{subsection.5.1}
-\contentsline {section}{\numberline {6}Conclusions and future work}{45}{section.6}
+\babel@toc {english}{}
+\contentsline {section}{\numberline {1}Introduction}{2}{section.1}%
+\contentsline {section}{\numberline {2}Trajectories and co-trajectories}{3}{section.2}%
+\contentsline {section}{\numberline {3}Privacy for co-trajectories}{6}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Re-identification for co-trajectories}{7}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Measuring privacy}{8}{subsection.3.2}%
+\contentsline {section}{\numberline {4}SwapMob}{9}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Definition}{9}{subsection.4.1}%
+\contentsline {subsubsection}{\numberline {4.1.1}Swapping for co-trajectories}{12}{subsubsection.4.1.1}%
+\contentsline {subsubsection}{\numberline {4.1.2}Comparison to mix-zones}{19}{subsubsection.4.1.2}%
+\contentsline {subsection}{\numberline {4.2}Algorithm}{22}{subsection.4.2}%
+\contentsline {subsubsection}{\numberline {4.2.1}Performing swaps}{22}{subsubsection.4.2.1}%
+\contentsline {subsubsection}{\numberline {4.2.2}Determining swaps}{23}{subsubsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.3}Analysis}{25}{subsection.4.3}%
+\contentsline {paragraph}{SwapMob as a graph}{26}{section*.10}%
+\contentsline {subsubsection}{\numberline {4.3.1}Privacy}{28}{subsubsection.4.3.1}%
+\contentsline {paragraph}{Example co-trajectory}{31}{section*.15}%
+\contentsline {paragraph}{T-drive co-trajectory}{34}{section*.19}%
+\contentsline {subsection}{\numberline {4.4}Utility of data}{37}{subsection.4.4}%
+\contentsline {section}{\numberline {5}Modelling co-trajectories}{39}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Markov chain models for co-trajectories}{41}{subsection.5.1}%
+\contentsline {section}{\numberline {6}Conclusions and future work}{44}{section.6}%

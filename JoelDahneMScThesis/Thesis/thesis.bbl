@@ -1,3 +1,161 @@
-\begin{thebibliography}{}
+\begin{thebibliography}{10}
+
+\bibitem{novak_application_2013}
+Jakub Novak, Rein Ahas, Anto Aasa, and Siiri Silm.
+\newblock Application of mobile phone location data in mapping of commuting
+  patterns and functional regionalization: {A} pilot study of {Estonia}.
+\newblock {\em Journal of Maps}, 9:10--15, March 2013.
+
+\bibitem{pinelli_data-driven_2016}
+Fabio Pinelli, Rahul Nair, Francesco Calabrese, Michele Berlingerio, Giusy
+  Di~Lorenzo, and Marco Sbodio.
+\newblock Data-{Driven} {Transit} {Network} {Design} {From} {Mobile} {Phone}
+  {Trajectories}.
+\newblock {\em IEEE Transactions on Intelligent Transportation Systems},
+  17:1--10, May 2016.
+
+\bibitem{de_montjoye_unique_2013}
+Yves-Alexandre de~Montjoye, César~A. Hidalgo, Michel Verleysen, and Vincent~D.
+  Blondel.
+\newblock Unique in the {Crowd}: {The} privacy bounds of human mobility.
+\newblock {\em Scientific Reports}, 3(1), December 2013.
+
+\bibitem{gambs_show_2010}
+Sébastien Gambs, Marc-Olivier Killijian, and Miguel~Núñez del Prado~Cortez.
+\newblock Show {Me} {How} {You} {Move} and {I} {Will} {Tell} {You} {Who} {You}
+  {Are}.
+\newblock In {\em Proceedings of the 3rd {ACM} {SIGSPATIAL} {International}
+  {Workshop} on {Security} and {Privacy} in {GIS} and {LBS}}, {SPRINGL} '10,
+  pages 34--41, New York, NY, USA, 2010. ACM.
+
+\bibitem{taylor_no_2016}
+Linnet Taylor.
+\newblock No place to hide? {The} ethics and analytics of tracking mobility
+  using mobile phone data.
+\newblock {\em Environment and Planning D: Society and Space}, 34(2):319--336,
+  April 2016.
+
+\bibitem{primault_long_2018}
+Vincent Primault, Antoine Boutet, Sonia Ben~Mokhtar, and Lionel Brunie.
+\newblock The {Long} {Road} to {Computational} {Location} {Privacy}: {A}
+  {Survey}.
+\newblock {\em Communications Surveys and Tutorials, IEEE Communications
+  Society}, page~1, 2018.
+
+\bibitem{sweeney_k-anonymity:_2002}
+Latanya Sweeney.
+\newblock k-{ANONYMITY}: {A} {MODEL} {FOR} {PROTECTING} {PRIVACY}.
+\newblock {\em International Journal of Uncertainty, Fuzziness and
+  Knowledge-Based Systems}, 10(05):557--570, October 2002.
+
+\bibitem{abul_never_2008}
+Osman Abul, Francesco Bonchi, and Mirco Nanni.
+\newblock Never {Walk} {Alone}: {Uncertainty} for {Anonymity} in {Moving}
+  {Objects} {Databases}.
+\newblock In {\em 2008 {IEEE} 24th {International} {Conference} on {Data}
+  {Engineering}}, pages 376--385, Cancun, Mexico, April 2008. IEEE.
+
+\bibitem{machanavajjhala_l-diversity:_2006}
+A.~Machanavajjhala, J.~Gehrke, D.~Kifer, and M.~Venkitasubramaniam.
+\newblock L-diversity: privacy beyond k-anonymity.
+\newblock In {\em 22nd {International} {Conference} on {Data} {Engineering}
+  ({ICDE}'06)}, pages 24--24, April 2006.
+
+\bibitem{andres_geo-indistinguishability:_2013}
+Miguel Andrés, Nicolás Bordenabe, Konstantinos Chatzikokolakis, and Catuscia
+  Palamidessi.
+\newblock Geo-{Indistinguishability}: {Differential} {Privacy} for
+  {Location}-{Based} {Systems}.
+\newblock pages 901--914. ACM, November 2013.
+
+\bibitem{ghinita_prive:_2007}
+Gabriel Ghinita, Panos Kalnis, Spiros Skiadopoulus, Jaffar Joxan, Gabriel
+  Ghinita, Panos Kalnis, and Spiros Skiadopoulos.
+\newblock {PRIVE}: {Anonymous} {Location}-{Based} {Queries} in {Distributed}
+  {Mobile} {Systems}.
+\newblock In {\em In {WWW} ’07: {Proceedings} of the 16th {International}
+  {Conference} on {World} {Wide} {Web}}, pages 371--380. ACM Press, 2007.
+
+\bibitem{jiang_publishing_2013}
+Kaifeng Jiang, Dongxu Shao, Stéphane Bressan, Thomas Kister, and Kian-Lee Tan.
+\newblock Publishing {Trajectories} with {Differential} {Privacy} {Guarantees}.
+\newblock In {\em Proceedings of the 25th {International} {Conference} on
+  {Scientific} and {Statistical} {Database} {Management}}, {SSDBM}, pages
+  12:1--12:12, New York, NY, USA, 2013. ACM.
+\newblock event-place: Baltimore, Maryland, USA.
+
+\bibitem{quercia_spotme_2011}
+Daniele Quercia, Ilias Leontiadis, Liam Mcnamara, Cecilia Mascolo, and Jon
+  Crowcroft.
+\newblock {SpotME} {If} {You} {Can}: {Randomized} {Responses} for {Location}
+  {Obfuscation} on {Mobile} {Phones}.
+\newblock In {\em In {Proceedings} of the 31st {International} {Conference} on
+  {Distributed} {Computing} {Systems} ({ICDCS}}, 2011.
+
+\bibitem{pelekis_privacy-aware_2011}
+Nikos Pelekis, Aris Gkoulalas-Divanis, Marios Vodas, Despina Kopanaki, and
+  Yannis Theodoridis.
+\newblock Privacy-aware querying over sensitive trajectory data.
+\newblock In {\em Proceedings of the 20th {ACM} international conference on
+  {Information} and knowledge management - {CIKM} '11}, page 895, Glasgow,
+  Scotland, UK, 2011. ACM Press.
+
+\bibitem{kido_protection_2005}
+H.~Kido, Y.~Yanagisawa, and T.~Satoh.
+\newblock Protection of {Location} {Privacy} using {Dummies} for
+  {Location}-based {Services}.
+\newblock In {\em 21st {International} {Conference} on {Data} {Engineering}
+  {Workshops} ({ICDEW}'05)}, pages 1248--1248, April 2005.
+
+\bibitem{beresford_location_2003}
+A.R. Beresford and F.~Stajano.
+\newblock Location privacy in pervasive computing.
+\newblock {\em IEEE Pervasive Computing}, 2(1):46--55, January 2003.
+
+\bibitem{beresford_mix_2004}
+A.R. Beresford and F.~Stajano.
+\newblock Mix zones: user privacy in location-aware services.
+\newblock In {\em {IEEE} {Annual} {Conference} on {Pervasive} {Computing} and
+  {Communications} {Workshops}, 2004. {Proceedings} of the {Second}}, pages
+  127--131, Orlando, FL, USA, 2004. IEEE.
+
+\bibitem{salas_swapmob:_2018}
+Julián Salas, David Megías, and Vicenç Torra.
+\newblock {SwapMob}: {Swapping} {Trajectories} for {Mobility} {Anonymization}.
+\newblock In Josep Domingo-Ferrer and Francisco Montes, editors, {\em Privacy
+  in {Statistical} {Databases}}, Lecture {Notes} in {Computer} {Science}, pages
+  331--346. Springer International Publishing, 2018.
+
+\bibitem{yuan_t-drive:_2010}
+Jing Yuan, Yu~Zheng, Chengyang Zhang, Wenlei Xie, Xing Xie, Guangzhong Sun, and
+  Yan Huang.
+\newblock T-{Drive}: {Driving} {Directions} {Based} on {Taxi} {Trajectories}.
+\newblock November 2010.
+
+\bibitem{yuan_driving_2011}
+Jing Yuan, Yu~Zheng, Xing Xie, and Guangzhong Sun.
+\newblock Driving with {Knowledge} from the {Physical} {World}.
+\newblock August 2011.
+
+\bibitem{gambs_next_2012}
+Sébastien Gambs, Marc-Olivier Killijian, and Miguel~Núñez del Prado~Cortez.
+\newblock Next place prediction using mobility {Markov} chains.
+\newblock In {\em Proceedings of the {First} {Workshop} on {Measurement},
+  {Privacy}, and {Mobility} - {MPM} '12}, pages 1--6, Bern, Switzerland, 2012.
+  ACM Press.
+
+\bibitem{yan_semitri:_2011}
+Zhixian Yan, Dipanjan Chakraborty, Christine Parent, Stefano Spaccapietra, and
+  Karl Aberer.
+\newblock {SeMiTri}: {A} {Framework} for {Semantic} {Annotation} of
+  {Heterogeneous} {Trajectories}.
+\newblock {\em Proceedings of the 14th International Conference on Extending
+  Database Technology (EDBT 2011)}, pages 259--270, 2011.
+
+\bibitem{norris_markov_1997}
+J.~R. Norris.
+\newblock {\em Markov {Chains}}.
+\newblock Cambridge {Series} in {Statistical} and {Probabilistic}
+  {Mathematics}. Cambridge University Press, 1997.
 
 \end{thebibliography}
