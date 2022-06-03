@@ -1,0 +1,88 @@
+ %%% Formelle Vorgaben %%%
+
+\input{sections/0-Preamble}
+
+\begin{document}
+
+
+%%% Cover %%%
+\input{sections/1-Cover}
+
+\setcounter{page}{0}
+\newpage
+
+%%%
+\pagenumbering{Roman}
+
+%%% Approval %%%
+
+%\input{2-Approval}
+%\newpage
+
+%%% Abstract %%%
+
+\input{sections/3-Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+\newpage
+
+%%% Acknowledgements $$$
+
+\input{sections/4-Acknowledgements}
+\addcontentsline{toc}{chapter}{Acknowledgements}
+\newpage
+
+%%% Indexes %%%
+
+\tableofcontents
+\newpage
+\listoftables
+%\newpage
+\listoffigures
+\newpage
+\input{sections/5-Acronyms}
+\addcontentsline{toc}{chapter}{List of Acronyms}
+\newpage
+\pagenumbering{arabic}
+
+%%% Main Part %%%
+
+%TO BE DELETED
+%%check Thesis_draft_Virginia for instructions
+%\include{instructions}
+
+
+
+\include{sections/6-Intro}
+
+
+%not sure if include lit review or not
+%\include{LitRev}
+
+\include{sections/7-theory}
+
+\include{sections/7.1-Data}
+
+\include{sections/8-Method}
+
+\include{sections/9-Results}
+
+\include{sections/10-Discussion}
+
+\include{sections/11-Conclusion}
+\include{sections/Support}
+
+%\include{References}
+\newpage
+
+%%% Literature %%%
+
+\printbibliography[heading=bibintoc] %add bibliography to table of contents without numbering it
+
+%\newpage
+
+%%% Appendix %%%
+
+%\appendix
+%\include{Appendix}
+
+\end{document}

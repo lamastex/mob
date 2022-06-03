@@ -1,0 +1,456 @@
+%%% Ch.3: Methodology %%%
+\chapter{Methodology \& Implementation} \label{ch:method}
+\begin{comment}
+It may include: Description of the methodological, theoretical, conceptual or empirical framework; design of the
+experiment; relevant steps of reasoning; data description and sources.
+Describe the approach and method(s) used to address the scientific problem. Also reflect on the particular choice of method and justify it.
+
+\end{comment}
+
+
+\section{Environment}
+\label{sec:environment}
+
+The project code has been implemented in Scala (version 2.12.10) within the Apache Spark Ecosystem (version 3.0.3). 
+To develop tasks like data processing (data ingestion and validation) a local system has been used and it has been enough to process the data considered in this work. For more complex tasks like processing the whole Lithuanian road network, the tool employed was Databricks using a cluster with the same configuration mentioned before. 
+\\
+\\
+Apache Spark \cite{spark} is a multi-language (Scala, Python, Java and R) and unified analytics engine used for implementing Data Science, Data Engineering, Big Data and Machine Learning algorithms on single-node machines or clusters. It contains a set of libraries for parallel data processing on computer clusters and for developing diverse tasks (SQL, streaming or Machine Learning) \cite{spark-guide}. 
+Spark has been labeled as a “general purpose distributed data processing engine” \cite{spark}. It allows to process large quantities of data faster by splitting the work up into chunks and designating those chunks considering available computational resources, with a high-level, relatively easy to use API \cite{hihg-spark}. Furthermore, Spark can handle up to petabytes of data and scale up to thousands of (physical or virtual) machines.
+It supports multiple widely used programming languages (Python, Java, Scala, and R) and runs anywhere from a laptop to a cluster of thousands of servers. This makes it an easy system to start with and scale-up to big data processing on an arbitrarily large scale.
+\\
+\\
+Some of the advantages of using Spark are: high speed data querying, analysis and transformation when working with large data sets; it offers much less reading and writing to and from the disk, multi-threaded tasks within \ac{JVM} processes; great perform for iterative algorithms; supports multiple languages and it is easy to integrate it with other popular products; it helps make complex data pipeline easily; it can be one hundred times faster than the classic Hadoop for large scale data processing by exploiting in memory computing \cite{spark}; etc.
+\\
+\\
+Databricks \cite{databricks1}, developed by the creators of Apache Spark, is used to run the majority of the code, specifically, the platform for Data Science. It is a web-based platform, essentially a cloud-based Data Engineering tool that is commonly used to process, transform and explore huge volumes of data in order to build Machine Learning models.  
+\\
+\\
+It is built on top of distributed cloud computing environments like Azure, Amazon Web Services, or Google Cloud that allows to run applications on CPUs or GPUs based on analysis requirements. Furthermore, it enhances innovation and development, provides better security options and it comes with inherent data visualization tools \cite{databricks2}.
+It breaks down the complexities of processing data for data scientists and data engineers allowing them to develop Machine Learning applications by: getting quick access to clean and reliable data, preconfigured clusters and multi-language support (using R, Scala, Python, or SQL interfaces in Apache Spark). This is done with the possibility of writing code collaboratively, exploring data with interactive visualizations and discovering new insights with Databricks notebooks. 
+Databricks reduces Big Data analytics by adding a Lake House architecture that adds data warehousing capabilities to a data lake \cite{databricks3}.
+\\
+\\ 
+The part of the code that is available to be shared and which is part of Sections \ref{sec:segmentation}, \ref{sec:map_matching} and \ref{sec:regresion} can be found in \cite{git}.
+
+
+\section{Data Processing}
+\label{sec:data_processing}
+As explained in Section \ref{ch:data}, the data provided needs to be processed in order to use it and extract from it the valuable information desired. This part of the research belongs to the company and none of the code regarding the data processing can be shared due to confidentiality and privacy. All the data processing has been coded in Scala and tested using Spark locally. 
+\subsection{Data Ingestion and Validation}
+\label{sec:validation}
+Before storing and using the data from the csv files, the first step is to extract, transform and load them (called \ac{ETL} process). The \ac{ETL} process is a traditional method of data processing which can be used for data ingestion. It requires transforming data for its use before loading it into the proper destination.
+\\
+\\
+The data is already given as csv files. To ingest and validate it in a way that complies with the \ac{CADAS} normative, it is necessary to verify that it satisfies some specific conditions regarding its values and format. 
+\\
+\\
+The tables are read from the corresponding csv file. Four different parsers have been created, one for each data category. Each parser splits the incoming row from the csv file into tokens and tests each token with its corresponding attribute's requirements, checking in this step the format and values of the attribute. At the same time, if the conditions are not satisfied, an error message is stored in a new column, called "errors", to keep track of the non-valid records. 
+All the attribute's values and format are examined to ensure they comply with the syntactic and semantic format requirements. For each attribute, the data type is checked (string, integer, double) as well as its length and values. As mentioned before, there are 65 attributes in total, so this extensive analysis had to be done one by one, checking each attribute's individual requirements according to \ac{CADAS}.
+\\
+\\
+In addition, for each category, a DataFrame reader has been created so it allows to read multiple csv files of the same structure (for the different years analysed) at once, and pass each of its rows to the corresponding parser created. After reading the csv file and parsing it by checking the requirements, the DataFrame reader returns a Dataset of the appropriate category type consisting on the union of all the records.
+\\
+\\
+The analysis of a couple of the attributes is explained in depth here to get an understanding of the complexity of the data processing pipeline. Notably, one must take into account that this exact same process has been done to all the 65 unique attributes of the data. 
+\\
+\\
+The attribute explained in this case is the one called \textit{accident id}, the shared attribute among the four tables. The accident identification number, \textit{accident id}, is a number that allows the accident record to be cross-referenced to road, traffic unit and person records. It consists of three different fields: the country code, the corresponding year and the accident number. 
+\\
+\\
+The verification done is the following one: the rules in this case require the id's length to be 12 characters and id's format to be string type. The attribute's first two characters must be equal to "LT", the initials of the country, and from the second to the sixth digit it should contain the value of the corresponding year which, in this case, can only be a value between 2017 and 2020. Lastly, its last six characters have to be different from zero. 
+\\
+\\
+A particular case is the one corresponding to the \textit{longitude} and \textit{latitude} attributes, that indicate the coordinates of the exact geographical location for the road accident. Together they allow for more accurate identification on the accident location. According to \ac{CADAS}, \ac{WGS84} is the geographical system of reference to use. 
+However, another system may also be used after informing of it. This is the case that concerns the analysed data since the coordinates are expressed in the \ac{LKS94}. For their requirements, since they do not follow \ac{CADAS} guideline of being expressed in the \ac{WGS84} system, the format and value conditions are different. 
+Therefore, following the \ac{LKS94} system, both attributes have to be in between the maximum and minimum of Lithuanian border's values. In this specific coordinate system they both need to have length equal to seven.
+\\
+\\
+%This analysis shown for the attributes \textit{accident id}, \textit{latitude} and \textit{longitude} is done for each of the 65 attributes contained in the data.
+%\\
+%\\
+In addition to the attribute's columns for each category, two extra columns are added to each table containing information regarding errors and hash values. The error column is explained in Section \ref{sec:errors}. 
+The hash column represents an extra layer of identifying records. Hashing is the process of converting a given key (in this case, each individual accident record) into a unique code. A hash function is used to generate the new value according to a mathematical algorithm. To get a hash value/digest of the input string, SHA-256 Cryptographic hashing is performed, enabling for a second layer of identification in an efficient manner. 
+\\
+\\
+After passing the data through the parsers and DataFrame readers, it is a good practice to run some unit tests to ensure the good performance of the code. This is done to check that all the previous steps are working as expected. The functionality of both the parsers and the DataFrame readers is tested on a small fraction of the data. This way, it is easy to verify whether the code is working well since it will run quickly in this sample of data instead of the whole Dataset. If one of the unit tests fails during this process, it will result in a build failure and it means the code is not working properly. 
+    
+    
+\subsection{Identification of errors} \label{sec:errors}
+As mentioned before, when validating the format and values of each of the attributes, a new column for storing the errors found in the process is created. As a result, when all the records have been processed, the resulting DataFrame will contain a column where each record will incorporate its corresponding error message, if any. 
+\\
+\\
+In many cases, the error column value will be null but in the cases that some of the attribute's requirements are not met, since the final error message will be the concatenation of all the individual attributes' errors found, the identification of the non-valid attribute will be immediate.
+\\
+\\
+This way, after the data ingestion and validation, it will be very easy, efficient and fast to identify all the records containing any kind of error in its attributes just by filtering out non-null error values containing at least one non-valid attribute. At the same time, by reading the error message, the information regarding why the attribute is not valid will be shown.
+\\
+\\
+After processing the whole data, only 37 records contained error messages different from null. All of them corresponded to latitude and longitude errors found when checking if the point was located within the Lithuanian borders.
+These non valid records were sent to the Lithuanian Transport Agency, and they managed to correct 35 of them by sending back their new coordinates.
+
+\subsection{Coordinates transformation}\label{sec:coordinates}
+As mentioned before, the values of the latitude and longitude coordinates of the Lithuanian data are represented in the \ac{LKS94} system. In order to map them in the Lithuanian road network or do analysis with them, the decision to transform them into the \ac{WGS84} system was made. 
+\\
+\\
+The ArcGIS Runtime library \cite{arcgis_runtime} from Esri \cite{esri} allows this transformation and it was the one used. The latitude and longitude in the initial coordinate system of \ac{LKS94} was thus transformed to the desired coordinate system of \ac{WGS84}. 
+
+
+\subsection{Writing the data}
+Once the data is ingested and validated, it can be written in two different formats, depending on the next steps:
+\begin{itemize}
+  \item Parquet format: Apache Parquet \footnote{\url{https://apache.parquet.org}} is an open-source implementation inspired by Dremel \cite{dremelPaper} for an efficient, structured, column-oriented (also called columnar storage), compressed, binary file format. The advantages of the column-based format (files that are organized by column, rather by row) is that it saves storage space and speeds up analytic queries. 
+    Some of its characteristics are \cite{parquet1}: free and open source file format, language agnostic, column-based format, used for analytics, highly efficient data compression and decompression and support for complex data types as well as advanced nested data structures. 
+
+    \item Delta format: Delta lake files use versioned Parquet files to store the data in the cloud storage.
+    Some Delta format characteristics are \cite{delta1}, \cite{deltaPaper}: it has ACID properties (Atomicity, Consistency, Isolation and Durability), it handles metadata in a scalable way and it unifies streaming and batch data processing on top of existing data lakes. This way it ensures the accuracy and integrity of the data in the database even when errors or failures occur. 
+    Writing the data in this format has a huge benefit, and in case of future access to accident data from another country, the processed data can be written into the company's delta lake all together. This way, accidents happening anywhere in Europe (or outside Europe) will end up in the same delta lake and it will be very easy to do analysis with them.
+
+\end{itemize}
+
+
+\section{Segmentation of the road network}\label{sec:segmentation}
+Two different approaches have been implemented in order to map and analyse the accident points provided. One of them concerns the segmentation of Lithuania based on the municipalities and the second one corresponds to the segmentation of Lithuania based on way segments according to a distance threshold, expressed through a graph. 
+\subsection{Segmentation by country municipalities using Magellan}\label{sec:districts}
+For this analysis, it is assumed that the code is running on an Apache Spark 2.4.5 cluster with Magellan version 1.0.5 \cite{magellan1}; and it is executed in Scala using the Databricks platform running on an m4.large ec2 cluster with 3 nodes with 8GB memory and two cores per node on \ac{AWS} \cite{aws}. The idea here is to use Magellan (See Section \ref{sec:magellan}) to locate the accident points within each polygon and find out which municipalities in Lithuania contains each point.
+\\
+\\
+For this purpose, first it is needed to find a dataset that represents the Lithuanian municipalities. The one used is a GeoJSON file, an open standard format designed for representing geographical characteristics and based on the \ac{JSON} format. This file contains the second level administrative divisions of Lithuania \cite{geojson}. The dataset is loaded into Databricks. 
+\\
+\\
+The Lithuanian accident data is also read and loaded (with the required coordinate transformation, see Section \ref{sec:coordinates}). Then, it is needed to convert the longitude and latitude coordinates into a Magellan Point to make subsequent analysis easier (using its predefined \ac{UDF}, \verb+toPointUDF()+). Finally, each accident is transformed into objects of the CrashRecord class.
+\\
+\begin{lstlisting}[style=myScalastyle]
+val crashes = spark.read.format("csv").option("header", "true")
+                .option("inferSchema","true")
+                .load("dbfs:/datasets/magellan/LTcar_reprojected.csv")
+                .toDF()
+
+case class CrashRecord(id: String, timestamp: String, point: Point)
+
+val crashes_with_points = crashes.select(col("id"), col("timestamp"), 
+                    col("longitude").cast(DoubleType), 
+                    col("latitude").cast(DoubleType))
+                    .withColumn("point", toPointUDF($"longitude", $"latitude"))
+                    .drop("latitude", "longitude")
+                    .filter(col("timeStamp").isNotNull.as[CrashRecord])
+\end{lstlisting}
+
+
+At this point, it is convenient to check how big the accident dataset is:
+\\
+\begin{lstlisting}[style=myScalastyle]
+val crashRecordCount = crashes_with_points.count()
+\end{lstlisting}
+It returns 11945 rows, the total number of accident records, in about 2.43 seconds.
+\\
+\\
+As mentioned, Magellan has data source implementations for \ac{OSM} \ac{XML}, GeoJSON as well as Shapefiles. In this case, the format used is GeoJSON that is loaded into Magellan data structures. Then, having the Lithuanian municipalities stored in GeoJSON format allows Magellan to read it as a DataFrame in Spark SQL by telling Spark that Magellan is used as the data source and giving the path to load the data from.
+After reading it, Spark returns a DataFrame (called municipalities) with two main columns: polygon and metadata. 
+\begin{lstlisting}[style=myScalastyle]
+val municipalities = sqlContext.read.format("magellan")
+                       .option("type", "geojson")
+                       .load("dbfs:/datasets/magellan/municipalities.geojson")
+                       .filter($"polygon".isNotNull)
+                       .select($"polygon", $"metadata"("name") as "municipality")
+\end{lstlisting}
+As the municipality is a connected polygon, the dataset is parsed into a collection of polygons. Apart from the geometric data structure of the GeoJSON, Magellan also allows to read any metadata information for each given row into a Map that can be queried subsequently.
+\\
+\\
+The metadata column, in this case, contained many fields but the only information needed for this analysis is the one containing the municipality's name. Thus, the key corresponding to the name of the municipality is extracted. Now, it is easy to count the total number of municipalities in Lithuanian (at the level selected, second administrative divisions or "Savivaldybės"). The following code returns 60 rows.
+\\
+\begin{lstlisting}[style=myScalastyle]
+municipalities.count()
+\end{lstlisting}
+In order to find out which municipality each accident falls in, it is needed to join the accident and the municipalities datasets. For that purpose, it is simple to use a query in which it is checked whether a given point is contained within a polygon. Having a DataFrame with the different municipalities and another one with accident points (latitude and longitude coordinates), the goal is to find the municipality each point belongs to. 
+The spatial joins that Magellan uses, utilizes indexing to speed up the join. The two datasets can be joined as below:
+\\
+\begin{lstlisting}[style=myScalastyle]
+val joined = crashes_with_points.join(municipalities)
+                                .where($"point" within $"polygon")
+\end{lstlisting}
+        
+Here the predicate applied only picks out those points which are contained within a given polygon. 
+\\
+\\
+%We used Magellan to do some representations and visualizations from Open Street Maps.
+%TO DO: In order to do road partition, I read an article where they use a framework for spatial partitioning of large urban road networks that employs density and spectral based clustering. Transform the road network into a road graph, followed by a density peak graph using density-based clustering algorithms. And after applying spectral clustering it obtains different road network partitions. It’s an interesting algorithm because it can handle large networks
+%To summarize, having the Lithuanian municipalities stored in GeoJSON format allows Magellan to read it as a DataFrame in Spark SQL by telling Spark that Magellan is used as the data source and giving the path to load the data from.
+%After reading it, it returns a DataFrame with two main columns: polygon and metadata. Metadata is normally represented as a map and in the Lithuanian case, it contained many fields but the only information needed for this analysis in the concerning the name of the municipality. 
+%Now, it is simple to express a query in which it is checked whether a given point is contained within a polygon. 
+%Having a DataFrame with the different municipalities and another one with points (latitude and longitude coordinates), the goal is to know to which municipality each point belongs to. 
+The result will be a DataFrame with the point, polygon and municipality. This DataFrame can be used to count how many accidents happened in each municipality as well as the relative frequency of accidents per municipality (number of accidents in that municipality divided by the total number of accidents).\\
+\begin{lstlisting}[style=myScalastyle]
+val municipality_count = joined
+  .groupBy($"municipality")
+  .agg(countDistinct("id").as("acc_count"))
+  .orderBy(col("acc_count").desc)
+  
+val municipality_count_freq = municipality_count.withColumn("frequency", col("acc_count")/crashes_in_municipalities)
+\end{lstlisting}
+Using the gmaps library in Python \cite{gmaps} it is possible to represent this data over a real map divided by municipalities so it is more comprehensible. This kind of visualization is called a Choropleth map \cite{chloropeth}. The gmaps library also reads GeoJSON files and allows for many different map representations.
+The results are presented in Section \ref{results:municipalities}.
+%TO DO: Complete it by reading https://magellan.ghost.io/how-does-magellan-scale-geospatial-queries/
+
+\subsection{Segmentation by way segments}\label{sec:graphx}
+This section covers the process of creating a GraphX graph from \ac{OSM} data for Lithuania and segmenting this graph by a distance threshold. This way, the resulting graph represents the Lithuanian road network containing defined segments. For this process, it is assumed that the code is running on an Apache Spark 2.4.5 cluster and executed in Scala using Databricks running on an m4.xlarge cluster on \ac{AWS} with four cores and 16GB per node that can scale from one to eight worker nodes. This segmentation process requires more computing resources than the previous computation in Section \ref{sec:districts}. 
+
+\subsubsection{Ingest \ac{OSM} data}
+Initially, it is needed to ingest the \ac{PBF} file to the cluster in a big data friendly file format. The previously mentioned \ac{OSM} \ac{PBF} files cannot easily be processed on numerous nodes in parallel \cite{osm-parquetizer1}. Instead of reading the data using the well known Osmosis reader \cite{osmosis}, another method called "\ac{OSM} parquetizer" \cite{osm-parquetizer} was used as it provides a way to make the \ac{OSM} data available in parquet format for distributed computing.
+\\
+\\
+The data in \ac{OSM} \ac{PBF} format is downloaded from \ac{OSM} \cite{geofabrik} for all of Lithuania. After that, the \ac{OSM} parquetizer returns in a few seconds the conversion from \ac{PBF} format into parquet. The result is composed of three parquet files, one for each type of entity from the original \ac{PBF}: nodes, ways and relations (see Section \ref{sec:osm} for details). This way, it is easy and very efficient to have three separate tables for the nodes, ways and relations. 
+
+\subsubsection{Creating the topology graph from \ac{OSM} data}
+%CITE spark-guide
+The first step is to use the \ac{OSM} data to build the topology graph. Hence, after using the osm-parquetizer and some processing, two DataFrames corresponding to both nodes and ways were created. In the following section, these results will be presented.
+\\
+\\
+Later, in order to identify whether a node corresponds to an intersection or not, the criteria followed was to consider it an intersection when it appears in two ways or more.  As shown in Algorithm \ref{alg:g0}, for each way, the intersections found are stored together with some information: their id, their coordinates and the nodes that appear before and after each intersection. Also, in the case the way has only one node, an intersection is created there (it is not a real intersection so it is not connected to another way, but it is the only way to store this information). Thus, after the "for each" step, the result is a DataFrame containing all the intersections on the road network and their information. \\
+\\
+It can be observed in the following algorithm that a buffer object has been created with the goal of storing the nodes that are located before and after each intersection node. Having this information, it will be easy to know how the nodes are ordered within a way. 
+The next step is to extract the intersection nodes and add to them the information regarding the ways in which they appear, and to create the edges between the vertices of the graph. To finalize, the graph called $G0$ is created. The vertices (intersections of the road network) and edges of the graph can be expressed as DataFrames with the information of interest stored. As mentioned before, a directed graph is created, hence the graph will point from the source to the destination vertex.
+%To define the graph, we use the naming conventions for columns presented in the GraphFrames library. In the vertices table we define our identifier as id (in our case this is of string type), and in the edges table we label each edge’s source vertex ID as src and the destination ID as dst:"
+%"We can now build a GraphFrame object, which represents our graph, from the vertex and edge DataFrames we have so far."
+\begin{algorithm}[H]\captionsetup{labelfont={sc,bf}}
+	\caption{G0 - topology road graph} 	\label{alg:g0}	
+	\begin{algorithmic}[1]
+        \Statex
+        \State $\var{ways} \assign{}$ Read ways from parquet file
+        \State class Intersection(NodeId, location, buffer(nodes between itself and previous intersection in the way))
+        \State class Node(NodeId, location)
+        %\Statex
+		\ForEach {$\var{way} \in \var{ways} $}
+		\State \var{nodes} = nodes from \var{way} (with intersection information) 
+        \State \var{intersections} = Array[Intersection]( )  
+        \State \var{buffer} = Array[Node]( )
+        %\Statex
+            \If{(length of the \var{way} == 1)}
+            \State \var{result} = Create Intersection with the unique node in the \var{way}
+            \State \Return $(\var{wayId},$ $\var{result})$
+            \Else
+            \ForEach {$\var{node} \in \var{nodes} $}
+                \If{(\var{node} isIntersection)}
+                    \State Create new Intersection with \var{node} and add stored \var{buffer} 
+                    \State Add it to \var{intersections} 
+                    \State Clear \var{buffer}
+                \Else
+                    \State Add the \var{node} to \var{buffer}
+                \EndIf
+                \If{end of the \var{way} and \var{buffer} not empty}
+                    \If{\var{intersections} is empty}
+                    \State Create Intersection as the last node in the \var{buffer}
+                    \Else
+                    \State Append the \var{buffer} to the last Intersection
+                    \EndIf
+                \EndIf
+            \EndFor
+            \State \multilinestate{$\var{result} \assign{} \var{intersections}$}
+            \State \Return $(\var{wayId},$ $\var{result})$
+            \EndIf
+		\EndFor
+		\State The result of each iteration is stored as a row in a Dataset
+		\Statex
+		
+		\State \multilinestate{$\var{intersectionVertices} \assign{}$ Extract intersection nodes result of previous algorithm and add \var{way} information}
+		\State \multilinestate{$\var{edges} \assign{}$ create edges between intersection nodes in each \var{way}}
+		\State $\var{G0}$ = Graph(\var{intersectionVertices}, \var{edges})
+	\end{algorithmic} 
+\end{algorithm}
+
+
+\subsubsection{Adding distance between nodes to the graph}
+Once the topology graph is created, the intention is to segment it according to a distance threshold. However, $G0$ only contains the coordinates of the nodes but not the distances between them. In this step, using those coordinates, the distances between the vertices of the graph are measured using the geodesic distance from Esri that measures the shortest distance between two points when the earth's surface is approximated by a spheroid in meters \cite{geodesic}. This step is done as shown in Algorithm \ref{alg:g0distances}. 
+\begin{algorithm}[H]\captionsetup{labelfont={sc,bf}}
+	\caption{G0 with distances} \label{alg:g0distances}
+	\begin{algorithmic}[1]
+	\Statex
+		\Function {dist}{\var{node1}, \var{node2}}
+	    \State \Return geodesic distance between two points
+	    \EndFunction
+	    \Statex
+		\ForEach {$\var{triplet (src\_vertex, edge, dst\_vertex)} \in G0$}
+	        \State \multilinestate{$\var{distance}$ = 0}
+	        \State \multilinestate{$\var{buffer}$ = buffer of the \var{dst\_vertex} (nodes between the 2 vertices that are not intersections)}
+    		 \If{\var{buffer} is empty}
+    		    \State \multilinestate{$\var{distance} \assign{}$ adds DIST(\var{src\_vertex}, \var{dst\_vertex})}
+    		    \State \Return (\var{edge} attribute, \var{distance})
+    		 \Else
+    		    \State \multilinestate{$\var{distance} \assign{}$ adds DIST(\var{src\_vertex}, first node in the \var{buffer})}
+    		    \If{more than one node in the \var{buffer}}
+    		        \State \multilinestate{$\var{distance} \assign{}$ adds DIST( ) between every pair of nodes in the \var{buffer}}
+    		    \EndIf
+    		    \State \multilinestate{$\var{distance} \assign{}$ adds DIST(last node in the \var{buffer}, \var{dst\_vertex})}
+    		    \State \Return (\var{edge} attribute, \var{distance})
+             \EndIf    		 
+		\EndFor
+		\State The result of each iteration is stored as a triplet (two vertices and their edge) in a new GraphX graph with the values returned by the \Return command as the new \var{edge} attribute $\rightarrow \var{G1}$
+	\end{algorithmic} 
+\end{algorithm}
+
+\subsubsection{Segmenting the graph by a distance threshold}
+Using the distance information, the edges of the graph are segmented according to the distance threshold selected and new vertices are added to the graph. In addition, when one segment is split, all the information regarding the nodes involved needs to be modified according to the new structure.
+\begin{algorithm}[H]\captionsetup{labelfont={sc,bf}}
+	\caption{G1 - Segmentation by distance threshold - Part1} \label{alg:g1_1}
+	\begin{algorithmic}[1]
+		\State \var{maxDist} = 100 \#\textbf{\textit{threshold}}
+% 		\Statex
+		\ForEach {$\var{triplet} \in G1$}
+  		    \If{original edge \var{distance} $<$ \var{maxDist}}
+    		    \State \Return (Edge(src, dst, attr), src, dst)
+    		 \Else
+     		    \If {no nodes in the way}
+    		        \State \Return (Edge(src, dst, attr), src, dst)
+    		    \Else
+	        		 \State \multilinestate{$\var{finalResult} \assign{}$Array[(Edge, Vertex, Vertex)] (returned at the end)} 
+                     \State \multilinestate{$\var{currentBuff}$ = Array[Node] (to store non intersection nodes)}
+                     \State \multilinestate{$\var{prevVertex}$ = \var{src\_vertex} (at the start of every triplet loop) and updated with every new vertex created}
+        	        \State \multilinestate{$\var{distance}$ = 0}
+        	        \State \multilinestate{$\var{buffer}$ = buffer of the \var{dst\_vertex} (nodes between the 2 vertices that are not intersections)}
+                    % \Statex
+
+                    \State \#\textit{Processing \var{src\_vertex} and \var{first\_node} (first node in the \var{buffer})}
+    		        \State \multilinestate{$\var{distance} \assign{}$ add DIST(\var{src\_vertex}, \var{first\_node})}
+                    \If{\var{distance} $>$ \var{maxDist}}
+                        \State Make \var{first\_node} a vertex
+                        \State \multilinestate{$\var{finalResult} \assign{}$ add (Edge(\var{src\_vertex} id, \var{first\_node} id), \var{src\_vertex}, \var{first\_node})}
+                        \State \multilinestate{$\var{distance}$ = 0}
+                    \Else
+                        \State Add \var{first\_node} to \var{currentBuff}
+                    \EndIf
+                    % \Statex
+
+                    \State \#\textit{Processing nodes in the \var{buffer}}
+                    \If{more than 1 node in the \var{buffer}}
+                        \ForEach{pair of nodes in the \var{buffer}}
+                            \State \multilinestate{$\var{distance} \assign{}$ add DIST(\var{node1}, \var{node2})}
+                            \If{\var{distance} $>$ \var{maxDist}}
+                                \State Make \var{node2} vertex and assign it \var{currentBuff}
+                                \State \multilinestate{$\var{finalResult} \assign{}$ add  (Edge(\var{prevVertex}, \var{node2}), \var{prevVertex}, \var{node2})}
+                                 \State \multilinestate{$\var{distance}$ = 0}
+                                 \State Clear \var{currentBuff}
+                            \Else
+                                \State Add \var{node2} to \var{currentBuff}
+                            \EndIf
+                        \EndFor
+                    \EndIf
+
+		
+\algstore{bkbreak}
+\end{algorithmic} 
+\end{algorithm}
+
+\begin{algorithm}[H]\captionsetup{labelfont={sc,bf}}
+\caption{G1 - Segmentation by distance threshold - Part2}\label{alg:g1_2}
+\begin{algorithmic}[1]
+\algrestore{bkbreak}
+                    \State \#\textit{Processing last node in the \var{buffer} (\var{last\_node}) and \var{dst\_vertex}}
+                    \State \multilinestate{$\var{distance} \assign{}$ adds dist(\var{last\_node}, \var{dst\_vertex})}
+                    \If{\var{distance} $>$ \var{maxDist}}
+                        \State Make \var{last\_node} a vertex and assign it \var{currentBuff}
+                        \State \multilinestate{$\var{finalResult} \assign{}$ add (Edge(\var{prevVertex}, \var{last\_node}), \\
+                        \var{prevVertex}, \var{last\_node})}
+                         \State Clear \var{currentBuff}
+                    \EndIf
+                    \State \multilinestate{$\var{finalResult} \assign{}$ add (Edge(\var{prevVertex}, \var{dst\_vertex}),\\ \var{prevVertex}, \var{dst\_vertex})}
+                    \State \Return finalResult
+    		    \EndIf
+		    \EndIf
+		\EndFor
+		\State Each iteration returned one or more \var{triplets}. They are stored in a new GraphX graph. The \var{dst\_vertex} of each \var{triplet} contains in its \var{buffer} the nodes between \var{src\_vertex} and \var{dst\_vertex} that are not intersections. The \var{edge} has the distance between both vertices in its attribute.
+	\end{algorithmic} 
+\end{algorithm}
+
+
+After this step, there might be the situations in which an intersection has a way with only one node (dead ends). What this means is that the information about this way is stored in the buffer of the intersection (in one of the vertices of the graph) but no edge is created for it, so it is non-existent. In order to include this type of way, the following algorithm can be applied.
+
+
+\begin{algorithm}[H]\captionsetup{labelfont={sc,bf}}
+\caption{Extract dead end ways}\label{alg:dead_end}
+\begin{algorithmic}[1]
+\State $\var{vertices} \assign{}$ Get array of all the vertices in G1 graph (intersections)
+\State $\var{explodedVertices} \assign{}$Duplicate each vertex with one row for each way in which it appears (this is previously stored in the \var{buffer})
+\State $\var{uniqueWayIds} \assign{}$ All the unique ways that are edges in the G1 graph
+\State $\var{verticesWithDeadEndWays} \assign{}$ $\var{explodedVertices}$ whose way does not appear in $\var{uniqueWaysIds}$ (leftanti join)
+\State Union of $\var{vertices}$ and $\var{verticesWithDeadEndWays}$
+\end{algorithmic} 
+\end{algorithm}
+
+\subsection{Connected components and PageRank in G0}
+The connected components algorithm is used to label each connected component of the graph with the ID of its lowest-numbered vertex. It is useful to recognize connected components within the graph before performing other analysis.
+\\
+\\
+PageRank is a graph algorithm created by Google to rank web pages. It counts the number and quality of links to a page to estimate how important that website is \cite{spark-guide}. Applying it to G0, it is possible to get a sense of how important intersections are by the page rank score it returns. 
+\\
+\\
+As mentioned before, G0 is a directed graph with 191991 vertices and  237069 edges that represents the topology of the road network. An additional step is done in this case to create the edges in both directions, having an undirected graph from G0 as a result. The connected component algorithm is applied to the new graph to find the largest component and keeping only the 138552 vertices belonging to it. After that, PageRank is applied to the largest connected component to get the score of the vertices of the graph. The result will be used later for the Poisson regression.
+
+
+
+%CITE spark-guide
+%"Graph Algorithms
+
+%A graph is just a logical representation of data. Graph theory provides numerous algorithms for analyzing data in this format, and GraphFrames allows us to leverage many algorithms out of the box. Development continues as new algorithms are added to GraphFrames, so this list will most likely continue to grow.
+%PageRank
+
+%One of the most prolific graph algorithms is PageRank. Larry Page, cofounder of Google, created PageRank as a research project for how to rank web pages. Unfortunately, a complete explanation of how PageRank works is outside the scope of this book. However, to quote Wikipedia, the high-level explanation is as follows:
+
+ %   PageRank works by counting the number and quality of links to a page to determine a rough estimate of how important the website is. The underlying assumption is that more important websites are likely to receive more links from other websites.
+
+%PageRank generalizes quite well outside of the web domain. We can apply this right to our own data and get a sense for important bike stations (specifically, those that receive a lot of bike traffic). In this example, important bike stations will be assigned large PageRank values:"
+
+\section{Map-Matching using GeoMatch} \label{sec:map_matching}
+To run the map-matching algorithm, the code is running on an Apache Spark 2.4.5 cluster, executed in Scala using the Databricks platform running on an m4.large ec2 cluster with 3 nodes with 8GB memory and two cores per node on \ac{AWS}. The same setup is also used for the next section.\\
+\\
+Map-matching is a pre-processing step needed for most location-based applications that require assigning recorded geographic coordinates to the digital road map data. It is a key process when analysing urban location data since otherwise, many events could not be related to urban infrastructure. 
+In a typical situation, the digital map models the \ac{GPS} coordinates (coming from a moving receiver) into the geographical space of the roads. Generally, it is not common that the GPS positions intersect with the polylines of the road because of inaccuracies. The objective of map-matching is to associate the \ac{GPS} positions to their correct locations on the polylines in the map \cite{map-matching}.
+\\
+\\
+GeoMatch \cite{geomatch_code} is an efficient, novel and scalable map matching extension for Apache Spark \cite{geomatch}, written in Scala. It provides spatial big data solutions by adding an innovative spatial partitioning schema inspired by Hilbert space-filling curves. It can achieve significant performance improvements when compared to other map-matching methods and solves problems like slow performance and high memory requirements that other spatial extensions suffered. Its main goal is to efficiently match \ac{GPS} points to the nearest road segment. 
+\\
+\\
+GeoMatch perform the map-matching using the following methods. It employs an indexing technique that is built on Hilbert space-filling curves (spatial data indexing and partitioning method) that eliminates the need to sample from the data and thus, reducing the need of memory and computing resources. It also provides a Spark pipeline for processing large spatial data sets in a scalable way. Its design consists of matching two data sets: the first one of type Point (e.g. accident points) and the second of type MultiLineString (e.g. roads). The output is a tuple with a Point object (the original point record) together with a list of \textit{k} closest roads. To do that, the distance between the point and the matched road is calculated and that match is kept or rejected depending on a predefined distance limit (parameter that can be set). GeoMatch takes as input parameters: the search window, the Hilbert curve grid size and the maximum distance for accepted matches. When using it, the coordinates of the data must be expressed in meters. 
+\\
+\\
+This algorithm is used to map each accident with its closest intersection since the measure of the distance between them will be used later as input to a Poisson regression model together with the PageRank score of each intersection. When performing GeoMatch in this case, $k$ is set to one since it is only needed to find the closest intersection here. 
+
+\section{Poisson Regression} \label{sec:regresion}
+
+The purpose of this section is to estimate which property related to accidents (such as weather condition, distance to an intersection, etc.) or to the road network graph is associated with more or less probability of an accident occurring. Since the goal of this thesis is to create and provide the framework to do this analysis, only a few illustrative variables will be included in the results. 
+\\
+\\
+The accident dataset processed, shown in Section \ref{sec:data_processing} (with information about accidents, roads, people involved, etc.), will be used. To do this, the information about how close an accident is to an intersection will be added using the graph created in Section \ref{sec:graphx} and GeoMatch. For a preliminary analysis, apart from this distance and the PageRank score of the intersections, the variables selected will be whether the accident was in an urban area, road surface condition, weather and light condition at the time of the accident.
+\\
+\\
+In order to perform a Poisson regression analysis there needs to be a count of the occurrences that are going to be analysed. In the case of accidents, they can be grouped in many ways. For example, by similar conditions when the accident happened through all the data available or by year, day, etc. Then the number of accidents with the same condition would be counted. Also, the Poisson regression works by using continuous data but there are several variables that are categorical, so they need to be transformed.
+\\
+\\
+Starting with the weather condition, it can have 8 different discrete values: 1-Dry, 2-Rain, 3-Snow, 4-Fog, 5-Hail, 6-Severe winds, 7-Other, 99-Unknown. Since these are numerical variables, they first need to be transformed to discrete variables. This is done by using \textit{StringIndexer()} from Spark transforming features \cite{sparktransform}. It returns the same DataFrame but with an additional column in which the values have been appropriately transformed. A similar transformation is applied to the remaining categorical variables (for eg., road surface condition, urban area, and light condition).\\
+\begin{lstlisting}[style=myScalastyle]
+val strIndexer = new StringIndexer().setInputCol("weather") .setOutputCol("weather_index").setStringOrderType("alphabetAsc") 
+val indexed = strIndexer.fit(dataset).transform(dataset)
+//Similar for all categorical variables
+\end{lstlisting}
+Then, these categorical features need to be transformed into continuous variables using One-Hot encoding \cite{onehot}. This means converting each value into a separate variable which only takes values 1 (when it is present) and 0 (when it is not present).
+%They cannot be treated as directly continuous because, for example, the weather being rainy (value 2) does not imply the double of the amount of the "weather" factor than when it is dry (value 1). The way to correctly do this is to apply One-Hot encoding \cite{onehot}. This means converting each value into a separate variable which only takes values 1 (when it is present) and 0 (when it is not present).
+As an example, the variable \textit{weather\_rain} could be created and it would be 1 when \textit{weather} is 2 and 0 the rest of the time. This transformation is done by using the \textit{OneHotEncoderEstimator()} from Spark \cite{sparktransform} and the result is a DataFrame with a new column for each of the original variables and in this column there is a vector with 1's and 0's representing each of the "new" One-Hot variables.\\
+\begin{lstlisting}[style=myScalastyle]
+val encoder = new OneHotEncoderEstimator() .setInputCols(Array("weather_index","light_index","urban_index", "surface_index")).setOutputCols(Array("weather_onehot","light_onehot", "urban_onehot","surface_onehot")).setDropLast(false)
+val encoded = encoder.fit(indexed).transform(indexed).select("weather_onehot", "light_onehot","urban_onehot","surface_onehot","distance","pagerank",
+    "count")
+\end{lstlisting}
+Then, these vectors need to be combined into a single vector which will be the input to the regression. The distance to the intersection and the PageRank score of that intersection (both previously calculated) are also included in this step. The Spark tool \textit{VectorAssembler()} is used for this.\\
+\begin{lstlisting}[style=myScalastyle]
+val assembler = new VectorAssembler() .setInputCols(Array("weather_onehot","light_onehot","urban_onehot", "surface_onehot","distance","pagerank")).setOutputCol("features")
+val assembled = assembler.transform(encoded).select("count","features")
+\end{lstlisting}
+Finally, the regression is done by using \textit{GeneralizedLinearRegression()} from Spark \cite{sparkregression} which has many different parameters but, in the case of this analysis, the most important are \textit{setFamily("poisson")} and \textit{setLink("log")} which specify the type of regression to perform (the link function is set to log to perform the log-linear Poisson model). The regression parameter was chosen to be 0.005 after doing some rounds of cross validation testing different sets of values. The value 0.005 was found to be the one with the best performance. \\
+\begin{lstlisting}[style=myScalastyle]
+val glr = new GeneralizedLinearRegression().setFamily("poisson").setLink("log") .setMaxIter(50).setRegParam(0.005).setLabelCol("count")
+val glrModel = glr.fit(assembled)
+\end{lstlisting}
+After this, the regression results can be returned with the \textit{glrModel.summary} command and they will be presented in Section \ref{sec:results_regression}.
+
+
+
+
