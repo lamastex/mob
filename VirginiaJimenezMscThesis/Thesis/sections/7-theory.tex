@@ -1,0 +1,156 @@
+%%% 2 Background/ %%%
+\chapter{Theory} \label{ch:theory}
+
+\section{Poisson Point Processes}
+A point process is considered to be some method of randomly allocating points to intervals of the real line or in the plane (spatial point process). It is completely defined if the joint probability distributions are known for the number of events in all finite families of disjoint intervals \cite{daley}. A point process is called a Poisson point process when the number of points in an interval $(0,t]$ has a Poisson distribution with parameter $\lambda$.
+\\
+\\
+The Poisson point process  is a stochastic process that describes the number of times a certain random event occurs in a specific interval of time. For example, accidents happening on the road are modelled as Poisson processes. It has been widely studied because of its convenient properties as a mathematical model and it has two key properties \cite{daley}:
+\begin{itemize}
+    \item The Poisson point process follows a Poisson distribution. This is, if a Poisson point process is defined in a state space, then the number of points in a bounded region of the space is a Poisson random variable. 
+    \item For a collection of disjoint bounded subregions of the space, the number of points in each subregion is completely independent to all others, which is called complete independence.
+\end{itemize}
+
+
+\subsection{The Poisson distribution}
+The Poisson distribution is a discrete distribution for the counts of events occurring randomly in a given interval of time, defined on positive integer values. It has a single parameter $\lambda$ that represents the number of occurrences, and the distribution is expressed as $Poisson(\lambda)$ where \cite{feller}:
+\begin{equation}
+    P(X=x_k) = \frac{e^{-\lambda}\lambda^k}{k!}, \;\; k=0,1,...
+\end{equation}
+It can be shown \cite{mishra} that the expected value of $X$ is equals to $ E(X) = \lambda $ and the variance, $var(X) = \lambda $. Since the expected value is equals to $\lambda$, the parameter of the distribution is also a measure of the intensity of the random variable $X$.
+
+
+\subsection{Poisson Regression: log-linear models}
+Since a Poisson random variable is often used to model counts, the idea is to model or predict the parameter $\lambda$ (the average number of occurrences per unit of time or space) as a function of one or more covariates (explanatory factors). A normal linear regression model $\lambda = \beta X$ does not work well for Poisson data since it can yield negative values for $X$, but $\lambda$ can only take non-negative values. In addition, the equal variance assumption for linear regression inference is also violated in this case because for a Poisson variable, when the mean rate increases, the variance does too. Modelling $\lambda$ using the $log(\lambda)$ instead solves these issues.
+\\
+\\
+Poisson \ac{GLM} arise in situations in which the count of occurrences is the primary unit of observation.
+The Poisson log-linear model, also called the Poisson regression model, is a special case of the Poisson \ac{GLM} where $k$ cells are considered as the units of observation \cite{kendal}. It is a model for $n$ responses $X_1, ..., X_n$ modelled as independent Poisson($\lambda_i$) where the $log(\lambda)$ is a linear combination of the factors:
+\begin{equation}
+    log \lambda_i = \beta_0 + \beta_1 x_{i1} + ... + \beta_p x_{ip}
+\end{equation}
+or equivalently,
+\begin{equation}
+    \lambda_i = e^{\beta_0 + \beta_1 x_{i1} + ... + \beta_p x_{ip}}
+\end{equation}
+Every \ac{GLM} contains three components and in the case of the Poisson Regression, they are:
+\begin{itemize}
+    \item Independent random response component: $X$ is Poisson distributed with mean $\lambda$.
+    \item Systematic component: the explanatory variables $x_i$ can be continuous or discrete and it is linear in the parameters, $\beta$. 
+    \item Link function: the $log$ link function.
+\end{itemize}
+
+
+%Analyze categorical data using a log-linear Poisson Regression approach
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Magellan: Geospatial analytics}\label{sec:magellan}
+
+Magellan \cite{magellan1} is a geospatial library used for processing and doing analytics on big data. It is built on top of Esri \cite{esri} using the Apache Spark \cite{spark} framework, explained in more detail in Section \ref{sec:environment}. 
+\\
+\\
+Geospatial analytics represent any type of analytics that uses spatial structure and spatial context for processing. Given any point or any shape, it is possible to attach metadata with it which is basically information about what is surrounding it. Magellan is useful in many cases, for example, given some longitude and latitude coordinate values, Magellan can identify the point up to which city or municipality it belongs to. 
+\\
+\\
+Similarly, given a shape, which is given by a polygon representing a geographical structure, Magellan can determine if it intersects with some other shape and how the intersection looks like. 
+%A more complex and interesting question is: given a sequence of points and a system of roads, what is the best chain of paths that could have been taken so this last one is called map matching algorithm.
+There are geometrical queries, spatial queries and there are also geometric algorithms. All of them are adding some kind of context to a point, a shape or a sequence of points.
+Geospatial data is indeed big data given the huge volume of information to deal with when working with geospatial analytics, at the level of whole countries or even a continent which is a complex computational problem. 
+\\
+\\
+Complexities or issues encountered before Magellan was released:
+\begin{itemize}
+    \item Difficulties to parse files in the format: ESRI shapefiles, GeoJSON, ESRI format.
+    \item Lack of consistency between coordinate systems: the data collected (for example, as mobile data) is normally expressed in GPS coordinates. However, maps instead of storing GPS coordinates most of the time, they try to be more and more accurate as possible by storing the coordinates in a very different coordinate system by using the cartographic projection systems. This is a great coordinate system but terrible when converting from and to it since there are not many transformers that can convert from one coordinate system to another. 
+    \item Lack of scalability: there are almost no libraries that can do scalable geospatial analytics. There is one, called ESRI Hive \cite{hive} that runs on Hadoop but lacks on geospatial joins. 
+\end{itemize}
+
+The main reason for using Magellan is because it is possible to create geospatial analytics applications faster, thanks to its following features: one can use their favourite language (Python, Scala, R), it gets best in class algorithms for common spatial analytics, less code has to be written, it reads data efficiently and it uses the catalyst optimizer to do the heavy lifting. Furthermore, Magellan via Spark allows to scale up computations to large number of commodity computer nodes that can read and write data from distributed file systems in public clouds.
+\\
+\\
+It is very easy to read both Shapelfiles or GeoJSON as DataSources just with one line of code. Spatial queries are formed by literals, boolean and binary expressions. The queries are very simple and intuitive. For example, given a point and a polygon, one can check if the point is within the polygon like this: 
+\begin{lstlisting}[style=myScalastyle]
+$"point" within $"polygon"
+\end{lstlisting}
+
+An example of joins using catalyst would be as follows: 
+\begin{lstlisting}[style=myScalastyle]
+points.join(polygons).where($"point" within $"polygon")
+\end{lstlisting}
+
+Geometric data in Magellan is formed by spatial data structures such as points, lines and polygons.
+\begin{itemize}
+    \item Points: individual x, y locations.
+    \item Lines: they are composed of at least two vertices (points) that are connected.
+    \item Polygons: composed of three or more vertices that are connected and closed. Polygons can have holes in them or not. 
+\end{itemize}
+The different predicates that can be done with these structures are: within, intersects, contains and joins.
+\\
+\\
+To summarize, Magellan is a tool that scales geospatial queries like filter, map or group using Spark. Given a point and a polygon, it finds out if the point is within the polygon and thus it can be used to do geospatial joins. Magellan will be used in this research to map the accident records in each Lithuanian municipality to implement some analysis on the data. 
+
+
+%??Magellan is the first library to extend Spark SQL to provide a relational abstraction for geospatial analytics. I see it as an evolution of geospatial analytics engines into the emerging world of big data by providing abstractions that are developer friendly, can be leveraged by anyone who understands or uses Apache Spark while simultaneously showcasing an execution engine that is state of the art for geospatial analytics on big data.??
+
+
+
+\section{Open Street Map}\label{sec:osm}
+\ac{OSM} is a free, editable map of the whole world. It is has an open-content license \cite{osm2} that allows for free access to map images and all of their underlying map data.
+\\
+\\
+\ac{OSM} represents physical features on the ground (e.g., buildings, roads or paths) using tags attached to its basic data attributes: nodes, ways, and relations \cite{osm1}. Each corresponding tag characterizes a geographic attribute of the feature represented by that specific node, way or relation.
+The three \ac{OSM} attributes act together as the principal data object types of the \ac{OSM} geographic data model: nodes, ways and relations.
+\begin{itemize}
+    \item Nodes (points): a node consists of a single point in space that is defined by its node id, latitude and longitude \cite{node}. 
+    \item Ways (polygons and polylines): a way is essentially a line, an ordered list of nodes that normally has at least one tag or it is included within a relation. It usually represents a linear feature of the ground like a road or a river. A way can be open or closed \cite{way}.
+    \item Relations: represent a collection of features. They are formed by a group of members (an ordered list of nodes, ways and/or relations). Relations are useful to define geographic relationships between the different objects \cite{relation}.
+\end{itemize}
+At the time of writing in April 2022, in the global \ac{OSM} database, there are over eight hundred million ways, over seven billion nodes and over nine million relations \cite{osm3}.
+\\
+\\
+\ac{OSM} data comes in different formats such as \ac{XML} and \ac{PBF}. In this research, the data is read from \ac{PBF} files. \ac{PBF} is an open source transfer format created by the \ac{OSM} community, presented as an alternative to the XML format since \ac{PBF} files are generally smaller than \ac{XML} files. The format has been designed to support future extensibility and flexibility \cite{pbf}. These files have extension *.osm.pbf.
+
+\section{Graphs}\label{sec:graphs}
+The nodes and ways from \ac{OSM} presented before map nicely with the notion of vertices and edges in graphs. It will be explained later in the thesis (Section \ref{sec:graphx}) how \ac{OSM} data will be read and converted into a GraphX graph for further analysis. 
+\\
+\\
+Graphs are structures that consists of vertices (also called nodes) and edges which define the relationships between the vertices. The process to analyse these relationships is called graph analytics \cite{spark-guide}. 
+There are two types of graphs depending on whether the edges have directions or not: undirected graphs, where the edges do not have a specified "start" and "end", and directed graphs, in which the edges are directional. The graphs in this research are considered to be directed graphs. 
+\\
+\\
+Edges and vertices in graphs can have data associated with them. For example, in the graphs created in Section \ref{sec:segmentation}, the vertices of the graph correspond to points on the road (\ac{OSM} nodes) containing information like: nodeId, latitude, longitude, tags, etc. Also, the edges contain information regarding their source and destination vertices.
+Graphs represent a useful way of describing relationships in many different scenarios and using them together with Spark allows to work on their analytics. Some examples of analystics using graphs could be detecting clusters of nodes or ranking web pages as in the Google PageRank algorithm \cite{spark-guide}. 
+\\
+\\
+Spark contains an RDD-based library for performing graph processing: GraphX \cite{graphx}. It is a very low-level interface. A next-generation graph analytics library has been created on Spark and it is called GraphFrames \cite{graphframe}. It extends GraphX to provide a DataFrame API that makes it easy to work with the information on the graph. In this research both GraphX and GraphFrame will be used. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

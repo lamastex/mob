@@ -1,0 +1,32 @@
+%%% Ch. 5: Discussion & Analysis%%%
+\chapter{Discussion \& Analysis} \label{ch:discussion}
+The data processing has been one of the most time-consuming steps in this thesis because of the high number of rules and requirements the data needed to conform to. There is no interesting or visual results regarding this part, but the ingestion and validation of the data is a fundamental step for the rest of the thesis. It was done in a way that data from other countries or years can be used just by doing some minor modifications.\\
+\\
+Regarding the segmentation by country municipalities, it has been proved that the municipalities with the higher number of accident are the ones corresponding to the most populated places in Lithuania, as expected. Observing Table \ref{tab:rank}, one can see that the top three municipalities with the higher number of accidents correspond to the top three most populated municipalities in Lithuania. There is a special case of one of the municipalities that, although being in the 8th place for the accidents ranking, it is in the 20th place according to the population. But it is worth mentioning that from the first to the 10th place in the population ranking, there is a very high difference from 590000 to 55000 people, decreasing in ten positions more than five hundred thousand people. However, from the 10th to the 20th positions, the difference is just around fifteen thousand which is not such a big change. Thus, it is not that strange that the municipality at accident position eight corresponds to population order 20. However, by normalising the number of accidents by population, it is shown in Figure \ref{fig:accident_population} that the municipalities with the higher frequency of accidents are not the same as the ones with the higher likelihood of a person having an accident. 
+\\
+\\
+It is also worth noticing the fact that the \ac{OSM} data has been read really fast using the osm-parquetizer. At the beginning another approach was used and it took more than two hours just to read it, so the use of this method is indeed a good finding. Furthermore, once it reads the data and converts it to parquet files, the following processing of the data and the construction of the graph is also really fast and efficient.
+\\
+\\
+The Poisson regression shows that the conditions that influence the number of accidents the most are: clear weather, daylight, dry road surface and the fact that the road is within an urban area. 
+This result goes against what was expected, since the logical thinking is that weather conditions like rain or snow, surface conditions like ice or light conditions like dark streets should be major causes of accidents. However, the results are clear about this and the explanation could be due to various factors. One should interpret these results with respect to the data and the model. As evident from Table \ref{tab:conditions}, the count of accidents is highest at times with the same conditions as mentioned above. Thus, the model is capturing this higher frequency in the data. It is important to remark the fact that the data accessed includes only vehicles involved in accidents. Therefore, since the traffic data for vehicles not involved in accidents is missing, the results in Section \ref{sec:results_regression} are biased because the count of accidents equal to zero and their corresponding conditions are missing.
+Without additional information on the frequency of vehicles (without accidents) on the roads under different conditions, it is not possible to determine the relative rate of accidents under different conditions.
+\\
+\\
+To justify these results, it is possible that during the "normal" conditions obtained is when more people drive so there is more probability of an accident occurring. Also, it is possible that policemen, when collecting the data about weather, light or surface conditions, most of the time just put the normal values without even wasting time on filling it in correctly.
+\\
+\\
+Also, the distance from the accidents to a road intersection is an interesting result because, no matter how the analysis is done, the coefficient for it is always the closest to 0 which means it does not affect very much the accident probability. The PageRank score of the intersections is a factor that seems to influence negatively on the number of accidents, meaning that if an intersection is very important (in terms of PageRank values), it is less likely that an accident can occur near it. Analysing this result together with the distances to intersections, it is clear that they are factors that decrease the number of accidents. This can be due to many reasons because, in the case of the PageRank algorithm, it does not differentiate between intersections in main roads or secondary ones, just the ones that have the higher number of connections. So it will treat in the same way an intersection in a rural area as one in the center of a city just because they have the same number of incoming/outgoing roads on it. Another reason to justify this results could be that intersections are locations where speed is usually reduced (e.g. a Stop or yield sign), so accidents due to high speed are less likely to happen.
+\\
+\\
+The total number of accidents were about 12 thousand and having more data could have made it easier to group by different scenarios for more analysis.
+\\
+\\
+The whole process is done in a scalable and efficient way thanks to the use of Spark and Databricks. Any of the steps done took more than one or two minutes to run besides the complexity of, for example, the graph.
+Thus, the methods, algorithms, codes and analyses developed in this thesis would allow for ingesting accident data from all member states of the \ac{EU}, map-match it to \ac{OSM} data of the entire continent, that can be represented as a distributed graph with ready-made graph analytics and be used in Spark's ML pipelines for modeling that is more sophisticated than simple Poisson regressions.
+
+
+\begin{comment}
+
+The results presented in Chapter 4 are discussed and analyzed, including comments and reflections from the author. It may include the following: Comparison of obtained results with discussion,interpretation and evaluation of results. Results of analysis or modeling are described. Interpretations are drawn and connected to previous work
+\end{comment}
