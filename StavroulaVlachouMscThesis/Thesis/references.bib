@@ -1,35 +1,30 @@
-@article{CADAS,
-  title={D. 1.14 {CADAS-The Common Accident Data Set}},
-  author={Thomas, Pete}
+@inproceedings{CADAS,
+  title={{Building the European Road Safety Observatory. SafetyNet. D.1.14 CADaS - The common accident data set}},
+  author={George Yannis and Petros Evgenikos and Antonis Chaziris and Jeremy Broughton and Brian A. Lawton and Louise Walter and Stefan Hoeglinger and Thomas Leitner and Andrea Angermann and Niels M Bos and Stig Hemdorff and P{\'e}ter Holl{\'o} and Jan Tecl and Lucy Rackliff and Jaime Sanmart{\'i}n and Jean-François Pace},
+  year={2008}
 }
+
 @misc{OpenStreetMap,
    author = {{OpenStreetMap contributors}},
    title = {{Planet dump retrieved from https://planet.osm.org }},
-   howpublished = "\url{ https://www.openstreetmap.org }",
-   year = {2022},
+   howpublished = {\url{https://www.openstreetmap.org}},
+   year = {2022}
  }
  
 @misc{PBF,
    author = {{Google's}},
    title = {Protocol Buffer Binary Format},
-   howpublished = "\url{https://developers.google.com/protocol-buffers/}",
+   howpublished = {\url{https://developers.google.com/protocol-buffers/}}
  } 
 
 @misc{GeoFabrikLT,
    author = {{ }},
    title = {{OSM data of Lithuania retrieved from https://download.geofabrik.de/europe/lithuania.html }},
-   howpublished = "\url{ https://download.geofabrik.de/europe/lithuania.html }",
-   year = {2022},
+   howpublished = {\url{https://download.geofabrik.de/europe/lithuania.html}},
+   year = {2022}
  }
-@article{deltaPaper, author = {Armbrust, Michael and Das, Tathagata and Sun, Liwen and Yavuz, Burak and Zhu, Shixiong and Murthy, Mukul and Torres, Joseph and van Hovell, Herman and Ionescu, Adrian and \L{}uszczak, Alicja and undefinedwitakowski, Micha\l{} and Szafra'{n}ski, Micha\l{} and Li, Xiao and Ueshin, Takuya and Mokhtar, Mostafa and Boncz, Peter and Ghodsi, Ali and Paranjpye, Sameer and Senster, Pieter and Xin, Reynold and Zaharia, Matei}, title = {Delta Lake: High-Performance ACID Table Storage over Cloud Object Stores}, year = {2020}, issue_date = {August 2020}, publisher = {VLDB Endowment}, volume = {13}, number = {12}, issn = {2150-8097}, url = {https://doi.org/10.14778/3415478.3415560}, doi = {10.14778/3415478.3415560}, abstract = {Cloud object stores such as Amazon S3 are some of the largest and most cost-effective storage systems on the planet, making them an attractive target to store large data warehouses and data lakes. Unfortunately, their implementation as key-value stores makes it difficult to achieve ACID transactions and high performance: metadata operations such as listing objects are expensive, and consistency guarantees are limited. In this paper, we present Delta Lake, an open source ACID table storage layer over cloud object stores initially developed at Databricks. Delta Lake uses a transaction log that is compacted into Apache Parquet format to provide ACID properties, time travel, and significantly faster metadata operations for large tabular datasets (e.g., the ability to quickly search billions of table partitions for those relevant to a query). It also leverages this design to provide high-level features such as automatic data layout optimization, upserts, caching, and audit logs. Delta Lake tables can be accessed from Apache Spark, Hive, Presto, Redshift and other systems. Delta Lake is deployed at thousands of Databricks customers that process exabytes of data per day, with the largest instances managing exabyte-scale datasets and billions of objects.}, journal = {Proc. VLDB Endow.}, month = {aug}, pages = {3411–3424}, numpages = {14} }
 
-@inproceedings{dremelPaper,
-  title = {Dremel: Interactive Analysis of Web-Scale Datasets},
-  author = {Sergey Melnik and Andrey Gubarev and Jing Jing Long and Geoffrey Romer and Shiva Shivakumar and Matt Tolton and Theo Vassilakis}, year = {2010},
-  URL = {http://www.vldb2010.org/accept.htm},
-  booktitle = {Proc. of the 36th Int'l Conf on Very Large Data Bases},
-  pages = {330-339}
-}
+@article{deltaPaper, author = {Armbrust, Michael and Das, Tathagata and Sun, Liwen and Yavuz, Burak and Zhu, Shixiong and Murthy, Mukul and Torres, Joseph and van Hovell, Herman and Ionescu, Adrian and \L{}uszczak, Alicja and undefinedwitakowski, Micha\l{} and Szafra'{n}ski, Micha\l{} and Li, Xiao and Ueshin, Takuya and Mokhtar, Mostafa and Boncz, Peter and Ghodsi, Ali and Paranjpye, Sameer and Senster, Pieter and Xin, Reynold and Zaharia, Matei}, title = {Delta Lake: High-Performance ACID Table Storage over Cloud Object Stores}, year = {2020}, issue_date = {August 2020}, publisher = {VLDB Endowment}, volume = {13}, number = {12}, issn = {2150-8097}, url = {https://doi.org/10.14778/3415478.3415560}, doi = {10.14778/3415478.3415560}, abstract = {Cloud object stores such as Amazon S3 are some of the largest and most cost-effective storage systems on the planet, making them an attractive target to store large data warehouses and data lakes. Unfortunately, their implementation as key-value stores makes it difficult to achieve ACID transactions and high performance: metadata operations such as listing objects are expensive, and consistency guarantees are limited. In this paper, we present Delta Lake, an open source ACID table storage layer over cloud object stores initially developed at Databricks. Delta Lake uses a transaction log that is compacted into Apache Parquet format to provide ACID properties, time travel, and significantly faster metadata operations for large tabular datasets (e.g., the ability to quickly search billions of table partitions for those relevant to a query). It also leverages this design to provide high-level features such as automatic data layout optimization, upserts, caching, and audit logs. Delta Lake tables can be accessed from Apache Spark, Hive, Presto, Redshift and other systems. Delta Lake is deployed at thousands of Databricks customers that process exabytes of data per day, with the largest instances managing exabyte-scale datasets and billions of objects.}, journal = {Proc. VLDB Endow.}, month = {aug}, pages = {3411–3424}, numpages = {14} }
 
 @book{daleyPointProcess,
   title={An introduction to the theory of point processes: volume I: elementary theory and methods},
@@ -1600,4 +1595,22 @@ abstract = {Random variables are quantities whose value is determined by the out
 	year = {2013},
 	pages = {10--15},
 	file = {Full Text PDF:/home/urathai/Zotero/storage/P488JJCW/Novak et al. - 2013 - Application of mobile phone location data in mappi.pdf:application/pdf}
+}
+
+@article{dremelPaper,
+author = {Melnik, Sergey and Gubarev, Andrey and Long, Jing Jing and Romer, Geoffrey and Shivakumar, Shiva and Tolton, Matt and Vassilakis, Theo},
+title = {Dremel: Interactive Analysis of Web-Scale Datasets},
+year = {2010},
+issue_date = {September 2010},
+publisher = {VLDB Endowment},
+volume = {3},
+number = {1–2},
+issn = {2150-8097},
+url = {https://doi.org/10.14778/1920841.1920886},
+doi = {10.14778/1920841.1920886},
+abstract = {Dremel is a scalable, interactive ad-hoc query system for analysis of read-only nested data. By combining multi-level execution trees and columnar data layout, it is capable of running aggregation queries over trillion-row tables in seconds. The system scales to thousands of CPUs and petabytes of data, and has thousands of users at Google. In this paper, we describe the architecture and implementation of Dremel, and explain how it complements MapReduce-based computing. We present a novel columnar storage representation for nested records and discuss experiments on few-thousand node instances of the system.},
+journal = {Proc. VLDB Endow.},
+month = {sep},
+pages = {330–339},
+numpages = {10}
 }
