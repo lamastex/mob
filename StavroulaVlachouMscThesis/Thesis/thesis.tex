@@ -680,8 +680,7 @@ Taking into account that the data consists of a set of states and a number of ev
     \Comment{Uniform sample}
     \State{$state\gets F^{-1}(U)$}
     \Comment{Sample from the posterior distribution of states}
-    \State{$sample\gets state$}
-    \State{\textbf{return: }$sample$}
+    \State{\textbf{return: }$state$}
     \State{\textbf{Output: }An element of the underlying road graph (edge of vertex)}
   \end{algorithmic}
 \end{algorithm}
@@ -694,7 +693,7 @@ Algorithm \ref{alg:SimulateLocation} contributes towards the simulation of the l
     \subfloat[\centering  ]{{\includegraphics[width=9cm]{images/bubbles.png} }}%
     \qquad
     \subfloat[\centering   ]{{\includegraphics[width=9cm]{images/bluepoints.png} }}%
-    \caption{The result of the simulation in terms of spatial position. (a) The number of generated samples aggregated by proximity. (b) The location of the generated samples for a small area in Vilnius. Each variates' location is represented by a blue sphere where the assigned number represents the number of events corresponding to that position. An unlabelled sphere is assumed to represent a single generated event.}%
+    \caption{The result of the simulation in terms of spatial position. (a) The number of generated samples aggregated by proximity. (b) The location of the generated samples for a small area in Vilnius. Each variate's location is represented by a blue sphere where the assigned number represents the number of events corresponding to that position. An unlabelled sphere is assumed to represent a single generated event.}%
     \label{fig:result}
 \end{figure}
 
@@ -722,7 +721,7 @@ With this project, the stage is set in order to simulate the arrivals of a point
 Openly developed codes for this work by minor adaptations of various open-sourced projects are available from \url{https://github.com/lamastex/mob/StavroulaVlachouMscThesis/codes} as notebooks. 
 The files necessary to produce the GeoMatch library used in Section \ref{MapMatchingPointsOnARoadGraph} is available from \url{https://github.com/StavroulaVlachou/GeoMatch}.
 
-The relevant code implemented for the data pre-processing of Section \ref{ingestion} and the construction of the road graphs described in Section \ref{RoadGraph}, was written in collaboration with the fellow student Virginia Jimenez Mohedano. 
+The relevant code implemented for the data pre-processing of Section \ref{ingestion} and the construction of the road graphs described in Section \ref{RoadGraph}, was written in collaboration with the fellow student Virginia Jim\`enez Mohedano. 
 
 Map data is copyrighted by  OpenStreetMap contributors and available from \href{https://www.openstreetmap.org}{OpenStreetMap}
 
