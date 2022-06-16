@@ -385,6 +385,7 @@ PageRank is a graph algorithm created by Google to rank web pages. It counts the
 \\
 As mentioned before, G0 is a directed graph with 191991 vertices and  237069 edges that represents the topology of the road network. An additional step is done in this case to create the edges in both directions, having an undirected graph from G0 as a result. The connected component algorithm is applied to the new graph to find the largest component and keeping only the 138552 vertices belonging to it. After that, PageRank is applied to the largest connected component to get the score of the vertices of the graph. The result will be used later for the Poisson regression.
 
+We note that connected components and page rank algorithms, along with several other graph algorithms, including shortest weighted paths, belong to a rich class of distributed vertex programs known as Pregel \cite{pregel}.  Thus, the approach taken here can be used with other Pregel programs, as other types of data can be integrated into the analysis. 
 
 
 %CITE spark-guide
