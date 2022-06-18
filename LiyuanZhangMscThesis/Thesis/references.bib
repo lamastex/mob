@@ -1,0 +1,132 @@
+
+
+
+@article{closest_antenna_fallacy_2021,
+	title = {The fallacy of the closest antenna: Towards an adequate view of device location in the mobile network},
+	url = {https://arxiv.org/abs/2109.02154},
+	abstract = {The partition of the Mobile Phone Network (MPN) service area into the cell towers' Voronoi polygons (VP) may serve as a coordinate system for representing the location of the mobile phone devices. This view is shared by numerous papers that exploit mobile phone data for studying human spatial mobility. We investigate the credibility of this view by comparing volunteers' locational data of two kinds: (1) Cell towers' that served volunteers' connections and (2) The GPS tracks of the users at the time of connection. In more than 60\% of connections, user's mobile device was found outside the VP of the cell tower that served for the connection. We demonstrate that the area of possible device's location is many times larger than the area of the cell tower's VP. To comprise 90\% of the possible locations of the devices that may be connected to the cell tower one has to consider the tower's VP together with the two rings of the VPs adjacent to the tower's VPs. An additional, third, ring of the adjacent VPs is necessary to comprise 95\% of possible locations of the devices that can be connected to a cell tower. The revealed location uncertainty is in the nature of the MPN structure and service and entail essential overlap between the cell towers' service areas. We discuss the far-reaching consequences of this uncertainty in regards to the estimating of locational privacy and urban mobility. Our results undermine today's dominant opinion that an adversary, who obtains the access to the database of the Call Detail Records maintained by the MPN operator, can identify a mobile device without knowing its number based on a very short sequence of time-stamped field observations of the user's connection.},
+	urldate = {2021-09-05},
+	journal = {arXiv:2109.02154 [physics.soc-ph]},
+	author = {Ogulenko, Aleksey and Benenson, Itzhak and Toger, Marina and Östh, John and Siretskiy, Alexey},
+	month = sep,
+	year = {2021}
+}
+
+
+@article{prob_posit_mpn_2021,
+	title = {Probabilistic positioning in mobile phone network and its consequences for the privacy of mobility data},
+	volume = {85},
+	issn = {0198-9715},
+	url = {https://www.sciencedirect.com/science/article/pii/S0198971520302830},
+	doi = {https://doi.org/10.1016/j.compenvurbsys.2020.101550},
+	abstract = {The traditional approach to mobile phone positioning is based on the assumption that the geographical location of a cell tower recorded in a Call Details Record (CDR) is a proxy for a device's location. A Voronoi tessellation is then constructed based on the entire network of cell towers and this tessellation is considered as a coordinate system, with the device located in a Voronoi polygon of a cell tower that is recorded in the CDR. If Voronoi-based positioning is correct, the uniqueness of the device trajectory is very high, and the device can be identified based on 3–5 of its recorded locations. We investigate a probabilistic approach to device positioning that is based on knowledge of each antennas' parameters and number of connections, as dependent on the distance to the antenna. The critical difference between the Voronoi-based and the real world layout is in the essential overlap of the antennas' service areas: The device that is located in a cell tower's polygon can be served by a more distant antenna that is chosen by the network system to balance the network load. Combining data on the distance distribution of the number of connections available for each antenna in the network, we resolve the overlap problem by applying Bayesian inference and construct a realistic distribution of the device location. Probabilistic device positioning demands a full revision of mobile phone privacy and new full set of tools for data analysis.},
+	journal = {Computers, Environment and Urban Systems},
+	author = {Ogulenko, Aleksey and Benenson, Itzhak and Omer, Itzhak and Alon, Barak},
+	month = jan,
+	year = {2021},
+	keywords = {Mobile phone positioning, Bayesian inference, Call details record, Location privacy}
+}
+
+
+@article{privacy_traj_co-traj_2019,
+	title = {Privacy and Analysis of Trajectories and Co-Trajectories},
+	url = {http://lamastex.org/preprints/JoelDahneMScThesisUppsalaUniv2019.pdf},
+	abstract = {A trajectory of an individual or object corresponds to its movement in space as a function of time. A co-trajectory is a collection of trajectories belonging to different individuals or objects. The thesis is divided into two parts about two different topics related to co-trajectories. The first part is about privacy-preservation in co-trajectories and introduces an algorithm called SwapMob for improving the privacy when handling co-trajectories. In the second part we consider different stochastic models for trajectories and co-trajectories that is an important tool when analyzing data from co-trajectories and using it to make predictions.},
+	author = {Dahne, Joel},
+	month = jun,
+	year = {2019}
+}
+
+
+
+@article{bayesian_inference_2010,
+	title = {Bayesian Inference for Localization in Cellular Networks},
+	url = {https://ieeexplore.ieee.org/document/5462018},
+	doi = {10.1109/INFCOM.2010.5462018},
+	abstract = {In this paper, we present a general technique based on Bayesian inference to locate mobiles in cellular networks. We study the problem of localizing users in a cellular network for calls with information regarding only one base station and hence triangulation or trilateration cannot be performed. In our call data records, this happens more than 50\% of time. We show how to localize mobiles based on our knowledge of the network layout and how to incorporate additional information such as round-trip-time and signal to noise and interference ratio (SINR) measurements. We study important parameters used in this Bayesian method through mining call data records and matching GPS records and obtain their distribution or typical values. We validate our localization technique in a commercial network with a few thousand emergency calls. The results show that the Bayesian method can reduce the localization error by 20\% compared to a blind approach and the accuracy of localization can be further improved by refining the a priori user distribution in the Bayesian technique.},
+	urldate = {2010-05-06},
+	journal = {IEEE Computer and Communications Societies},
+	author = {Hui, Zhang and Francois, Baccelli and Jean, Bolot},
+	month = may,
+	year = {2010}
+}
+
+
+@article{interoperable_mpn_2016,
+	title = {Beyond the “single-operator, CDR-only” paradigm: An interoperable framework for mobile phone network data analyses and population density estimation},
+	issn = {1574-1192},
+	url = {https://www.sciencedirect.com/science/article/pii/S1574119216300323?via%3Dihub},
+	doi = {https://doi.org/10.1016/j.pmcj.2016.04.009},
+	abstract = {We address the problem of estimating the population density from mobile phone data. After critically examining the relevant network-based data sources (CDR, VLR and passive monitoring systems) a novel methodology is presented with two key novelties. First, it enables the fusion of cell-level and Location Area-level data from heterogeneous data sources. Second, it considers a novel tessellation scheme based on cell coverage maps, instead of cell tower locations. Furthermore, it allows to integrate data from different network operators onto a common reference grid. Within the proposed framework, a Maximum-Likelihood formulation for the population density estimation problem is developed and tested via simulations, showing a significant gain over existing Voronoi-based schemes.},
+	journal = {Computers, Environment and Urban Systems},
+	author = {Fabio, Ricciato and Peter, Widhalm and Francesco, Pantisano and Massimo, Craglia},
+	month = dec,
+	year = {2016},
+	keywords = {Mobile network data, Interoperability, Augmenting official statistics}
+}
+
+
+
+@article{od_taxi_2019,
+	title = {Constructing Time-Dependent Origin-Destination Matrices With Adaptive Zoning Scheme and Measuring Their Similarities With Taxi Trajectory Data},
+	url = {https://ieeexplore.ieee.org/document/8735796?source=authoralert},
+	doi = {10.1109/ACCESS.2019.2922210},
+	abstract = {There has been a recent push towards using opportunistic sensing data collected from sources like automatic vehicle location (AVL) systems, mobile phone networks, and global positioning system (GPS) tracking to construct origin-destination (O-D) matrices, which are an effective alternative to expensive and time-consuming traditional travel surveys. These data have numerous drawbacks: they may have inadequate detail about the journey, may lack spatial and temporal granularity, or may be limited due to privacy regulations. Taxi trajectory data is an opportunistic sensing data type that can be effectively used for O-D matrix construction because it addresses the issues that plague other data sources. This paper presents a new approach for using taxi trajectory data to construct a taxi O-D matrix that is dynamic in both space and time. The model's origin and destination zone sizes and locations are not fixed, allowing the dimensions to vary from one matrix to another. Comparisons between these spatiotemporal-varying O-D matrices cannot be made using a traditional method like matrix subtraction. Therefore, this paper introduces a new measure of similarity. Our proposed approaches are applied to the taxi trajectory data collected from Lisbon, Portugal as a case study. The results reveal the periods in which taxi travel demand is the highest and lowest, as well as the periods in which the highest and lowest regular taxi travel demand patterns take shape. This information about taxi travel demand patterns is essential for informed taxi service operations management.},
+	urldate = {2019-06-12},
+	journal = {IEEE Access},
+	author = {Werabhat, Mungthanya and Santi, Phithakkitnukoon and Merkebe, Getachew, Demissie and Lina, Kattan and Marco, Veloso and Carlos, Bento and Carlo, Ratti},
+	month = june,
+	year = {2019}
+}
+
+
+
+@article{od_mpn_2014,
+	title = {Development of origin–destination matrices using mobile phone call data},
+	issn = {0968-090X},
+	url = {https://www.sciencedirect.com/science/article/pii/S0968090X14000059},
+	doi = {https://doi.org/10.1016/j.trc.2014.01.002},
+	abstract = {In this research, we propose a methodology to develop OD matrices using mobile phone Call Detail Records (CDR) and limited traffic counts. CDR, which consist of time stamped tower locations with caller IDs, are analyzed first and trips occurring within certain time windows are used to generate tower-to-tower transient OD matrices for different time periods. These are then associated with corresponding nodes of the traffic network and converted to node-to-node transient OD matrices. The actual OD matrices are derived by scaling up these node-to-node transient OD matrices. An optimization based approach, in conjunction with a microscopic traffic simulation platform, is used to determine the scaling factors that result best matches with the observed traffic counts. The methodology is demonstrated using CDR from 2.87 million users of Dhaka, Bangladesh over a month and traffic counts from 13 key locations over 3 days of that month. The applicability of the methodology is supported by a validation study.},
+	journal = {Computers, Environment and Urban Systems},
+	author = {Fabio, Ricciato and Peter, Widhalm and Francesco, Pantisano and Massimo, Craglia},
+	month = jan,
+	year = {2014},
+	keywords = {Mobile phone, Origin–destination,Video count, Traffic microsimulation}
+}
+
+
+@book{markov_chain_2020,
+	series = {Gibbs Fields, Monte Carlo Simulation and Queues},
+	title = {Markov Chains},
+	publisher = {Springer Nature Switzerland},
+	author = {Pierre, Brémaud},
+	year = {2020},
+	doi = {https://doi.org/10.1007/978-3-030-45982-6}
+}
+
+
+@book{spark_guide_2018,
+	series = {Big Data Processing Made Simple},
+	title = {Spark: The Definitive Guide},
+	publisher = {O’Reilly Media, Inc.},
+	author = {Bill, Chambers and Matei,Zaharia},
+	year = {2018},
+	isbn = {9781491912218}
+}
+
+
+
+
+@article{matrix_spark_2016,
+	title = {Matrix Computations and Optimization in Apache Spark},
+	issn = {978-1-4503-4232-2},
+	url = {https://dl.acm.org/doi/10.1145/2939672.2939675},
+	doi = {https://doi.org/10.1145/2939672.2939675},
+	abstract = {We describe matrix computations available in the cluster programming framework, Apache Spark. Out of the box, Spark provides abstractions and implementations for distributed matrices and optimization routines using these matrices. When translating single-node algorithms to run on a distributed cluster, we observe that often a simple idea is enough: separating matrix operations from vector operations and shipping the matrix operations to be ran on the cluster, while keeping vector operations local to the driver. In the case of the Singular Value Decomposition, by taking this idea to an extreme, we are able to exploit the computational power of a cluster, while running code written decades ago for a single core. Another example is our Spark port of the popular TFOCS optimization package, originally built for MATLAB, which allows for solving Linear programs as well as a variety of other convex programs. We conclude with a comprehensive set of benchmarks for hardware accelerated matrix computations from the JVM, which is interesting in its own right, as many cluster programming frameworks use the JVM. The contributions described in this paper are already merged into Apache Spark and available on Spark installations by default, and commercially supported by a slew of companies which provide further services.},
+	journal = {Computers, Environment and Urban Systems},
+	author = {Reza, Bosagh, Zadeh and Burak, Yavuz and Evan, Sparks and Xiangrui, Meng and Li, Pu and Aaron, Staple and Alexander, Ulanov and Shivaram, Venkataraman and Matei, Zaharia},
+	month = aug,
+	year = {2016},
+	keywords = {Distributed Linear Algebra, Matrix Computations, Optimization, Machine Learning, MLlib, Spark}
+}
+
