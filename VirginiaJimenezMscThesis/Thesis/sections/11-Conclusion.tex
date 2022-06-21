@@ -1,35 +1,9 @@
 %%% Ch.6: Conclusion %%%
 \chapter{Conclusion \& Future Work} \label{ch:conclusion}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%\section{first section}
-\begin{comment}
- Synopsis of findings, limitations, further proposals for future work on the subject. Clear conclusions are drawn that stem from the previous
-analysis. Present the conclusions drawn and the evidence and arguments
-that support the conclusions.
-
-Do not include new findings, but only refer to results already discussed in the thesis. Relevant further work in the field is summarized.
-
-
-"The application is highly scalable to arbitrary large datasets, due to the Apache Spark environment. 
-
-"
- Summarize your contributions
-- Conclusions from the results
-- Implications for the future
-\end{comment}
-
-
-
 The provided data has been properly ingested and validated according to the \ac{CADAS} norms. One approach followed has been to segment the country by municipalities and distribute the accidents on it. The analysis done in this case returned sensible results that expressed the municipalities with higher population size as the ones with more accidents. The second approach has been to create the Lithuanian road network graph and after segmenting it, the accidents have been mapped on it and information like the distance to their closest intersections have been extracted from the graph. \\
 \\
-The information regarding the distance from the accidents to the intersections has been used together with the PageRank score of the intersections and with some accident attributes (urban area, weather, light, and road surface conditions) to fit a Poisson Regression model with the aim of justifying the count of accidents by different factors. The result of the regression means that the conditions that influence the most in the accident counts are the ones related to roads belonging to urban areas, normal weather, light and surface status. 
-Given that this dataset does not contain any information on the frequency of vehicles without accidents, this work should be seen as a first step towards a more meaningful Poisson regression that also includes zero counts for the occurrence of no accidents.
-It is clear that access to more data, especially on absence of accidents, i.e., traffic volumes, is the next natural step towards improving this analysis. 
+The information regarding the distance from the accidents to the intersections has been used together with the PageRank score of the intersections and with some accident attributes (urban area, weather, light, and road surface conditions) to fit a Poisson Regression model with the aim of justifying the count of accidents by different factors. The result of the regression means that the conditions that influence the most in the accident counts are the ones related to roads belonging to urban areas, normal weather, light and surface status. It is clear that accessing to more data especially on absence of accidents, i.e., traffic volumes, could have improved this analysis. 
 \\
 \\
-This work together with the data from other countries or for more years can be used, for example, to infer how safe each road segment is by using the information from the graph. 
-Also other kinds of analyses can be performed once the pipeline to ingest and validate the data is created, like comparing safety around different countries or types of vehicles at the resolution of road segments and intersections for all of the EU encoded as a Pregel-programmable directed property graph \cite{graphx} that can account for other attributes of interest to road safety. It can be easily done if the data is provided since the code is highly scalable to arbitrarily large datasets, due to the end-to-end use of the Spark environment. 
+This work together with the data from other countries or for more years can be used, for example, to infer how safe each road segment is by using the information from the graph. Also other kind of analysis can be performed once the pipeline to ingest and validate the data is created, like comparing safety around different countries or types of vehicles. It can be easily done if the data is provided since the code is highly scalable to arbitrary large datasets, due to the end-to-end use of the Spark environment. 
