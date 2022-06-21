@@ -11,6 +11,10 @@
 \setcounter{page}{0}
 \newpage
 
+\newpage
+\thispagestyle{empty}
+\mbox{}
+\newpage
 %%%
 \pagenumbering{Roman}
 
@@ -24,12 +28,16 @@
 \input{sections/3-Abstract}
 \addcontentsline{toc}{chapter}{Abstract}
 \newpage
+\thispagestyle{empty}
+\mbox{}
 
 %%% Acknowledgements $$$
 
 \input{sections/4-Acknowledgements}
 \addcontentsline{toc}{chapter}{Acknowledgements}
 \newpage
+\thispagestyle{empty}
+\mbox{}
 
 %%% Indexes %%%
 
@@ -42,34 +50,36 @@
 \input{sections/5-Acronyms}
 \addcontentsline{toc}{chapter}{List of Acronyms}
 \newpage
+%\thispagestyle{empty}
+\mbox{}
+\newpage
 \pagenumbering{arabic}
 
+
+
+
 %%% Main Part %%%
-
-%TO BE DELETED
-%%check Thesis_draft_Virginia for instructions
-%\include{instructions}
-
-
-
 \include{sections/6-Intro}
-
-
-%not sure if include lit review or not
-%\include{LitRev}
-
+\newpage
+\mbox{}
 \include{sections/7-theory}
-
+\newpage
+\mbox{}
 \include{sections/7.1-Data}
 
 \include{sections/8-Method}
-
+\newpage
+\mbox{}
 \include{sections/9-Results}
 
 \include{sections/10-Discussion}
 
 \include{sections/11-Conclusion}
+\newpage
+\mbox{}
 \include{sections/Support}
+\newpage
+\mbox{}
 
 %\include{References}
 \newpage
