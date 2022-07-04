@@ -1,15 +1,9 @@
-# working-manuscript-privacyTrajectories
-This is a private github repository to work (Julian, Raaz and Marina) on privacy-preserving trajectories.
+# mob
 
-Julian and his couauthors submitted the conference paper `SwappingTrajectories-PSD_updated.pdf` and our plan is to extend this work for submission to a journal.
+This is a repository on mobility research.
 
-We will start from `TrajectorySwapping.tex` and turn it into a submission as a journal paper (see TODOs there).
+Various research projects, including four MSc Theses, have been completed.
 
-to make PDF from Tex do:
-```%sh
-/working-manuscript-privacyTrajectories$ pdflatex Trajectory-swapping.tex
-```
-or equivalent in your latex GUI processor.
+The research projects were partly supported by different private and public entities.
 
-Raaz
 
