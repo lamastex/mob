@@ -1,0 +1,24 @@
+\documentclass[../main.tex]{subfiles}
+\begin{document}
+
+Large scale mobile network data has been widely used to study human mobility patterns \cite{gonzalez2008understanding}. Seeing how people move at various scales can prove invaluable 
+when asking questions about our roads, commutes, communities and economies. In light of the
+COVID-19 pandemic the interest in population behaviours have only increased, where careful study of mobile network data could reveal
+changes in mobility patterns in response to the pandemic \cite{toger2021mobility}.
+
+Mobile network data is a coarse kind of data, lacking the accuracy of GPS coordinates. It is a 
+collection of various records and metadata that the telecom operators aggregate from the data transfers 
+that takes place between our devices and their networks of antennas. This is done in order to gain insights into 
+the calls, messages, handovers and persons using them. Either for billing, technical or other purposes.
+A device is not a person, of course, but a large portion of interactions recorded originate
+from our phones, each carried and readily associated with a person, thus acting as a representative
+sample of human mobility.
+
+The biggest problem with mobile network data is one of accuracy, stemming from the fact that no actual device locations are ever captured in the data. We cannot see the location of the device, only the antennas to which it has connected, the device itself existing somewhere within the total area of coverage provided. Since urban areas are generally more serviced than rural, where one mast can 
+be responsible for several square kilometers, there is a rapid loss of accuracy when moving outside of the major cities and highways, limiting what places and people you can ask about.
+
+In this thesis we use mobile network data to explore coarse mobility patterns in the greater Stockholm area over longer time-scales, to see whether we are able to differentiate mobility patterns between some common sense use-cases, such as between weekdays and weekends, and between work days and vacations. Instead of the commonly used longitude/latitude coordinates we choose to identify antennas
+by sets of discrete address codes (various LTE and UMTS identities) that are commonly used internally by the mobile network operators.
+
+One reason for this is that it is easier to define a comparison metric between collections of trajectories, so called co-trajectories, in this non-spatial setting, by employing standard bag-of-words models and a modified version of the Jaccard index to compare these collections. Another reason is that this setting is more general, since spatial coordinates can always be discretized and made to act like addresses.
+\end{document}

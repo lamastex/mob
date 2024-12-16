@@ -1,0 +1,48 @@
+\documentclass{report}
+
+\usepackage{adjustbox}
+\usepackage[linesnumbered,ruled,vlined]{algorithm2e}
+\usepackage{setspace}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{float}
+\usepackage{graphicx, subcaption}
+\usepackage{natbib}
+\usepackage{subfiles}
+\usepackage{pythonhighlight}
+
+\newtheorem*{definition}{Definition}
+\newtheorem*{theorem}{Theorem}
+
+\title{Large Scale Mobility Patterns from Co-Trajectories of Mobile Phone Network Data using L1 and Weighted Jaccard Distance Measures.}
+\author{Kristoffer Torp\\{\small Supervisor: Raazesh Sainudiin}}
+\date{December 2023}
+
+\begin{document}
+
+\maketitle
+
+    \begin{abstract}
+        \subfile{"abstract.tex"}
+    \end{abstract}
+
+    \tableofcontents
+    \newpage
+
+    \section{Introduction}
+        \subfile{"introduction.tex"}
+
+    \chapter{Trajectories and Co-Trajectories}
+        \subfile{"chapters/trajectories_and_co-trajectories.tex"}
+
+    \chapter{The Generalized Jaccard Index}
+        \subfile{"chapters/the_generalized_jaccard_index.tex"}
+
+    \chapter{Results}
+        \subfile{"chapters/results.tex"}
+
+    \chapter{Discussion}
+        \subfile{"chapters/discussion.tex"}
+    
+    \bibliography{thesis.bib}
+    \bibliographystyle{plain}
+\end{document}

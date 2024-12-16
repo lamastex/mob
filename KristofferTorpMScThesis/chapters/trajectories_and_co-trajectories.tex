@@ -1,0 +1,135 @@
+\documentclass[../main.tex]{subfiles}
+\begin{document}
+A trajectory is a description of movement over time. 
+As the continuous paths of classical particles,
+of satellites in orbit, or of the phone in your pocket
+moving across the city centre. Measured trajectories are
+not continuous. They are represented by sampled points,
+limited in amount and accuracy in both time and place.
+The definitions of trajectories and co-trajectories in
+the next section closely follows that of \cite{dahne2019privacy}.
+
+\section{Definitions}
+Let $\mathbb{L}$ be a set of locations. 
+A datapoint, $d$, is given by $d = (x,t)
+\in\mathbb{L}\times\mathbb{R}_+$ 
+providing a location $x$ and time $t$ of the datapoint.
+The set of all datapoints $\mathbb{L}\times\mathbb{R}_+$
+will be denoted by $\mathcal{D}$. A trajectory, $r$,
+is given by a set of datapoints $r \subset \mathcal{D}$
+satisfying the conditions
+
+\begin{enumerate}
+    \item If $d_1 = (x_1,t_1) \in r_1$ and $d_2 = (x_2,t_2) \in r_2$ such that $t_1 = t_2$ then $x_1 = x_2$.
+    \item For any interval $[a,b] \subset \mathbb{R}_+$ with $-\infty<a<b<\infty$
+    the set of datapoints $r_{a,b}\subset r$ whose timestamps fall within $[a,b]$ is a finite set.
+\end{enumerate}
+We denote the set of all trajectories by $\mathcal{T}$.
+\\\\
+These conditions makes sense since generally an object cannot be a two locations at the same time nor can we collect an infinite number of measurements within any finite time frame. It is important to note that we allow the set of locations, $\mathbb{L}$, to remain abstract, be they
+points on a surface, nodes in a graph, or elements in other spaces. This
+so that we are not prematurely limited in the kinds of trajectories available for study.
+
+\begin{figure*}[ht]
+\centering
+\begin{adjustbox}{center}
+\includegraphics[width=0.98\textwidth]{graphics/non-results/trajectory.png}
+\end{adjustbox}
+\caption{A Trajectory (red) and Co-Trajectory (blue).}
+\end{figure*}
+
+A co-trajectory, $\mathcal{R}$, is a multiset $\{r_i\}^N_{i=1}$ of $N$ trajectories $r_i \in \mathcal{T}$ taken together as a whole. Think of the co-trajectory of all buses in a city, or the co-trajectory of all people in a neighbourhood. Co-trajectories allows us to emphasize and compare natural groupings in the data, but the definition allows for non-contingency.
+
+In this thesis the main focus is primarily on co-trajectories, specifically 
+on co-trajectories that encompass all devices within a geographic area and 
+whose locations are given by discrete, non-spatial addresses. But before that
+we will shortly list some of the most common trajectory distance measures that have been considered in the literature.
+
+\section{Basic distance measures between spatial trajectories.}
+
+A common first step in trajectory analysis is to
+define a similarity measure in order to evaluate 
+distances between trajectories. Such measures 
+lay the basis for further tasks like clustering,
+classification and movement pattern extraction.  
+
+However it is not immediately obvious how to define 
+distances between trajectories, since they also have
+a temporal dimension to consider. Certain measures 
+add additional constraints such as needing trajectories
+to have an equal number of datapoints which can be difficult
+to handle since trajectory data is often noisy and collected
+with varying sample-rates. 
+
+The most simple trajectory measures are point-based and assume
+that objects are allowed free, birdlike, movement in Euclidean 
+space. Let $r_1$ and $r_2$ be two trajectories where the datapoints
+at time $t$ are given by $r_1(t) = (x_1(t), y_1(t))$ and 
+$r_2(t) = (x_2(t), y_2(t))$ respectively. We measure the distance
+between two datapoints in the usual way
+$$
+d_t(r_1,r_2) = d(r_1(t), r_2(t)) = \sqrt{(x_1(t) - x_2(t))^2+(y_1(t) - y_2(t))^2}
+$$
+and define the lock-step Euclidean distance between two trajectories as
+$$
+d(r_1,r_2) = \frac{1}{T}\sum_{t=0}^Td_t(r_1,r_2).
+$$
+For this to work, both trajectories must be of equal length with the same timestamps $t \in (0,1,2,\dots,T)$, making it difficult to use with real life data without some pre-processing steps. For example, if the trajectories are of unequal length on might extend or shorten one of them by adding interpolated datapoints or, if they do not agree on the exact timestamps, aggregate the times to some closest common time, such as the minute, or even the hour.
+
+\begin{figure*}[ht]
+\centering
+    \begin{adjustbox}{center}
+    \includegraphics[width=1.5\textwidth]
+    {graphics/non-results/euclidean_dtw.png}
+    \end{adjustbox}
+\caption{Euclidean Lock-Step and DTW.}
+\end{figure*}
+
+To allow for some variability in the measured data another common trajectory distance measure is the Dynamic Time Warping (DTW) distance, which is similar to the Euclidean lock-step but allows points on a trajectory to align with one ore more consecutive points in another, still every point in both trajectories must have at least one match, which could give undue importance to outliers or noise \cite{su2020survey}.
+
+It is also possible to use the Hausdorff distance by treating the
+two trajectories $r_1$ and $r_2$ as sets. Assuming $\mathbb{L}$ is a metric space with metric $d$ and that $L_1, L_2 \subset \mathbb{L}$ are the locations visited by trajectory $r_1$ and $r_2$ respectively, we define the Hausdorff distance as
+$$
+d_H(r_1,r_2) = max(\sup_{x\in L_1}d(x, L_2), \sup_{y\in L_2}d(y, L_1))
+$$
+where $d(a,B) = \inf_{b\in B}d(a,b)$. Informally the Hausdorff distance is the greatest of all the distances from a point in one of the trajectories to the closest point in the other. Using this measure 
+allows the trajectories to be sampled at varying rates and 
+with different timestamps but it also effectively computes
+the distances between trajectories using only two points, while not taking into account the time-dimension of the trajectories.
+
+\begin{figure*}[ht]
+\centering
+\begin{adjustbox}{center}
+\includegraphics[width=1.2\textwidth]{graphics/non-results/hausdorff.png}
+\end{adjustbox}
+\caption{Hausdorff Distance.}
+\end{figure*}
+
+The selection of a trajectory distance measure depends on the goal of the study, what trajectories one wants to consider close, the tractability of computing all relevant distances as the number of datapoints increases, and whether or not the algorithms should be aware of the underlying road network. This section only presents some of the most basic distance measures found in the literature, omitting advances in distribution and deep-learning based trajectory clustering.
+
+\section{Address based antenna trajectories and co-trajectories}
+
+A mobile network is a wireless and distributed network
+allowing portable devices such as mobile phones, tablets and laptops 
+to have coverage and communication capabilities over a large geographic
+area. The base component of a mobile network are fixed Base Transceiver 
+Station (BTS) which each serves a specified area called a cell, allowing the 
+transfer of voice and other data between end-point equipment. \cite{miao2016fundamentals}.
+
+Metadata is collected whenever a mobile device connects to a base station. This connection is usually done via an antenna, the same ones you can commonly see on top of masts and buildings. This metadata contains information such
+as the time and strength of the connection, how much data that was transferred,and which device made the connection, as identified via the device's IMSI (International Mobile Subscriber Identity) code. While not as accurate as GPS, it is possible to roughly follow the trajectory of a device by noting the various antennas it is connected with over time.
+
+Each base station is identified by a set of codes, such as the Service Area Identifier (SAI) codes which uniquely identifies the various service areas within a network. A service area being a defined geographic location wherein a networks signal is available. The exact form of the codes depending on the underlying technology (LTE, UMTS, 5G) and other factors. The codes form a hierarchical set, defining areas within areas in the same way that countries, counties, cities and blocks do, but are in effect non-spatial without reference to another coordinate-system.
+
+While a device cannot physically be located at two places at a time it is possible for it to be connected to multiple antennas at once.
+If we wish to use antenna connections as the basis for our trajectories we need to define some sort of aggregation in order to follow the definition we set up earlier.
+
+We define an \textit{address} as any set of labels or codes which uniquely identifies an object within a collection of other such objects. Let $\mathcal{A} = \{a_1, a_2, \ldots, a_n\}$ be the set of all antennas addresses. One possible choice of $\mathbb{L}$ is the power set $2^\mathcal{A}$, allowing each device to be connected with any subset of antennas at a time. However we lose some interesting frequency information which would tell us how often a connection is established at each time-stamp. By allowing a multiset $(A,m) = \{a_1^{m(a_1)},a_2^{m(a_2)},\dots a_n^{m(a_n)}\}, m:\mathcal{A} \rightarrow \mathbb{N}$ as the basis of location data we are able to retain this information.
+
+As a last point of practicality we also define a unified time-discretization of the data. In order to save on storage space it is not uncommon that connections that are made close in time are combined and stored as a single record. For example, if the same device connects to the same antenna a number of times within five minutes, then only one record of the connections is stored. With this in mind consider a finite subset $\mathbf{T} = \{t_1, t_2, ..., t_n\} \subset \mathbb{R}_+$ and define the datapoints $d$ of an address-based trajectory of time-discretization $\mathbf{T}$ as 
+$$
+d = (x,t) \in \{(\mathcal{A}, m):m\in\mathbb{N}^\mathcal{A}\}\times\mathbf{T}.
+$$
+
+By considering different time-discretizations we can choose how fine we wish our trajectories to be, and from the base data we can create coarser trajectories simply by joining selected timestamps in $\mathbf{T}$ and taking the sum of the multisets at those joined timestamps.
+\end{document}

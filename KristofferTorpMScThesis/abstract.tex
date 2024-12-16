@@ -1,0 +1,18 @@
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+    We explore large scale mobility patterns in the
+    greater Stockholm area by aggregating address based
+    Co-Trajectories collected from mobile network data.
+    Two time frames are considered: all Thursdays in 2022,
+    and the entire month of February 2023. Each date is 
+    represented by a Co-Trajectory which collects the totality
+    of mobile device movement of that date. The Co-Trajectories 
+    are embedded as high dimensional time:location vectors
+    which are then compared using two different distance measures,
+    the L1-norm and the Weighted Jaccard index, in order to build multiple 
+    distance matrices for analysis and clustering.
+    Lastly, an approximation of the weighted Jaccard index, called 
+    MinHash is implemented using the I$^2$CWS algorithm.
+    The infrastructure is built in a distributive manner using Apache Spark running on an on-premise cluster of 10 computers. The data is based on a large collection of real world mobile data from the MIND dataset.
+\end{document}
